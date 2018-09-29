@@ -1,0 +1,62 @@
+<!doctype html>
+<meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+<meta content="ISO-8859-1" http-equiv="encoding">
+<html>
+    <head>
+        <title>66.71 Trabajo Practico - Fabrica de tortas</title>
+        <style>
+            body{ background-color: rgb(84, 66, 189); }
+            canvas{ background-color: white; }
+			textarea{ background-color: black; foreground-color: white;}
+        </style>
+
+          <!-- Libraries -->
+         <script type="text/javascript" src="gl-matrix.js"></script>
+  
+          <!-- Scrips -->
+         <script type="text/javascript" src="main.js"></script>
+         <script type="text/javascript" src="Objeto3D.js"></script>
+         <script type="text/javascript" src="TrianguloGeometria.js"></script>
+
+        <!--
+        Vertex shader
+        --> 
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;
+            attribute vec3 aVertexColor;
+
+            uniform mat4 uMVMatrix;
+            uniform mat4 uPMatrix;
+
+            varying highp vec4 vColor;    
+ 
+            void main(void) {
+                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+                vColor = vec4(aVertexColor,1.0);
+            }
+        </script>
+
+        <!--
+        Fragment shader
+        -->
+        <script id="shader-fs" type="x-shader/x-fragment">
+        varying highp vec4 vColor;
+
+        void main(void) {
+          gl_FragColor = vColor;
+        }
+        </script>
+
+    </head>
+    <body onload="initWebGL()">
+		<center>
+			<h1>Trabajo Practico - Fabrica de Tortas - 66.71</h1>
+            <h2>Giovanni Valdivia</h2>
+            <h2>Matias Anas</h2>
+			<canvas id="my-canvas" width="900" height="500">
+			Your browser does not support the HTML5 canvas element.
+			</scanvas>
+			
+		</center>
+    </body>
+</html>
