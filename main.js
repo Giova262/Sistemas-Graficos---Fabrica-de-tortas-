@@ -108,18 +108,18 @@
                   
 //3- Agregar objetos a la escena (cada objeto tiene su initBuffer)
     function AddObjectScene(){
-
+        //Declaro Geometrias
         var triangulo = new TrianguloGeometria(gl);
+        var esferaGeometria = new Esfera(gl, 50, 50, 0.5);
        
+        //Creo objetos
         triangulo_1 = new Objeto3D(gl, triangulo);            
         triangulo_2 = new Objeto3D(gl, triangulo);
         triangulo_3 = new Objeto3D(gl, triangulo);
+        esfera = new Objeto3D(gl, esferaGeometria);
 
-		triangulo_1.agregarHijo(triangulo_3);
-		
-		//Creo una esfera.
-		var esferaGeometria = new Esfera(gl, 50, 50, 0.5);
-		esfera = new Objeto3D(gl, esferaGeometria);
+        //Agrego hijos a algun objeto
+		triangulo_1.agregarHijo(triangulo_3);		
     }
 
          
@@ -133,21 +133,21 @@
                
         //Preparar la matriz de proyeccion
         //Preparamos una matriz de perspectiva.
-        mat4.perspective(pMatrix, 45, 640.0/480.0, 0.1, 100.0);
+        mat4.perspective(pMatrix, 45, 640.0/480.0, 0.1, 50.0);
 
         //Triangulo_1 Configuro la matriz 
         var triangulo_1Matriz = mat4.create();
 		mat4.identity(triangulo_1Matriz);
-		mat4.translate(triangulo_1Matriz, triangulo_1Matriz, [0.0, 1.0, -5.0]);
-        mat4.rotate(triangulo_1Matriz, triangulo_1Matriz, 0.01, [0.0, 1.0, 0.0]);
+		mat4.translate(triangulo_1Matriz, triangulo_1Matriz, [1.0, 1.0, -5.0]);
+        mat4.rotate(triangulo_1Matriz, triangulo_1Matriz,t, [0.0, 1.0, 0.0]);
         triangulo_1.setMatriz(triangulo_1Matriz);
     
          //Triangulo_3 Configuro la matriz sabiendo que triangulo_1 es padre
         var triangulo_3Matriz = mat4.create();
-		mat4.identity(triangulo_3Matriz);
-		mat4.translate(triangulo_3Matriz, triangulo_3Matriz, [1.1, 0, -5.0]);
-        mat4.rotate(triangulo_3Matriz, triangulo_3Matriz, 0.01, [0.0, 1.0, 0.0]);
+        mat4.identity(triangulo_3Matriz);
         mat4.multiply(triangulo_3Matriz,triangulo_3Matriz, triangulo_1Matriz );
+		mat4.translate(triangulo_3Matriz, triangulo_3Matriz, [0, 0, 0]);
+        mat4.rotate(triangulo_3Matriz, triangulo_3Matriz,t, [0.0, -1.0, 0.0]);
         triangulo_3.setMatriz(triangulo_3Matriz);
 
         //dibuja el 1 y el 3 como hijo 
@@ -156,8 +156,8 @@
         //Triangulo_2 Configuro la matriz y dibujo
         var triangulo_2Matriz = mat4.create();
 		mat4.identity(triangulo_2Matriz);
-		mat4.translate(triangulo_2Matriz, triangulo_2Matriz, [-0.6, 0, -5.0]);
-        mat4.rotate(triangulo_2Matriz, triangulo_2Matriz, 0.01, [0.0, 1.0, 0.0]);
+		mat4.translate(triangulo_2Matriz, triangulo_2Matriz, [-2, 0, -5.0]);
+        mat4.rotate(triangulo_2Matriz, triangulo_2Matriz,t, [0.0, 1.0, 0.0]);
         triangulo_2.setMatriz(triangulo_2Matriz);
         triangulo_2.dibujar();
         
