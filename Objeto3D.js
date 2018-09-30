@@ -1,57 +1,34 @@
 class Objeto3D {
-	constructor(gl, geometria, posicion) {
+	constructor(gl, geometria) {
 		this.gl = gl;
+
+		this.mvMatrix = mat4.create();
+			 
 		this.geometria = geometria;
-		this.posicion = posicion;
-		this.rotacionX = 0;
-		this.rotacionY = 0;
-		this.rotacionZ = 0;
 		this.hijos = [];
    	}
-   	
-   	rotarX(angulo) {
-   		this.rotacionX = this.rotacionX + angulo;
-   	}
-   	
-   	rotarY(angulo) {
-   		this.rotacionY = this.rotacionY + angulo;
-   	}
-   	
-   	rotarZ(angulo) {
-   		this.rotacionZ = this.rotacionZ + angulo;
-   	}
-   	
+  	
    	agregarHijo(hijo) {
    		this.hijos.push(hijo);
-   	}
-   	
-   	dibujar() {
-   		mvMatrix = mat4.create();
-   		mat4.identity(mvMatrix);
-		this._dibujar(mvMatrix);
-   	}
-   	
-   	_dibujar(mvMatrixPadre) {
-   	
-   		//Dibujo Padre.
- 		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");
- 		
-		var mvMatrix = mat4.create();
-		mat4.identity(mvMatrix);
-		mat4.translate(mvMatrix, mvMatrix, this.posicion);
-		mat4.rotate(mvMatrix, mvMatrix, this.rotacionX, [1.0, 0.0, 0.0]);
-		mat4.rotate(mvMatrix, mvMatrix, this.rotacionY, [0.0, 1.0, 0.0]);
-		mat4.rotate(mvMatrix, mvMatrix, this.rotacionZ, [0.0, 0.0, 1.0]);
-		mat4.multiply(mvMatrix, mvMatrixPadre, mvMatrix);
+	}
+
+	setMatriz(_matriz){	
+		//matriz para usarla de identidad solo para copiar matriz en mvmatrix
+		var m = mat4.create();
+		mat4.multiply(this.mvMatrix, _matriz,m );
 		
-		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix);
+	}
+	   
+   	dibujar(){
+		//Dibujo Padre.
+		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");	
+		gl.uniformMatrix4fv(u_model_view_matrix, false, this.mvMatrix );
 		
-    	this.geometria.dibujar();
-   		
-   		//Dibujo Hijos
-   		
-		this.hijos.forEach(function(hijo) {
-			hijo._dibujar(mvMatrix);
-		});
-   	}
+		this.geometria.dibujar();
+		
+		//Dibujo Hijos
+		for(var i = 0 ; i < this.hijos.length ; i++){
+			this.hijos[i].dibujar();
+		}	
+	}
 }

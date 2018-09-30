@@ -1,12 +1,19 @@
 class TrianguloGeometria {
 	constructor(gl) {
+
 		// Buffers.
+
+		//Array de vertices
 		this.position_buffer = [
 			-0.5,-0.5, 0.0,
 			-0.0, 0.5, 0.0,
 			0.5, -0.5, 0.0,
-        ];
-        this.index_buffer = [0, 1, 2];
+		];
+		//Array de indices
+		this.index_buffer = [
+			0, 1, 2
+		];
+		//Array de fragments color
         this.color_buffer = [ 
 			1.0, 0.0, 0.0,
 			0.0, 1.0, 0.0,

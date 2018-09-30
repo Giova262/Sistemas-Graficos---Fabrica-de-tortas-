@@ -35,16 +35,16 @@
                 vColor = vec4(aVertexColor,1.0);
             }
         </script>
-
+        
         <!--
         Fragment shader
         -->
         <script id="shader-fs" type="x-shader/x-fragment">
-        varying highp vec4 vColor;
+            varying highp vec4 vColor;
 
-        void main(void) {
-          gl_FragColor = vColor;
-        }
+            void main(void) {
+                 gl_FragColor = vColor;
+             }
         </script>
 
     </head>
@@ -55,8 +55,7 @@
             <h2>Matias Anas</h2>
 			<canvas id="my-canvas" width="900" height="500">
 			Your browser does not support the HTML5 canvas element.
-			</scanvas>
-			
+			</scanvas>		
 		</center>
     </body>
 </html>
