@@ -9,6 +9,7 @@
 	     my_grid = null,
 		triangulo_1 = null;
         triangulo_2 = null;
+        esfera = null;
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
@@ -115,6 +116,10 @@
         triangulo_3 = new Objeto3D(gl, triangulo);
 
 		triangulo_1.agregarHijo(triangulo_3);
+		
+		//Creo una esfera.
+		var esferaGeometria = new Esfera(gl, 50, 50, 0.5);
+		esfera = new Objeto3D(gl, esferaGeometria);
     }
 
          
@@ -155,7 +160,17 @@
         mat4.rotate(triangulo_2Matriz, triangulo_2Matriz, 0.01, [0.0, 1.0, 0.0]);
         triangulo_2.setMatriz(triangulo_2Matriz);
         triangulo_2.dibujar();
-
+        
+        //Dibujo esfera.
+        var esferaMatriz = mat4.create();
+		mat4.identity(esferaMatriz);
+		mat4.translate(esferaMatriz, esferaMatriz, [0.0, 0.0, -5.0]);
+		mat4.rotate(esferaMatriz, esferaMatriz, t, [0.0, 1.0, 0.0]);
+        esfera.setMatriz(esferaMatriz);
+        esfera.dibujar();
+        
+        t = t + 0.01;
+		
     }
 
 
