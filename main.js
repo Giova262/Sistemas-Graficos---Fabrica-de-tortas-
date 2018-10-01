@@ -7,9 +7,8 @@
     vertexShader = null,
                t = 0.0;
 	     my_grid = null,
-		triangulo_1 = null;
-        triangulo_2 = null;
-        esfera = null;
+          esfera = null;
+           cajon = null;
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
@@ -33,7 +32,7 @@
      }
 
      function setupWebGL()  {
-         gl.clearColor(0.1, 0.1, 0.2, 1.0);     
+         gl.clearColor(1.0, 1.0, 1.0, 1.0);     
          gl.enable(gl.DEPTH_TEST);                              
          gl.depthFunc(gl.LEQUAL); 
          gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);    
@@ -64,7 +63,7 @@
              return null;
          }
          gl.useProgram(glProgram);
-         //CODIGO NUEVO            
+                 
     }
 
 
@@ -101,25 +100,24 @@
          if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {  
              alert("Ocurrio un error al compilar el shader: " + gl.getShaderInfoLog(shader));  
              return null;  
-         }
-                  
+         }               
          return shader;
     }
                   
 //3- Agregar objetos a la escena (cada objeto tiene su initBuffer)
     function AddObjectScene(){
         //Declaro Geometrias
-        var triangulo = new TrianguloGeometria(gl);
-        var esferaGeometria = new Esfera(gl, 50, 50, 0.5);
-       
+        var esferaGeometria = new Esfera(gl, 50, 50, 0.1);
+        var grilla = new Plano(gl,40,40);
+        var rectangulo = new Rectangulo(gl,0.3,1,1,[0.50,0.2,0.65]);
+        
         //Creo objetos
-        triangulo_1 = new Objeto3D(gl, triangulo);            
-        triangulo_2 = new Objeto3D(gl, triangulo);
-        triangulo_3 = new Objeto3D(gl, triangulo);
         esfera = new Objeto3D(gl, esferaGeometria);
+        my_grid = new Objeto3D(gl,grilla);
+        cajon = new Objeto3D(gl,rectangulo);
 
         //Agrego hijos a algun objeto
-		triangulo_1.agregarHijo(triangulo_3);		
+		cajon.agregarHijo(esfera);
     }
 
          
@@ -135,42 +133,31 @@
         //Preparamos una matriz de perspectiva.
         mat4.perspective(pMatrix, 45, 640.0/480.0, 0.1, 50.0);
 
-        //Triangulo_1 Configuro la matriz 
-        var triangulo_1Matriz = mat4.create();
-		mat4.identity(triangulo_1Matriz);
-		mat4.translate(triangulo_1Matriz, triangulo_1Matriz, [1.0, 1.0, -5.0]);
-        mat4.rotate(triangulo_1Matriz, triangulo_1Matriz,t, [0.0, 1.0, 0.0]);
-        triangulo_1.setMatriz(triangulo_1Matriz);
-    
-         //Triangulo_3 Configuro la matriz sabiendo que triangulo_1 es padre
-        var triangulo_3Matriz = mat4.create();
-        mat4.identity(triangulo_3Matriz);
-        mat4.multiply(triangulo_3Matriz,triangulo_3Matriz, triangulo_1Matriz );
-		mat4.translate(triangulo_3Matriz, triangulo_3Matriz, [0, 0, 0]);
-        mat4.rotate(triangulo_3Matriz, triangulo_3Matriz,t, [0.0, -1.0, 0.0]);
-        triangulo_3.setMatriz(triangulo_3Matriz);
+        //Dibujo plano
+       var grillaMatriz = mat4.create();
+        mat4.identity(grillaMatriz);
+        mat4.translate(grillaMatriz, grillaMatriz, [0.0, 0.0, -5.0]);
+		mat4.rotate(grillaMatriz, grillaMatriz,5.2, [1.0, 0.0, 0.0]);
+        my_grid.setMatriz(grillaMatriz);
+        my_grid.dibujar();
 
-        //dibuja el 1 y el 3 como hijo 
-        triangulo_1.dibujar();
+       //Configuro matriz del cajon
+       var cajonMatriz = mat4.create();
+       mat4.identity(cajonMatriz);
+       mat4.translate(cajonMatriz, cajonMatriz, [-1.0, 0.0, -3.0]);
+       mat4.rotate(cajonMatriz, cajonMatriz,5.2, [1.0, 0.0, 0.0]);
+       cajon.setMatriz(cajonMatriz);
+       //Configuro matriz de la esfera
+       var esferaMatriz = mat4.create();
+	   mat4.identity(esferaMatriz);
+       mat4.multiply(esferaMatriz,esferaMatriz, cajonMatriz );
+       mat4.translate(esferaMatriz, esferaMatriz, [0.0,0.3,0.58]);
+       esfera.setMatriz(esferaMatriz);
 
-        //Triangulo_2 Configuro la matriz y dibujo
-        var triangulo_2Matriz = mat4.create();
-		mat4.identity(triangulo_2Matriz);
-		mat4.translate(triangulo_2Matriz, triangulo_2Matriz, [-2, 0, -5.0]);
-        mat4.rotate(triangulo_2Matriz, triangulo_2Matriz,t, [0.0, 1.0, 0.0]);
-        triangulo_2.setMatriz(triangulo_2Matriz);
-        triangulo_2.dibujar();
+       //Dibujo Cajon  
+       cajon.dibujar();
         
-        //Dibujo esfera.
-        var esferaMatriz = mat4.create();
-		mat4.identity(esferaMatriz);
-		mat4.translate(esferaMatriz, esferaMatriz, [0.0, 0.0, -5.0]);
-		mat4.rotate(esferaMatriz, esferaMatriz, t, [0.0, 1.0, 0.0]);
-        esfera.setMatriz(esferaMatriz);
-        esfera.dibujar();
-        
-        t = t + 0.01;
-		
+        t = t + 0.01;	
     }
 
 

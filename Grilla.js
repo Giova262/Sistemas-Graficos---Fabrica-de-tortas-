@@ -22,7 +22,7 @@ class Grilla {
                 this.index_buffer.push(columna - 1 + (fila + 1) * this.filas);
                 this.index_buffer.push(columna + fila * this.filas);
             }   
-        }
+		}
 	}
 	
 	setupBuffers() {
