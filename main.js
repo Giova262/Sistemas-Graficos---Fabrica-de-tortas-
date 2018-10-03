@@ -6,9 +6,8 @@
   fragmentShader = null,
     vertexShader = null,
                t = 0.0;
-	     my_grid = null,
-          esfera = null;
-           cajon = null;
+         maquina = null;
+       superficie= null;
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
@@ -104,59 +103,30 @@
          return shader;
     }
                   
-//3- Agregar objetos a la escena (cada objeto tiene su initBuffer)
+//3- Agregamos objetos a la escena
     function AddObjectScene(){
-        //Declaro Geometrias
-        var esferaGeometria = new Esfera(gl, 50, 50, 0.1);
-        var grilla = new Plano(gl,40,40);
-        var rectangulo = new Rectangulo(gl,0.3,1,1,[0.50,0.2,0.65]);
         
-        //Creo objetos
-        esfera = new Objeto3D(gl, esferaGeometria);
-        my_grid = new Objeto3D(gl,grilla);
-        cajon = new Objeto3D(gl,rectangulo);
-
-        //Agrego hijos a algun objeto
-		cajon.agregarHijo(esfera);
+        superficie  = new Superficie();
+        maquina = new Maquina();
+        
     }
 
          
-//4-Dibujo
+//4-Dibujo la escena
     function drawScene() {
-        //basicamente aca defino matrices y les digo a los objetos creados que se dibujen pasandoles la matriz
         
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         var u_proj_matrix = gl.getUniformLocation(glProgram, "uPMatrix");
         gl.uniformMatrix4fv(u_proj_matrix, false, pMatrix);
                
-        //Preparar la matriz de proyeccion
         //Preparamos una matriz de perspectiva.
         mat4.perspective(pMatrix, 45, 640.0/480.0, 0.1, 50.0);
 
-        //Dibujo plano
-       var grillaMatriz = mat4.create();
-        mat4.identity(grillaMatriz);
-        mat4.translate(grillaMatriz, grillaMatriz, [0.0, 0.0, -5.0]);
-		mat4.rotate(grillaMatriz, grillaMatriz,5.2, [1.0, 0.0, 0.0]);
-        my_grid.setMatriz(grillaMatriz);
-        my_grid.dibujar();
+       //Dibujo Objetos
+       superficie.dibujar();
+       maquina.dibujar();
 
-       //Configuro matriz del cajon
-       var cajonMatriz = mat4.create();
-       mat4.identity(cajonMatriz);
-       mat4.translate(cajonMatriz, cajonMatriz, [-1.0, 0.0, -3.0]);
-       mat4.rotate(cajonMatriz, cajonMatriz,5.2, [1.0, 0.0, 0.0]);
-       cajon.setMatriz(cajonMatriz);
-       //Configuro matriz de la esfera
-       var esferaMatriz = mat4.create();
-	   mat4.identity(esferaMatriz);
-       mat4.multiply(esferaMatriz,esferaMatriz, cajonMatriz );
-       mat4.translate(esferaMatriz, esferaMatriz, [0.0,0.3,0.58]);
-       esfera.setMatriz(esferaMatriz);
 
-       //Dibujo Cajon  
-       cajon.dibujar();
-        
         t = t + 0.01;	
     }
 
