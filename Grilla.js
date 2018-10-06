@@ -13,7 +13,36 @@ class Grilla {
 	}
 	
 	createIndexBuffer() {
-        for(var fila = 0; fila < this.filas - 1; fila++){
+	
+		//Codigo que funciona bien.
+        var indice_de_vertice = 0;
+		var matriz_de_indices = new Array(this.filas);
+
+		for (var i = 0.0; i < this.filas; i++) { 
+        	matriz_de_indices[i] = new Array(this.columnas);
+            	for (var j = 0.0; j < this.columnas; j++) {
+                	matriz_de_indices[i][j] = indice_de_vertice;
+                	indice_de_vertice++;
+            	}
+        }
+
+		var hacia_arriba = true;
+		var columna = 0;
+					
+		for(var i = 0.0; i < (this.filas-1); i++) {
+        	for (var j = 0.0; j < this.columnas; j++) {
+				if(hacia_arriba) {
+					columna = j;
+				} else {
+					columna = this.columnas - 1 - j;
+				}                            
+            	this.index_buffer.push(matriz_de_indices[i][columna], matriz_de_indices[i + 1][columna]);
+        	}
+         	hacia_arriba = !hacia_arriba;
+         }
+        
+        //Codigo que funciona mal.
+        /*for(var fila = 0; fila < this.filas - 1; fila++){
             for(var columna= 0; columna < this.columnas; columna++){
                 this.index_buffer.push(columna + fila * this.filas);
                 this.index_buffer.push(columna + (fila + 1) * this.filas);
@@ -22,7 +51,7 @@ class Grilla {
                 this.index_buffer.push(columna - 1 + (fila + 1) * this.filas);
                 this.index_buffer.push(columna + fila * this.filas);
             }   
-		}
+		}*/
 	}
 	
 	setupBuffers() {
