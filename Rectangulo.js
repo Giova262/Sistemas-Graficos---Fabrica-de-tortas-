@@ -35,6 +35,44 @@ class Rectangulo {
 	
 		this.position_buffer = [
 		
+		/*// Cara Frontal.
+			-x, 0,  y,
+			 x, 0,  y,
+			 x, z,  y,
+			-x, z,  y,
+					
+		// Cara Posterior.
+			-x, 0, -y,
+			-x, z, -y,
+			 x, z, -y,
+			 x, 0, -y,
+					
+		// Cara Superior.
+			-x, z, -y,
+			-x, z,  y,
+			 x, z,  y,
+			 x, z, -y,
+					
+		// Cara Inferior.
+			-x, 0, -y,
+			 x, 0, -y,
+			 x, 0,  y,
+			-x, 0,  y,
+					
+		// Cara Lateral Derecha.
+			 x, 0, -y,
+			 x, z, -y,
+			 x, z,  y,
+			 x, 0,  y,
+					
+		// Cara Lateral Izquierda.
+			-x, 0, -y,
+			-x, 0,  y,
+			-x, z,  y,
+			-x, z, -y*/
+
+
+
 		// Cara Frontal.
 			-x, y,  0,
 			 x, y,  0,
