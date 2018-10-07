@@ -3,7 +3,7 @@ class Superficie{
     constructor(){
 
         //Geometria
-        var grilla = new Plano(gl,40,40);
+        var grilla = new Plano(gl,3,3);
         
         //Creo objeto
         this.my_grid = new Objeto3D(gl,grilla);

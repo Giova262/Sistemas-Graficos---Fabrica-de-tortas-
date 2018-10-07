@@ -8,13 +8,22 @@
             body{ background-color: rgb(84, 66, 189); }
             canvas{ background-color: white; }
 			textarea{ background-color: black; foreground-color: white;}
+            #log {
+            position: absolute;
+            top:50px;
+            left: 100px;
+            z-index: 300;
+            }
         </style>
 
           <!-- Libraries -->
          <script type="text/javascript" src="gl-matrix.js"></script>
-  
+         <script type="text/javascript" src="jquery-1.12.4.js"></script>
+         
           <!-- Scrips -->
          <script type="text/javascript" src="main.js"></script>
+         <script type="text/javascript" src="WebGLConfig.js"></script>
+         <script type="text/javascript" src="camara.js"></script>
          <script type="text/javascript" src="Objeto3D.js"></script>
          <script type="text/javascript" src="Grilla.js"></script>
          <script type="text/javascript" src="Esfera.js"></script>
@@ -31,13 +40,18 @@
             attribute vec3 aVertexPosition;
             attribute vec3 aVertexColor;
 
+            uniform mat4 uViewMatrix;
             uniform mat4 uMVMatrix;
             uniform mat4 uPMatrix;
 
             varying highp vec4 vColor;    
  
             void main(void) {
-                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+
+                vec4 pos_camera_view = uMVMatrix * vec4(aVertexPosition, 1.0);
+
+                gl_Position = uPMatrix * uViewMatrix * pos_camera_view;
+               
                 vColor = vec4(aVertexColor,1.0);
             }
         </script>
@@ -55,6 +69,12 @@
 
     </head>
     <body onload="initWebGL()">
+        <div id="log">
+            DeltaX : <span id="valorDeltaX"></span> <br/>
+            DeltaY : <span id="valorDeltaY"></span> <br/>
+            Alfa : <span id="valorAlfa"></span> <br/>
+            Beta : <span id="valorBeta"></span> <br/>
+        </div>
 		<center>
 			<h1>Trabajo Practico - Fabrica de Tortas - 66.71</h1>
             <h2>Giovanni Valdivia</h2>

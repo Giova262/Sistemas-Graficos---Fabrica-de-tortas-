@@ -15,7 +15,7 @@ class Objeto3D {
 	setMatriz(_matriz){	
 		//matriz para usarla de identidad solo para copiar matriz en mvmatrix
 		var m = mat4.create();
-		mat4.multiply(this.mvMatrix, _matriz,m );
+		mat4.copy(this.mvMatrix, _matriz,m );
 		
 	}
 	   
