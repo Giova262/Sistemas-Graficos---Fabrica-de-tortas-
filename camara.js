@@ -57,11 +57,10 @@ class Camara{
             $('#valorAlfa').html(alfa);
             $('#valorBeta').html(beta); 
         }
-
     }
 
     update(){
-        
+
         //Paso la matriz de vista al shader
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
@@ -70,8 +69,11 @@ class Camara{
         var x = radio * Math.sin(alfa) * Math.cos(beta);
         var y = radio * Math.cos(alfa);
         var z = radio * Math.sin(alfa) * Math.sin(beta);
+       /* var x = radio * Math.cos(alfa);
+        var y = radio * Math.sin(alfa);
+        var z = radio;*/
 
-        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0, 1, 0]);
+        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0, 0, 1]);
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }
 }

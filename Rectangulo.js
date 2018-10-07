@@ -30,44 +30,46 @@ class Rectangulo {
 		var x = this.ancho / 2;
 		var y = this.alto / 2;
 		var z = this.profundidad;
+
+		
 	
 		this.position_buffer = [
 		
 		// Cara Frontal.
-			-x, 0,  y,
-			 x, 0,  y,
-			 x, z,  y,
-			-x, z,  y,
+			-x, y,  0,
+			 x, y,  0,
+			 x, y,  z,
+			-x, y,  z,
 					
 		// Cara Posterior.
-			-x, 0, -y,
-			-x, z, -y,
-			 x, z, -y,
-			 x, 0, -y,
+			-x, -y, 0,
+			-x, -y, z,
+			 x, -y, z,
+			 x, -y, 0,
 					
 		// Cara Superior.
-			-x, z, -y,
-			-x, z,  y,
-			 x, z,  y,
-			 x, z, -y,
+			-x, -y, z,
+			-x, y,  z,
+			 x, y,  z,
+			 x, -y, z,
 					
 		// Cara Inferior.
-			-x, 0, -y,
-			 x, 0, -y,
-			 x, 0,  y,
-			-x, 0,  y,
+			-x, -y, 0,
+			 x, -y, 0,
+			 x, y,  0,
+			-x, y,  0,
 					
 		// Cara Lateral Derecha.
-			 x, 0, -y,
-			 x, z, -y,
-			 x, z,  y,
-			 x, 0,  y,
+			 x, -y, 0,
+			 x, -y, z,
+			 x, y,  z,
+			 x, y,  0,
 					
 		// Cara Lateral Izquierda.
-			-x, 0, -y,
-			-x, 0,  y,
-			-x, z,  y,
-			-x, z, -y
+			-x, -y, 0,
+			-x, y,  0,
+			-x, y,  z,
+			-x, -y, z
 			
 		];
 	}
