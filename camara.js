@@ -47,8 +47,8 @@ class Camara{
             alfa = alfa + deltaX * factorVelocidad;
             beta = beta + deltaY * factorVelocidad;
 
-		    if (alfa<0) alfa=0.01;
-            if (alfa>Math.PI) alfa=Math.PI;
+		    if (alfa<0) alfa=Math.PI*2;
+            if (alfa>Math.PI*2) alfa=0;
 
             //Muestra la posicion del mouse en el canvas
             $('#valorDeltaX').html(deltaX);
@@ -68,13 +68,15 @@ class Camara{
 
         var x = radio * Math.sin(alfa) * Math.cos(beta);
         var y = radio * Math.cos(alfa);
-        //var z = radio * Math.sin(alfa) * Math.sin(beta);
+        var z = radio * Math.sin(alfa) * Math.sin(beta)  ;
+
+        if(z < 0.5)  z = 0.5 ;
        /* var x = radio * Math.cos(alfa);
         var y = radio * Math.sin(alfa);
         var z = radio;*/
-        var z = 10 ;
+       // var z = 10 ;
 
-        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0,0, 1]);
+        mat4.lookAt(viewMatrix, [x, y, z + 5], [0, 0, 0], [0,0, 1]);
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }
 }
