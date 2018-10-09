@@ -2,8 +2,8 @@
 var previousClientX = 0,
     previousClientY = 0,
     radio = 20,
-    alfa = 0.1, 
-    beta = 0.1, 
+    alfa = 0, 
+    beta = 0, 
     factorVelocidad = 0.01;
 
     mouseX=0;
@@ -47,7 +47,7 @@ class Camara{
 
             var deltaX = mouseX - previousClientX;
             var deltaY = mouseY - previousClientY;
-
+           
             previousClientX = mouseX;
             previousClientY = mouseY;
 
@@ -57,8 +57,8 @@ class Camara{
 		    if (alfa<0) alfa=Math.PI*2;
             if (alfa>Math.PI*2) alfa=0;
 
-           /* if (beta < 0) beta=Math.PI*2;
-            if (beta>Math.PI*2) beta=0  ;*/
+            if (beta<-Math.PI/2) beta=-Math.PI/2;
+            if (beta>Math.PI/2) beta=Math.PI/2;
 
             //Muestra la posicion del mouse en el canvas
             $('#valorDeltaX').html(deltaX);
@@ -74,16 +74,15 @@ class Camara{
         //Paso la matriz de vista al shader
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
-        mat4.identity(viewMatrix);
-
-        var x = radio * Math.sin(alfa);// * Math.cos(beta);
-        var y = radio * Math.cos(alfa);
+     
+        var x = radio * Math.cos(alfa) ;
+        var y = radio * Math.sin(alfa);
         var z = radio * Math.sin(alfa) * Math.sin(beta)  ;
 
         if(z < 0.5)  z = 0.5 ;
-        if(z > radio)  z = radio ;
 
-        mat4.lookAt(viewMatrix, [x, y, z+2], [0, 0, 0], [0,0,1]);
+        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0,0,1]);
+
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }
 }
