@@ -1,7 +1,7 @@
 
 var previousClientX = 0,
     previousClientY = 0,
-    radio = 10,
+    radio = 20,
     alfa = 0.1, 
     beta = 0.1, 
     factorVelocidad = 0.01;
@@ -68,12 +68,13 @@ class Camara{
 
         var x = radio * Math.sin(alfa) * Math.cos(beta);
         var y = radio * Math.cos(alfa);
-        var z = radio * Math.sin(alfa) * Math.sin(beta);
+        //var z = radio * Math.sin(alfa) * Math.sin(beta);
        /* var x = radio * Math.cos(alfa);
         var y = radio * Math.sin(alfa);
         var z = radio;*/
+        var z = 10 ;
 
-        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0, 0, 1]);
+        mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0,0, 1]);
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }
 }

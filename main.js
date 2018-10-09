@@ -4,7 +4,9 @@ var           gl = null,
        glProgram = null,
   fragmentShader = null,
     vertexShader = null,
-         maquina = null;
+        maquina_a = null;
+        maquina_b = null;
+        maquina_d = null;
        superficie= null;
                t = 0.0; 
 
@@ -23,7 +25,9 @@ var           gl = null,
     function SceneObject(){   
         camara = new Camara();
         superficie  = new Superficie();
-        maquina = new Maquina();   
+        maquina_a = new Maquina_A();   
+        maquina_b = new Maquina_B();
+        maquina_d = new Maquina_D();
     }
 //Dibujo la escena
     function drawScene() {
@@ -41,7 +45,9 @@ var           gl = null,
 
        //Dibujo Objetos
        superficie.dibujar();
-       maquina.dibujar();
+       maquina_a.dibujar();
+       maquina_b.dibujar();
+       maquina_d.dibujar();
 
        //Time
         t = t + 0.01;	
