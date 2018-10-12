@@ -6,7 +6,7 @@ class Maquina_A{
         var rectangulo1 = new Rectangulo(gl,2,2,3.5,[0.2,0.2,0.85]);
         var rectangulo2 = new Rectangulo(gl,10,2,0.25,[0.2,0.2,0.51]);
         var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[0,1,0]);
-       
+  
         //Creo objetos
         this.maquinaA = new NodoContenedor();
         this.caja1 = new Objeto3D(rectangulo1);

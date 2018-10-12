@@ -7,8 +7,11 @@ var           gl = null,
         maquina_a = null;
         maquina_b = null;
         maquina_d = null;
-       superficie= null;
-               t = 0.0; 
+       superficie = null;
+
+       chocolate = null;
+
+                t = 0.0; 
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
@@ -28,7 +31,11 @@ var           gl = null,
         maquina_a = new Maquina_A();   
         maquina_b = new Maquina_B();
         maquina_d = new Maquina_D();
+
+        /*var copito = new Cilindro(gl,0.08,6);
+        chocolate = new Objeto3D(copito);*/
     }
+
 //Dibujo la escena
     function drawScene() {
         
@@ -48,6 +55,7 @@ var           gl = null,
        maquina_a.dibujar();
        maquina_b.dibujar();
        maquina_d.dibujar();
+       //chocolate.dibujar();
 
        //Time
         t = t + 0.01;	
