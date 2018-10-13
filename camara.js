@@ -10,6 +10,11 @@ var previousClientX = 0,
     mouseY=0;
     isMouseDown = false;
 
+    deltaX = 0;
+    deltaY = 0;
+
+    fristTime = true ;
+
     tipoCamara= 0;
 
 class Camara{
@@ -27,7 +32,8 @@ class Camara{
         });
     
         $('body').mouseup(function(event){
-            isMouseDown = false;	   
+            isMouseDown = false;	
+            fristTime = true ;   
         });
 
         //ZOOM con teclas "+" y "-"
@@ -63,8 +69,15 @@ class Camara{
 
         if(isMouseDown) {
 
-            var deltaX = mouseX - previousClientX;
-            var deltaY = mouseY - previousClientY;
+            if(fristTime){
+
+                previousClientX = mouseX;
+                previousClientY = mouseY;   
+                fristTime = false;
+            }
+
+            deltaX = mouseX - previousClientX;
+            deltaY = mouseY - previousClientY;
            
             previousClientX = mouseX;
             previousClientY = mouseY;
@@ -84,7 +97,7 @@ class Camara{
 
             $('#valorAlfa').html(alfa);
             $('#valorBeta').html(beta); 
-        }
+        } 
     }
 
     update(){
@@ -106,7 +119,7 @@ class Camara{
         var y = radio * Math.sin(alfa);
         var z = radio * Math.sin(alfa) * Math.sin(beta)  ;
 
-        if(z < 0.5)  z = 0.5 ;
+        if(z < 0.25)  z = 0.25 ;
 
         mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0,0,1]);
 
