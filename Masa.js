@@ -34,8 +34,8 @@ class Masa {
 			var z = i * this.altura / (puntos - 1);
 			this.puntos_de_control.push(...[x, y, z]);
 		}
-		this.puntos_de_control.push(...[0.0, 0.0, 0.0]);
-		this.puntos_de_control.push(...[0.0, 0.0, 0.0]);
+		this.puntos_de_control.push(...[0.0, 0.0, this.altura]);
+		this.puntos_de_control.push(...[0.0, 0.0, this.altura]);
 	
 		var puntos_detalle_revolucion = 40;
 		var puntos_detalle_curva = 40;
