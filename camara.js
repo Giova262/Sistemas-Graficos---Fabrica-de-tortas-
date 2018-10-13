@@ -82,8 +82,8 @@ class Camara{
             previousClientX = mouseX;
             previousClientY = mouseY;
 
-            alfa = alfa + deltaX * factorVelocidad;
-            beta = beta + deltaY * factorVelocidad;
+            alfa = alfa - deltaX * factorVelocidad;
+            beta = beta - deltaY * factorVelocidad;
 
 		    if (alfa<0) alfa=Math.PI*2;
             if (alfa>Math.PI*2) alfa=0;
