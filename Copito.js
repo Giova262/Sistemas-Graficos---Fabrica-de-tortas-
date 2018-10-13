@@ -37,7 +37,7 @@ class Copito {
 		
 		var curva = new CurvaBezier(puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion);
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [0.0,0.0,1.0]);
 	}
 	
 	dibujar() {
@@ -53,7 +53,7 @@ class Cilindro{
 		puntos.push(...[radio,0,altura]);
 		puntos.push(...[0,0,altura]);
 
-		this.superficie = new SuperficieDeRevolucion(gl,puntos,40);
+		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, [0.0,0.0,1.0]);
 	}
 	dibujar(){
 		this.superficie.dibujar();

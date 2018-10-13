@@ -5,10 +5,11 @@
 	
 	Ej:
 	var curva = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0];
+	var color = [0.0,0.0,1.0];
 	
 	Luego:
 	var puntosDeRevolucion = 40;
-	superficieRevolucion = new SuperficieDeRevolucion(gl, curva, puntosDeRevolucion);
+	superficieRevolucion = new SuperficieDeRevolucion(gl, curva, puntosDeRevolucion, color);
 	
 	Finalmente:
 	objetoGrafico = new Objeto3D(gl, superficieRevolucion);
@@ -17,10 +18,11 @@
 
 
 class SuperficieDeRevolucion extends Grilla {
-	constructor(gl, curva, columnas) {
+	constructor(gl, curva, columnas, color) {
 		super(gl, curva.length / 3, columnas);
 		
 		this.curva = curva;
+		this.color = color;
 		
 		this.createPositionBuffer();
         this.createColorBuffer();
@@ -43,7 +45,7 @@ class SuperficieDeRevolucion extends Grilla {
 	createColorBuffer() {
 		for(var fila = 0; fila < this.filas; fila++){
             for(var columna =0; columna < this.columnas; columna++) {
-            	this.color_buffer.push(...[0.0,0.0,1.0]);
+            	this.color_buffer.push(...this.color);
             }
         }
 	}
