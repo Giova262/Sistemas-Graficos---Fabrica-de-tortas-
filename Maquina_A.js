@@ -81,28 +81,82 @@ class Maquina_A{
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
 
-       /* for(var i = 0 ; i < cantidad ; i++ ){
-            console.log(alfa);
-            var cereza = this.crearCereza();
-            cereza.trasladar([0.3*Math.cos(alfa*(180/(Math.PI))),0.3*Math.sin(alfa*(180/(Math.PI))),0.5]);
-            alfa = alfa + alfaPaso ;
-            this.masa1.agregarHijo(cereza);
-            
-        }*/
         for(var i = 0 ; i < cantidad ; i++ ){
             console.log(alfa);
             var cereza = this.crearCereza();
             cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
             alfa = alfa + alfaPaso ;
             this.masa1.agregarHijo(cereza);
+
+            //para esta tiene q ser de a poco
+            this.masa2.agregarHijo(cereza);
             
         }
+    }
+
+    tortaDeCopitos(cantidad){
+        var alfaPaso = 360 / cantidad ;
+        var alfa = 0.0   ;
+
+        for(var i = 0 ; i < cantidad ; i++ ){
+            var copo = this.crearCopito();
+            copo.escalar([0.1,0.1,0.1]);
+            copo.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
+            alfa = alfa + alfaPaso ;
+            this.masa1.agregarHijo(copo);
+
+            //para esta tiene q ser de a poco
+            this.masa2.agregarHijo(copo);
+            
+        }
+    }
+
+    contornoTubo(cantidad){
+        var alfaPaso = 360 / cantidad ;
+        var alfa = 0.0   ;
+        for(var i = 0 ; i < cantidad ; i++ ){
+            var bastonGeometria = new Baston(gl, 0.4, 0.05);
+            var tubo = new Objeto3D(bastonGeometria);
+
+           // tubo.escalar([0.1,0.1,0.1]);
+            tubo.trasladar([0.6*Math.cos(alfa*((Math.PI)/180)),0.6*Math.sin(alfa*((Math.PI)/180)),0.1]);
+            alfa = alfa + alfaPaso ;
+            this.masa1.agregarHijo(tubo);
+
+            //para esta tiene q ser de a poco
+            this.masa2.agregarHijo(tubo);
+            
+        }
+    }
+
+    contornoBarra(cantidad){
+        var alfaPaso = 360 / cantidad ;
+        var alfa = 0.0   ;
+        for(var i = 0 ; i < cantidad ; i++ ){
+
+            var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
+            var barra = new Objeto3D(barraGeometria);
+          
+            barra.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
+            alfa = alfa + alfaPaso ;
+            this.masa1.agregarHijo(barra);
+
+            //para esta tiene q ser de a poco
+            this.masa2.agregarHijo(barra);
+            
+        }
+
     }
 
     crearCereza(){
         var esfera = new Esfera(gl,40,40,0.05);
         var  cerezaTemp= new Objeto3D(esfera);
         return cerezaTemp ;
+    }
+    crearCopito(){
+        var copo = new Copito(gl);
+        var  copitoTemp= new Objeto3D(copo);
+        return copitoTemp ;
     }
 
     dibujar(){

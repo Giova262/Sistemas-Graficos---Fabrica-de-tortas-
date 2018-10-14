@@ -149,9 +149,9 @@ class Camara{
      
         var x = 2 * Math.cos(alfa);
         var y = 2 * Math.sin(alfa) - 5;
-        var z = 2 ;
+        var z = 4 ;
 
-        mat4.lookAt(viewMatrix, [x, y, z], [0,-5,1.2], [0,0,1]);
+        mat4.lookAt(viewMatrix, [x, y, z], [0,-5,2], [0,0,1]);
 
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }
@@ -164,7 +164,7 @@ class Camara{
      
         var x = 2 * Math.cos(alfa) - 4;
         var y = 2 * Math.sin(alfa) - 5;
-        var z = 2    ;
+        var z = 4   ;
 
         mat4.lookAt(viewMatrix, [x, y, z], [-4,-5,2], [0,0,1]);
 

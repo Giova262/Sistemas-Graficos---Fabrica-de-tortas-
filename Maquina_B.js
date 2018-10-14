@@ -9,13 +9,13 @@ class Maquina_B{
         var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[0,1,0]);
         var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[0,1,0]);
         var cilindro = new Cilindro(gl,0.08,1,[0.6,1.0,0.2]);
-        var esfera = new Esfera(gl,40,40,0.1);
+       // var esfera = new Esfera(gl,40,40,0.1);
        
         //Creo objetos
         this.maquinaB = new NodoContenedor();
             this.caja1 = new Objeto3D(rectangulo1);
             this.caja2 = new Objeto3D(rectangulo2);
-                 this.cereza = new Objeto3D(esfera);
+                // this.cereza = new Objeto3D(esfera);
             this.caja3 = new Objeto3D(rectangulo3);
             this.maquinaC = new NodoContenedor();
                  this.tubo = new Objeto3D(cilindro);
@@ -26,7 +26,7 @@ class Maquina_B{
         //Agrego hijos a algun objeto
         this.maquinaB.agregarHijo(this.caja1);
         this.maquinaB.agregarHijo(this.caja2);
-            this.caja2.agregarHijo(this.cereza);
+            //this.caja2.agregarHijo(this.cereza);
         this.maquinaB.agregarHijo(this.caja3);
         this.maquinaB.agregarHijo(this.maquinaC);
             this.maquinaC.agregarHijo(this.tubo);
@@ -42,7 +42,7 @@ class Maquina_B{
     configurarEscena(){
 
       this.caja2.trasladar([0,0.3,0]);
-        this.cereza.trasladar([0,-0.32,1.6]);
+        
         
       this.caja3.trasladar([0,0.2,3]);
       this.caja3.rotar(1.55,[1,0,0]);
@@ -56,6 +56,25 @@ class Maquina_B{
         this.caja5.trasladar([0,0.1,-0.18]);
         this.caja6.trasladar([0,-0.1,-0.18]);
 
+    }
+
+    cerezas(){
+        var esfera = new Esfera(gl,40,40,0.1);
+        var cereza = new Objeto3D(esfera);
+        
+        cereza.trasladar([0,-0.32,1.6]);
+
+        this.caja2.agregarHijo(cereza);
+    }
+
+    copos(){
+        var copo = new Copito(gl);
+        var copito = new Objeto3D(copo);
+        
+        copito.escalar([0.1,0.1,0.1]);
+        copito.trasladar([0,-0.32,1.5]);
+
+        this.caja2.agregarHijo(copito);
     }
 
     dibujar(){
