@@ -45,6 +45,9 @@ var           gl = null,
        camara.eventHandlerView();
        camara.update();
 
+       //tipos
+       maquina_a.tortaDeCereza(8.0);
+
        //Dibujo Objetos
        superficie.dibujar();
        maquina_a.dibujar();

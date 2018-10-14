@@ -46,22 +46,22 @@ class Camara{
                 radio = radio + 0.001;
                 if(radio > 50 ) radio = 50 ;
             }
-            if ( e.keyCode == 96) {
+            if ( e.keyCode == 81) {
                 tipoCamara = 0 ;        
             }
-            if ( e.keyCode == 97) {
+            if ( e.keyCode == 87) {
                 tipoCamara = 1 ;        
             }
-            if ( e.keyCode == 98) {
+            if ( e.keyCode == 69) {
                 tipoCamara = 2 ;        
             }
-            if ( e.keyCode == 99) {
+            if ( e.keyCode == 82) {
                 tipoCamara = 3 ;        
             }
-            if ( e.keyCode == 100) {
+            if ( e.keyCode == 84) {
                 tipoCamara = 4 ;        
             }
-            if ( e.keyCode == 101) {
+            if ( e.keyCode == 89) {
                 tipoCamara = 5 ;        
             }
             
@@ -132,8 +132,8 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = radio * Math.cos(t) ;
-        var y = radio * Math.sin(t);
+        var x = radio * Math.cos(alfa)+3 ;
+        var y = radio * Math.sin(alfa)-5;
         var z = radio ;
 
         mat4.lookAt(viewMatrix, [x, y, z], [3,-5,0], [0,0,1]);
@@ -147,8 +147,8 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = 2 * Math.cos(t);
-        var y = 2 * Math.sin(t) - 5;
+        var x = 2 * Math.cos(alfa);
+        var y = 2 * Math.sin(alfa) - 5;
         var z = 2 ;
 
         mat4.lookAt(viewMatrix, [x, y, z], [0,-5,1.2], [0,0,1]);
@@ -162,11 +162,11 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = 2 * Math.cos(t) - 4;
-        var y = 2 * Math.sin(t) - 5;
-        var z = 4 ;
+        var x = 2 * Math.cos(alfa) - 4;
+        var y = 2 * Math.sin(alfa) - 5;
+        var z = 2    ;
 
-        mat4.lookAt(viewMatrix, [x, y, z], [-4,-5,0], [0,0,1]);
+        mat4.lookAt(viewMatrix, [x, y, z], [-4,-5,2], [0,0,1]);
 
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
     }

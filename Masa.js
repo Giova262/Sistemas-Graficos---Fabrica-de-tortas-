@@ -42,7 +42,7 @@ class Masa {
 		
 		var curva = new CurvaBSpline(this.puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [0.5, 0.5, 0.5]);
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [1, 0.9, 0.1]);
 	}
 	
 	dibujar() {

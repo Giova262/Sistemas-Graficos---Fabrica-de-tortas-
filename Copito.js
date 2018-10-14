@@ -46,14 +46,14 @@ class Copito {
 }
 
 class Cilindro{
-	constructor(gl,radio,altura){
+	constructor(gl,radio,altura,color){
 		var puntos = [];
 		puntos.push(...[0,0,0]);
 		puntos.push(...[radio,0,0]);
 		puntos.push(...[radio,0,altura]);
 		puntos.push(...[0,0,altura]);
 
-		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, [0.0,0.0,1.0]);
+		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, color);
 	}
 	dibujar(){
 		this.superficie.dibujar();
