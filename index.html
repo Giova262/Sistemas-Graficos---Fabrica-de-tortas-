@@ -19,7 +19,8 @@
           <!-- Libraries -->
          <script type="text/javascript" src="gl-matrix.js"></script>
          <script type="text/javascript" src="jquery-1.12.4.js"></script>
-         
+         <script type="text/javascript" src="dat.gui.js"></script>
+        
           <!-- Scrips -->
          <script type="text/javascript" src="main.js"></script>
          <script type="text/javascript" src="WebGLConfig.js"></script>
@@ -42,7 +43,7 @@
          <script type="text/javascript" src="Masa.js"></script>
          <script type="text/javascript" src="Crema.js"></script>
          <script type="text/javascript" src="Baston.js"></script>
-
+       
         <!--
         Vertex shader
         --> 
@@ -78,7 +79,9 @@
         </script>
 
     </head>
-    <body onload="initWebGL()">
+    <body onload="initWebGL()">   
+        <script type="text/javascript" src="Menu.js"></script>
+
         <div id="log">
             DeltaX : <span id="valorDeltaX"></span> <br/>
             DeltaY : <span id="valorDeltaY"></span> <br/>
