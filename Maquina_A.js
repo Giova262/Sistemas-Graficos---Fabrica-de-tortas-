@@ -25,10 +25,14 @@ class Maquina_A{
                 this.torta1 = new NodoContenedor();
                     this.masa1 = new Objeto3D( masa); 
                          this.crema1 = new Objeto3D(cremaGeometria);
+                         this.decoraciones1 = new NodoContenedor();
+                         this.contornos1 = new NodoContenedor();
                     this.plato1 = new Objeto3D(cilindro);
                 this.torta2 = new NodoContenedor();
                     this.masa2 = new Objeto3D( masa); 
                          this.crema2 = new Objeto3D(cremaGeometria);
+                         this.decoraciones2 = new NodoContenedor();
+                         this.contornos2 = new NodoContenedor();
                     this.plato2 = new Objeto3D(cilindro);
                
 
@@ -45,11 +49,15 @@ class Maquina_A{
             this.caja2.agregarHijo(this.torta1);
                 this.torta1.agregarHijo(this.masa1);
                         this.masa1.agregarHijo(this.crema1);
+                        this.masa1.agregarHijo(this.decoraciones1);
+                        this.masa1.agregarHijo(this.contornos1);
                 this.torta1.agregarHijo(this.plato1);
 
             this.caja2.agregarHijo(this.torta2);
                  this.torta2.agregarHijo(this.masa2);
                         this.masa2.agregarHijo(this.crema2);
+                        this.masa2.agregarHijo(this.decoraciones2);
+                        this.masa2.agregarHijo(this.contornos2);
                  this.torta2.agregarHijo(this.plato2);
 
         //Configuro posiciones
@@ -81,15 +89,18 @@ class Maquina_A{
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
 
+        this.decoraciones1.borrarHijos();
+        this.decoraciones2.borrarHijos();
+
         for(var i = 0 ; i < cantidad ; i++ ){
             console.log(alfa);
             var cereza = this.crearCereza();
             cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
             alfa = alfa + alfaPaso ;
-            this.masa1.agregarHijo(cereza);
+            this.decoraciones1.agregarHijo(cereza);
 
             //para esta tiene q ser de a poco
-            this.masa2.agregarHijo(cereza);
+            this.decoraciones2.agregarHijo(cereza);
             
         }
     }
@@ -98,15 +109,18 @@ class Maquina_A{
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
 
+        this.decoraciones1.borrarHijos();
+        this.decoraciones2.borrarHijos();
+
         for(var i = 0 ; i < cantidad ; i++ ){
             var copo = this.crearCopito();
             copo.escalar([0.1,0.1,0.1]);
             copo.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
             alfa = alfa + alfaPaso ;
-            this.masa1.agregarHijo(copo);
+            this.decoraciones1.agregarHijo(copo);
 
             //para esta tiene q ser de a poco
-            this.masa2.agregarHijo(copo);
+            this.decoraciones2.agregarHijo(copo);
             
         }
     }
@@ -114,6 +128,10 @@ class Maquina_A{
     contornoTubo(cantidad){
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
+
+        this.contornos1.borrarHijos();
+        this.contornos2.borrarHijos();
+
         for(var i = 0 ; i < cantidad ; i++ ){
             var bastonGeometria = new Baston(gl, 0.4, 0.05);
             var tubo = new Objeto3D(bastonGeometria);
@@ -121,10 +139,10 @@ class Maquina_A{
            // tubo.escalar([0.1,0.1,0.1]);
             tubo.trasladar([0.6*Math.cos(alfa*((Math.PI)/180)),0.6*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
-            this.masa1.agregarHijo(tubo);
+            this.contornos1.agregarHijo(tubo);
 
             //para esta tiene q ser de a poco
-            this.masa2.agregarHijo(tubo);
+            this.contornos2.agregarHijo(tubo);
             
         }
     }
@@ -132,6 +150,10 @@ class Maquina_A{
     contornoBarra(cantidad){
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
+
+        this.contornos1.borrarHijos();
+        this.contornos2.borrarHijos();
+
         for(var i = 0 ; i < cantidad ; i++ ){
 
             var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
@@ -139,10 +161,10 @@ class Maquina_A{
           
             barra.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
-            this.masa1.agregarHijo(barra);
+            this.contornos1.agregarHijo(barra);
 
             //para esta tiene q ser de a poco
-            this.masa2.agregarHijo(barra);
+            this.contornos2.agregarHijo(barra);
             
         }
 

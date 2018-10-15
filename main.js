@@ -29,14 +29,6 @@ var           gl = null,
         maquina_a = new Maquina_A();   
         maquina_b = new Maquina_B();
         maquina_d = new Maquina_D();
-
-        //Configuracion
-
-            //maquina_a.tortaDeCopitos(8);
-            //maquina_a.tortaDeCereza(8);
-            // maquina_a.contornoTubo(20);
-           // maquina_a.contornoBarra(20);
-            maquina_b.copos();
     }
 
 //Dibujo la escena

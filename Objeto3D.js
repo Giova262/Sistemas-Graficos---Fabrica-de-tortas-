@@ -18,6 +18,10 @@ class Objeto3D {
    		this.hijos.push(hijo);
 	}
 
+	borrarHijos(){
+		this.hijos = [];
+	}
+
 	rotar(angulo,ejeRotacion){
 		this.angulo = angulo ;
 		this.ejeDeRotacion = ejeRotacion;

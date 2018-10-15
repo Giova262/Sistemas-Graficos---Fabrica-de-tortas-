@@ -14,6 +14,7 @@ var obj = {
         
        if(this.TipoDecoracion == 'Copito' ){
             maquina_a.tortaDeCopitos(this.Decoraciones);
+            maquina_b.copos();
        }
        if(this.TipoDecoracion == 'Cereza' ){
             maquina_a.tortaDeCereza(this.Decoraciones);

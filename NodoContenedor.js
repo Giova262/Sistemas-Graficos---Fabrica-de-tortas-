@@ -13,7 +13,11 @@ class NodoContenedor{
     }
     agregarHijo(_hijo) {
         this.hijos.push(_hijo);
-     }
+	 }
+	 
+	 borrarHijos(){
+		this.hijos = [];
+	}
 
     rotar(angulo,ejeRotacion){
 		this.angulo = angulo ;
