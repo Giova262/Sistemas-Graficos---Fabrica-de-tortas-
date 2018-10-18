@@ -1,6 +1,8 @@
 class Maquina_D{
 
     constructor(){
+        this.brazoPos = 1.5 ;
+        this.cond = true ;
 
         //Geometrias
         var rectangulo1 = new Rectangulo(gl,0.74,0.7,2,[0.2,0.2,0.85]);
@@ -29,7 +31,7 @@ class Maquina_D{
         this.caja2.trasladar([0,0,2]);
         this.caja3.trasladar([0,0.05 ,2.8]);
 
-        this.maquinaE.trasladar([0,1.5,1.4]);
+        this.maquinaE.trasladar([0,this.brazoPos,1.4]);
         this.maquinaE.escalar([0.8,0.8,0.8]);
         this.maquinaE.rotar(1.55,[1,0,0]);
 
@@ -38,5 +40,19 @@ class Maquina_D{
 
     dibujar(){
       this.maquinaD.dibujar();     
+    }
+
+    moverBrazo(){
+        if( this.brazoPos > 1.6 ){ this.cond = false  }  
+        if( this.brazoPos < 1.3 ){ this.cond = true  }  
+
+        if(this.cond){   
+            this.brazoPos+= 0.01;
+        } 
+        else {
+            this.brazoPos-= 0.01;
+        }
+
+        this.maquinaE.trasladar([0,this.brazoPos,1.4]);
     }
 }

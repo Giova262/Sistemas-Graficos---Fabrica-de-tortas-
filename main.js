@@ -41,6 +41,10 @@ var           gl = null,
        mat4.perspective(pMatrix, 45,1200/800, 1, 2000.0);
        gl.uniformMatrix4fv(u_proj_matrix, false, pMatrix);
        
+       //Acciones
+       maquina_b.moverBrazo();
+       maquina_d.moverBrazo();
+
        //Vista
        camara.eventHandlerView();
        camara.update();
