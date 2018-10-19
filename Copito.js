@@ -37,7 +37,7 @@ class Copito {
 		
 		var curva = new CurvaBezier(puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [0.0,0.0,1.0]);
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [0.0,0.0,1.0],2*Math.PI);
 	}
 	
 	dibujar() {
@@ -46,14 +46,15 @@ class Copito {
 }
 
 class Cilindro{
-	constructor(gl,radio,altura,color){
+	constructor(gl,radio,altura,color,angulo){
 		var puntos = [];
+		this.angulo = angulo;
 		puntos.push(...[0,0,0]);
 		puntos.push(...[radio,0,0]);
 		puntos.push(...[radio,0,altura]);
 		puntos.push(...[0,0,altura]);
 
-		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, color);
+		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, color,this.angulo);
 	}
 	dibujar(){
 		this.superficie.dibujar();

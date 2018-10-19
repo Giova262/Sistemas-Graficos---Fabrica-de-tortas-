@@ -10,7 +10,7 @@ class Maquina_B{
         var rectangulo3 = new Rectangulo(gl,0.5,0.2,2,[0,1,0]);
         var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[0,1,0]);
         var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[0,1,0]);
-        var cilindro = new Cilindro(gl,0.08,1,[0.6,1.0,0.2]);
+        var cilindro = new Cilindro(gl,0.08,1,[0.6,1.0,0.2],2*Math.PI);
        
         //Creo objetos
         this.maquinaB = new NodoContenedor();
@@ -57,6 +57,17 @@ class Maquina_B{
 
     }
 
+    
+
+    manzanas(){
+        var cilindro = new Cilindro(gl,0.6,0.08,[0.2,0.8,0.2],Math.PI);
+        var manzana = new Objeto3D(cilindro);
+        
+        cereza.trasladar([0,-0.32,1.6]);
+
+        this.caja2.agregarHijo(manzana);
+    }
+
     cerezas(){
         var esfera = new Esfera(gl,40,40,0.1);
         var cereza = new Objeto3D(esfera);
@@ -81,7 +92,6 @@ class Maquina_B{
     }
 
     moverBrazo(){
-       // this.brazoPos+= 0.01;
         if( this.brazoPos > 0 ){ this.cond = false  }  
         if( this.brazoPos < -1.5 ){ this.cond = true  }  
 

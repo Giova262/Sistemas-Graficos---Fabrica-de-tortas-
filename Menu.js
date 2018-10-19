@@ -20,7 +20,7 @@ var obj = {
             maquina_a.tortaDeCereza(this.Decoraciones);
        }
        if(this.TipoDecoracion == 'Manzana' ){
-            //Falta implementar el ultimo
+            maquina_a.tortaDeManzanas(this.Decoraciones);
        }
 
        if(this.TipoContorno == 'Barra' ){

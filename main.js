@@ -24,11 +24,12 @@ var           gl = null,
               
 //Agregamos objetos a la escena
     function SceneObject(){   
+        
         camara = new Camara();
         superficie  = new Superficie();
         maquina_a = new Maquina_A();   
         maquina_b = new Maquina_B();
-        maquina_d = new Maquina_D();
+        maquina_d = new Maquina_D();      
     }
 
 //Dibujo la escena

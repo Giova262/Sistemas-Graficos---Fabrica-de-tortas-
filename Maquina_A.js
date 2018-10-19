@@ -6,7 +6,7 @@ class Maquina_A{
         var rectangulo1 = new Rectangulo(gl,2,2,3.5,[0.2,0.2,0.85]);
         var rectangulo2 = new Rectangulo(gl,10,2,0.25,[0.2,0.2,0.51]);
         var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[0,1,0]);
-        var cilindro = new Cilindro(gl,0.6,0.08,[1.0,1.0,1.0]);
+        var cilindro = new Cilindro(gl,0.6,0.08,[1.0,1.0,1.0],2*Math.PI);
         var masa = new Masa(gl,0.5,0.5,3, 0.1);
         var cremaGeometria = new Crema(gl, 40, 0.45, 2, 0.04);
         
@@ -125,6 +125,27 @@ class Maquina_A{
         }
     }
 
+    tortaDeManzanas(cantidad){
+        var alfaPaso = 360 / cantidad ;
+        var alfa = 0.0   ;
+
+        this.decoraciones1.borrarHijos();
+        this.decoraciones2.borrarHijos();
+
+        for(var i = 0 ; i < cantidad ; i++ ){
+            var manzana = this.crearManzana();
+            manzana.escalar([0.15,0.15,0.15]);
+            manzana.rotar(1.5,[1,1,0]);
+            manzana.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
+            alfa = alfa + alfaPaso ;
+            this.decoraciones1.agregarHijo(manzana);
+
+            //para esta tiene q ser de a poco
+            this.decoraciones2.agregarHijo(manzana);
+            
+        }
+    }
+
     contornoTubo(cantidad){
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
@@ -179,6 +200,11 @@ class Maquina_A{
         var copo = new Copito(gl);
         var  copitoTemp= new Objeto3D(copo);
         return copitoTemp ;
+    }
+    crearManzana(){
+        var cilindro = new Cilindro(gl,0.6,0.08,[0.2,0.8,0.2],Math.PI);
+        var manzana = new Objeto3D(cilindro);
+        return manzana ;
     }
 
     dibujar(){

@@ -18,11 +18,13 @@
 
 
 class SuperficieDeRevolucion extends Grilla {
-	constructor(gl, curva, columnas, color) {
+	constructor(gl, curva, columnas, color,angulo) {
 		super(gl, curva.length / 3, columnas);
 		
 		this.curva = curva;
 		this.color = color;
+		this.angulo = angulo;
+		//this.angulo = 2*Math.PI;
 		
 		this.createPositionBuffer();
         this.createColorBuffer();
@@ -34,8 +36,10 @@ class SuperficieDeRevolucion extends Grilla {
 		for(var fila = 0; fila < this.curva.length; fila = fila + 3){
 			for(var columna = 0; columna < this.columnas; columna++){	
 			
-				var x = this.curva[fila] * Math.cos(columna * 2*Math.PI/(this.columnas-1));
-				var y = this.curva[fila] * Math.sin(columna * 2*Math.PI/(this.columnas-1));
+				//var x = this.curva[fila] * Math.cos(columna * 2*Math.PI/(this.columnas-1));
+				//var y = this.curva[fila] * Math.sin(columna * 2*Math.PI/(this.columnas-1));
+				var x = this.curva[fila] * Math.cos(columna * this.angulo/(this.columnas-1));
+				var y = this.curva[fila] * Math.sin(columna * this.angulo/(this.columnas-1));
 				var z = this.curva[fila+2];
 				this.position_buffer.push(...[x,y,z]);
 			}

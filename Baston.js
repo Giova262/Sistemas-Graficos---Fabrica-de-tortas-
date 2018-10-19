@@ -24,7 +24,7 @@ class Baston {
 		
 		var puntos_detalle_revolucion = 40;
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva, puntos_detalle_revolucion, [1.0,0.3,0.3]);
+		this.superficie = new SuperficieDeRevolucion(gl, curva, puntos_detalle_revolucion, [1.0,0.3,0.3],2*Math.PI);
 	}
 	
 	dibujar() {
