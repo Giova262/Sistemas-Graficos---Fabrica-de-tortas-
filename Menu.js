@@ -2,8 +2,10 @@
 var obj = {
 
     //Cuadro para ingresar numeros
-    Decoraciones: 20,
-    Contornos: 20 ,
+    Decoraciones: 10,
+    Contornos: 10 ,
+    AlturaMasa:0.5,
+    OndasTorta: 3 ,
 
     //Seleccionador
     TipoDecoracion: 'Copito',
@@ -11,6 +13,9 @@ var obj = {
 
     //Botones 
     Generar: function () {
+
+        //maquina_a.clean();
+        maquina_a.modificarTorta(this.AlturaMasa,this.OndasTorta);
         
        if(this.TipoDecoracion == 'Copito' ){
             maquina_a.tortaDeCopitos(this.Decoraciones);
@@ -45,6 +50,8 @@ gui.add(obj, 'Generar');
 //Agrego cuadro para ingresar numeros
 gui.add(obj, 'Decoraciones').step(1); 
 gui.add(obj, 'Contornos').step(1); 
+gui.add(obj, 'AlturaMasa',0.1,2).name("AlturaMasa");
+gui.add(obj, 'OndasTorta').step(1); 
 
 // Choose from accepted values
 gui.add(obj, 'TipoDecoracion', [ 'Copito', 'Cereza', 'Manzana' ] );

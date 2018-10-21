@@ -6,9 +6,6 @@ class Maquina_A{
         var rectangulo1 = new Rectangulo(gl,2,2,3.5,[0.2,0.2,0.85]);
         var rectangulo2 = new Rectangulo(gl,10,2,0.25,[0.2,0.2,0.51]);
         var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[0,1,0]);
-        var cilindro = new Cilindro(gl,0.6,0.08,[1.0,1.0,1.0],2*Math.PI);
-        var masa = new Masa(gl,0.5,0.5,3, 0.1);
-        var cremaGeometria = new Crema(gl, 40, 0.45, 2, 0.04);
         
         //Creo objetos
         this.maquinaA = new NodoContenedor();
@@ -22,18 +19,18 @@ class Maquina_A{
                 this.caja7 = new Objeto3D(rectangulo3);
                 this.caja8 = new Objeto3D(rectangulo3);
                 //Aca crearia las tortas
-                this.torta1 = new NodoContenedor();
-                    this.masa1 = new Objeto3D( masa); 
-                         this.crema1 = new Objeto3D(cremaGeometria);
-                         this.decoraciones1 = new NodoContenedor();
-                         this.contornos1 = new NodoContenedor();
-                    this.plato1 = new Objeto3D(cilindro);
-                this.torta2 = new NodoContenedor();
-                    this.masa2 = new Objeto3D( masa); 
-                         this.crema2 = new Objeto3D(cremaGeometria);
-                         this.decoraciones2 = new NodoContenedor();
-                         this.contornos2 = new NodoContenedor();
-                    this.plato2 = new Objeto3D(cilindro);
+               this.torta1 = null;
+                    this.masa1 = null; 
+                         this.crema1 = null;   
+                         this.decoraciones1 = null;
+                         this.contornos1 = null;
+                    this.plato1 = null;
+                this.torta2 = null;
+                    this.masa2 = null; 
+                         this.crema2 = null;
+                         this.decoraciones2 =null;
+                         this.contornos2 = null;
+                    this.plato2 = null;
                
 
         //Agrego hijos a algun objeto
@@ -45,20 +42,6 @@ class Maquina_A{
             this.caja2.agregarHijo(this.caja6);
             this.caja2.agregarHijo(this.caja7);
             this.caja2.agregarHijo(this.caja8);
-            
-            this.caja2.agregarHijo(this.torta1);
-                this.torta1.agregarHijo(this.masa1);
-                        this.masa1.agregarHijo(this.crema1);
-                        this.masa1.agregarHijo(this.decoraciones1);
-                        this.masa1.agregarHijo(this.contornos1);
-                this.torta1.agregarHijo(this.plato1);
-
-            this.caja2.agregarHijo(this.torta2);
-                 this.torta2.agregarHijo(this.masa2);
-                        this.masa2.agregarHijo(this.crema2);
-                        this.masa2.agregarHijo(this.decoraciones2);
-                        this.masa2.agregarHijo(this.contornos2);
-                 this.torta2.agregarHijo(this.plato2);
 
         //Configuro posiciones
         this.configurarEscena();
@@ -77,12 +60,6 @@ class Maquina_A{
       
       this.maquinaA.trasladar([3,-5,0]);
       this.maquinaA.rotar(0,[0,0,1]);
-
-      this.torta1.trasladar([-1,0,0.3]);
-      this.torta2.trasladar([3,0,0.3]);
-
-      this.crema1.trasladar([0,0,0.5]);
-      this.crema2.trasladar([0,0,0.5]);
     }
 
     tortaDeCereza(cantidad){
@@ -96,7 +73,7 @@ class Maquina_A{
             console.log(alfa);
             var cereza = this.crearCereza();
             cereza.rotar(2 * Math.PI * i / cantidad + Math.PI / 2, [0, 0, 1]);
-            cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
+            cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(cereza);
 
@@ -116,7 +93,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             var copo = this.crearCopito();
             copo.escalar([0.1,0.1,0.1]);
-            copo.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
+            copo.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(copo);
 
@@ -138,7 +115,7 @@ class Maquina_A{
             manzana.escalar([0.15,0.15,0.15]);
 		    manzana.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
             manzana.rotar(Math.PI / 2,[1,0,0]);
-            manzana.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
+            manzana.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(manzana);
 
@@ -158,8 +135,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             var bastonGeometria = new Baston(gl, 0.4, 0.05);
             var tubo = new Objeto3D(bastonGeometria);
-
-           // tubo.escalar([0.1,0.1,0.1]);
+            
             tubo.trasladar([0.6*Math.cos(alfa*((Math.PI)/180)),0.6*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
             this.contornos1.agregarHijo(tubo);
@@ -192,6 +168,50 @@ class Maquina_A{
             
         }
 
+    }
+   
+    modificarTorta(altura , ondas){
+        this.alturaTorta = altura;
+        var masa = new Masa(gl,altura,0.5,ondas, 0.1);
+        var cilindro = new Cilindro(gl,0.6,0.08,[1.0,1.0,1.0],2*Math.PI);
+        var cremaGeometria = new Crema(gl, 40, 0.45, 2, 0.04);
+
+        this.caja2.borrarHijos();
+
+        this.torta1 = new NodoContenedor();
+            this.masa1 = new Objeto3D( masa); 
+                this.crema1 = new Objeto3D(cremaGeometria);
+                this.decoraciones1 = new NodoContenedor();
+                this.contornos1 = new NodoContenedor();
+                this.plato1 = new Objeto3D(cilindro);
+        this.torta2 = new NodoContenedor();
+            this.masa2 = new Objeto3D( masa); 
+                this.crema2 = new Objeto3D(cremaGeometria);
+                this.decoraciones2 = new NodoContenedor();
+                this.contornos2 = new NodoContenedor();
+                this.plato2 = new Objeto3D(cilindro);
+
+        this.caja2.agregarHijo(this.torta1);
+                this.torta1.agregarHijo(this.masa1);
+                        this.masa1.agregarHijo(this.crema1);
+                        this.masa1.agregarHijo(this.decoraciones1);
+                        this.masa1.agregarHijo(this.contornos1);
+                this.torta1.agregarHijo(this.plato1);
+
+        this.caja2.agregarHijo(this.torta2);
+                 this.torta2.agregarHijo(this.masa2);
+                        this.masa2.agregarHijo(this.crema2);
+                        this.masa2.agregarHijo(this.decoraciones2);
+                        this.masa2.agregarHijo(this.contornos2);
+                 this.torta2.agregarHijo(this.plato2);
+
+      this.torta1.trasladar([-1,0,0.3]);
+      this.torta2.trasladar([3,0,0.3]);
+
+      this.crema1.trasladar([0,0,this.alturaTorta]);
+      this.crema2.trasladar([0,0,this.alturaTorta]);
+
+                 
     }
 
     crearCereza(){
