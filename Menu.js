@@ -52,10 +52,10 @@ gui.add(obj, 'Generar');
 //Agrego cuadro para ingresar numeros
 gui.add(obj, 'Decoraciones').step(1); 
 gui.add(obj, 'Contornos').step(1); 
-gui.add(obj, 'AlturaMasa',0.1,2).name("AlturaMasa");
+gui.add(obj, 'AlturaMasa',0.3,0.9).name("AlturaMasa");
 gui.add(obj, 'OndasTorta').step(1); 
-gui.add(obj, 'RadioTorta',0.1,2).name("RadioTorta");
-gui.add(obj, 'AmplitudTorta',0.1,2).name("AmplitudTorta");
+gui.add(obj, 'RadioTorta',0.4,0.7).name("RadioTorta");
+gui.add(obj, 'AmplitudTorta',0.05,0.15).name("AmplitudTorta");
 gui.add(obj, 'TorcionesCrema',1,10).step(1); 
 
 // Choose from accepted values
