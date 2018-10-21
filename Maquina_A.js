@@ -125,7 +125,7 @@ class Maquina_A{
         }
     }
 
-    contornoTubo(cantidad){
+    contornoTubo(cantidad, altura){
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
 
@@ -133,10 +133,10 @@ class Maquina_A{
         this.contornos2.borrarHijos();
 
         for(var i = 0 ; i < cantidad ; i++ ){
-            var bastonGeometria = new Baston(gl, 0.4, 0.05);
+            var bastonGeometria = new Baston(gl, altura * 0.8, 0.02);
             var tubo = new Objeto3D(bastonGeometria);
             
-            tubo.trasladar([0.6*Math.cos(alfa*((Math.PI)/180)),0.6*Math.sin(alfa*((Math.PI)/180)),0.1]);
+            tubo.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
             this.contornos1.agregarHijo(tubo);
 
@@ -146,7 +146,7 @@ class Maquina_A{
         }
     }
 
-    contornoBarra(cantidad){
+    contornoBarra(cantidad, altura){
         var alfaPaso = 360 / cantidad ;
         var alfa = 0.0   ;
 
@@ -155,7 +155,8 @@ class Maquina_A{
 
         for(var i = 0 ; i < cantidad ; i++ ){
 
-            var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
+            //var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
+            var barraGeometria = new Rectangulo(gl,0.05,0.02,altura * 0.8,[0.6,-0.2,0.1]);
             var barra = new Objeto3D(barraGeometria);
           
           	barra.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);

@@ -29,10 +29,10 @@ var obj = {
        }
 
        if(this.TipoContorno == 'Barra' ){
-            maquina_a.contornoBarra(this.Contornos);
+            maquina_a.contornoBarra(this.Contornos, this.AlturaMasa);
        }
        if(this.TipoContorno == 'Tubo' ){
-            maquina_a.contornoTubo(this.Contornos);
+            maquina_a.contornoTubo(this.Contornos, this.AlturaMasa);
        }
 
     },
