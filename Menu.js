@@ -6,6 +6,9 @@ var obj = {
     Contornos: 10 ,
     AlturaMasa:0.5,
     OndasTorta: 3 ,
+    RadioTorta : 0.5 ,
+    AmplitudTorta : 0.1,
+    TorcionesCrema : 2 ,
 
     //Seleccionador
     TipoDecoracion: 'Copito',
@@ -14,8 +17,7 @@ var obj = {
     //Botones 
     Generar: function () {
 
-        //maquina_a.clean();
-        maquina_a.modificarTorta(this.AlturaMasa,this.OndasTorta);
+       maquina_a.modificarTorta(this.AlturaMasa,this.RadioTorta,this.OndasTorta,this.AmplitudTorta,this.TorcionesCrema);
         
        if(this.TipoDecoracion == 'Copito' ){
             maquina_a.tortaDeCopitos(this.Decoraciones);
@@ -52,6 +54,9 @@ gui.add(obj, 'Decoraciones').step(1);
 gui.add(obj, 'Contornos').step(1); 
 gui.add(obj, 'AlturaMasa',0.1,2).name("AlturaMasa");
 gui.add(obj, 'OndasTorta').step(1); 
+gui.add(obj, 'RadioTorta',0.1,2).name("RadioTorta");
+gui.add(obj, 'AmplitudTorta',0.1,2).name("AmplitudTorta");
+gui.add(obj, 'TorcionesCrema',1,10).step(1); 
 
 // Choose from accepted values
 gui.add(obj, 'TipoDecoracion', [ 'Copito', 'Cereza', 'Manzana' ] );

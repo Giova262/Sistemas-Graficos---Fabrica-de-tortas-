@@ -73,7 +73,7 @@ class Maquina_A{
             console.log(alfa);
             var cereza = this.crearCereza();
             cereza.rotar(2 * Math.PI * i / cantidad + Math.PI / 2, [0, 0, 1]);
-            cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            cereza.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(cereza);
 
@@ -93,7 +93,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             var copo = this.crearCopito();
             copo.escalar([0.1,0.1,0.1]);
-            copo.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            copo.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(copo);
 
@@ -115,7 +115,7 @@ class Maquina_A{
             manzana.escalar([0.15,0.15,0.15]);
 		    manzana.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
             manzana.rotar(Math.PI / 2,[1,0,0]);
-            manzana.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            manzana.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(manzana);
 
@@ -136,7 +136,7 @@ class Maquina_A{
             var bastonGeometria = new Baston(gl, altura * 0.8, 0.02);
             var tubo = new Objeto3D(bastonGeometria);
             
-            tubo.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
+            tubo.trasladar([(this.radioTorta+0.05)*Math.cos(alfa*((Math.PI)/180)),(this.radioTorta+0.05)*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
             this.contornos1.agregarHijo(tubo);
 
@@ -160,7 +160,7 @@ class Maquina_A{
             var barra = new Objeto3D(barraGeometria);
           
           	barra.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
-            barra.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
+            barra.trasladar([(this.radioTorta+0.05)*Math.cos(alfa*((Math.PI)/180)),(this.radioTorta+0.05)*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
             this.contornos1.agregarHijo(barra);
 
@@ -171,11 +171,12 @@ class Maquina_A{
 
     }
    
-    modificarTorta(altura , ondas){
+    modificarTorta(altura,radio,ondas,amplitud,torciones){
         this.alturaTorta = altura;
-        var masa = new Masa(gl,altura,0.5,ondas, 0.1);
-        var cilindro = new Cilindro(gl,0.6,0.08,[1.0,1.0,1.0],2*Math.PI);
-        var cremaGeometria = new Crema(gl, 40, 0.45, 2, 0.04);
+        this.radioTorta = radio;
+        var masa = new Masa(gl,altura,radio,ondas, amplitud);
+        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[1.0,1.0,1.0],2*Math.PI);
+        var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
 
         this.caja2.borrarHijos();
 
