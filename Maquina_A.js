@@ -95,6 +95,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             console.log(alfa);
             var cereza = this.crearCereza();
+            cereza.rotar(2 * Math.PI * i / cantidad + Math.PI / 2, [0, 0, 1]);
             cereza.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(cereza);
@@ -135,7 +136,8 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             var manzana = this.crearManzana();
             manzana.escalar([0.15,0.15,0.15]);
-            manzana.rotar(1.5,[1,1,0]);
+		    manzana.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
+            manzana.rotar(Math.PI / 2,[1,0,0]);
             manzana.trasladar([0.3*Math.cos(alfa*((Math.PI)/180)),0.3*Math.sin(alfa*((Math.PI)/180)),0.5]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(manzana);
@@ -180,6 +182,7 @@ class Maquina_A{
             var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
             var barra = new Objeto3D(barraGeometria);
           
+          	barra.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
             barra.trasladar([0.55*Math.cos(alfa*((Math.PI)/180)),0.55*Math.sin(alfa*((Math.PI)/180)),0.1]);
             alfa = alfa + alfaPaso ;
             this.contornos1.agregarHijo(barra);

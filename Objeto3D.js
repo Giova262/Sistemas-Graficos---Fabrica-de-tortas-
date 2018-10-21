@@ -3,8 +3,8 @@ class Objeto3D {
 			 
 		this.geometria = geometria;
 		
-		this.angulo = 0 ;
-		this.ejeDeRotacion = [0,0,1];
+		this.angulo = [0];
+		this.ejeDeRotacion = [[0,0,1]];
 		this.posicion = [0,0,0];
 		this.escalado = [1,1,1];
 
@@ -22,9 +22,9 @@ class Objeto3D {
 		this.hijos = [];
 	}
 
-	rotar(angulo,ejeRotacion){
-		this.angulo = angulo ;
-		this.ejeDeRotacion = ejeRotacion;
+	rotar(angulo, ejeRotacion){
+		this.angulo.push(angulo) ;
+		this.ejeDeRotacion.push(ejeRotacion);
 	}
 
 	trasladar(posicion){
@@ -49,9 +49,10 @@ class Objeto3D {
 		mat4.identity(mvMatrix);	
 		mat4.multiply(mvMatrix,mvMatrix, this.padreMatrix );
 		mat4.translate(mvMatrix, mvMatrix, this.posicion);
-		mat4.rotate(mvMatrix,mvMatrix, this.angulo, this.ejeDeRotacion);
+		for(var i = 0; i < this.angulo.length; i++) {
+			mat4.rotate(mvMatrix,mvMatrix, this.angulo[i], this.ejeDeRotacion[i]);
+		}
 		mat4.scale(mvMatrix,mvMatrix, this.escalado);
-		
 		//Pongo la matriz "mvMatrix" en el shader
 		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix );
 
