@@ -73,7 +73,7 @@ class Maquina_A{
             console.log(alfa);
             var cereza = this.crearCereza();
             cereza.rotar(2 * Math.PI * i / cantidad + Math.PI / 2, [0, 0, 1]);
-            cereza.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            cereza.trasladar([0.6*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(cereza);
 
@@ -93,7 +93,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
             var copo = this.crearCopito();
             copo.escalar([0.1,0.1,0.1]);
-            copo.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            copo.trasladar([0.6*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(copo);
 
@@ -115,7 +115,7 @@ class Maquina_A{
             manzana.escalar([0.15,0.15,0.15]);
 		    manzana.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
             manzana.rotar(Math.PI / 2,[1,0,0]);
-            manzana.trasladar([0.7*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.7*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            manzana.trasladar([0.55*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.55*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
             alfa = alfa + alfaPaso ;
             this.decoraciones1.agregarHijo(manzana);
 
