@@ -25,9 +25,9 @@ class Esfera extends Grilla {
 		for(var fila = 0; fila < this.filas; fila++){
             for(var columna =0; columna < this.columnas; columna++) {
                 if(columna * Math.PI * 2 / (this.columnas -1) < Math.PI){
-                    this.color_buffer.push(...[0.7,0.0,0.0]);
+                    this.color_buffer.push(...[68.2/100,18.8/100,19.2/100]);
                 }else{
-                    this.color_buffer.push(...[0.8,0.0,0.0]);
+                    this.color_buffer.push(...[68.2/100,18.8/100,19.2/100]);
                 }
             }
         }

@@ -3,9 +3,9 @@ class Maquina_A{
     constructor(){
 
         //Geometrias
-        var rectangulo1 = new Rectangulo(gl,2,2,3.5,[0.2,0.2,0.85]);
-        var rectangulo2 = new Rectangulo(gl,10,2,0.25,[0.2,0.2,0.51]);
-        var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[0,1,0]);
+        var rectangulo1 = new Rectangulo(gl,2,2,3.5,[29.4/100,29.8/100,75.3/100]);
+        var rectangulo2 = new Rectangulo(gl,10,2,0.25,[45.5/100,45.5/100,45.5/100]);
+        var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[15.3/100,60.4/100,14.5/100]);
         
         //Creo objetos
         this.maquinaA = new NodoContenedor();
@@ -156,7 +156,7 @@ class Maquina_A{
         for(var i = 0 ; i < cantidad ; i++ ){
 
             //var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
-            var barraGeometria = new Rectangulo(gl,0.05,0.02,altura * 0.8,[0.6,-0.2,0.1]);
+            var barraGeometria = new Rectangulo(gl,0.05,0.02,altura * 0.8,[100.0/100,50.6/100,100.0/100]);
             var barra = new Objeto3D(barraGeometria);
           
           	barra.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
@@ -175,11 +175,13 @@ class Maquina_A{
         this.alturaTorta = altura;
         this.radioTorta = radio;
         var masa = new Masa(gl,altura,radio,ondas, amplitud);
-        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[1.0,1.0,1.0],2*Math.PI);
+        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[84.3/100,92.2/100,77.6/100],2*Math.PI);
         var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
 
         this.caja2.borrarHijos();
 
+        //--------------------------------
+        //Creo torta + contenedores 
         this.torta1 = new NodoContenedor();
             this.masa1 = new Objeto3D( masa); 
                 this.crema1 = new Objeto3D(cremaGeometria);
@@ -193,13 +195,20 @@ class Maquina_A{
                 this.contornos2 = new NodoContenedor();
                 this.plato2 = new Objeto3D(cilindro);
 
+        //--------------------------------
+        //Agrego hijos      
+        this.caja2.agregarHijo(this.caja3);
+        this.caja2.agregarHijo(this.caja4);
+        this.caja2.agregarHijo(this.caja5);
+        this.caja2.agregarHijo(this.caja6);
+        this.caja2.agregarHijo(this.caja7);
+        this.caja2.agregarHijo(this.caja8);
         this.caja2.agregarHijo(this.torta1);
                 this.torta1.agregarHijo(this.masa1);
                         this.masa1.agregarHijo(this.crema1);
                         this.masa1.agregarHijo(this.decoraciones1);
                         this.masa1.agregarHijo(this.contornos1);
                 this.torta1.agregarHijo(this.plato1);
-
         this.caja2.agregarHijo(this.torta2);
                  this.torta2.agregarHijo(this.masa2);
                         this.masa2.agregarHijo(this.crema2);
@@ -207,6 +216,8 @@ class Maquina_A{
                         this.masa2.agregarHijo(this.contornos2);
                  this.torta2.agregarHijo(this.plato2);
 
+        //--------------------------------
+        //Configuro    
       this.torta1.trasladar([-1,0,0.3]);
       this.torta2.trasladar([3,0,0.3]);
 
@@ -227,7 +238,7 @@ class Maquina_A{
         return copitoTemp ;
     }
     crearManzana(){
-        var cilindro = new Cilindro(gl,0.6,0.08,[0.2,0.8,0.2],Math.PI);
+        var cilindro = new Cilindro(gl,0.6,0.08,[63.1/100,76.9/100,50.2/100],Math.PI);
         var manzana = new Objeto3D(cilindro);
         return manzana ;
     }

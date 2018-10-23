@@ -17,6 +17,7 @@ var obj = {
     //Botones 
     Generar: function () {
 
+       maquina_b.clean(); 
        maquina_a.modificarTorta(this.AlturaMasa,this.RadioTorta,this.OndasTorta,this.AmplitudTorta,this.TorcionesCrema);
         
        if(this.TipoDecoracion == 'Copito' ){
@@ -25,9 +26,11 @@ var obj = {
        }
        if(this.TipoDecoracion == 'Cereza' ){
             maquina_a.tortaDeCereza(this.Decoraciones);
+            maquina_b.cerezas();
        }
        if(this.TipoDecoracion == 'Manzana' ){
             maquina_a.tortaDeManzanas(this.Decoraciones);
+            maquina_b.manzanas();
        }
 
        if(this.TipoContorno == 'Barra' ){

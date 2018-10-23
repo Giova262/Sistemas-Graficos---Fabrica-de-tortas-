@@ -5,9 +5,9 @@ class Maquina_D{
         this.cond = true ;
 
         //Geometrias
-        var rectangulo1 = new Rectangulo(gl,0.74,0.7,2,[0.2,0.2,0.85]);
-        var rectangulo2 = new Rectangulo(gl,0.1,0.2,0.8,[0.2,0.5,0.51]);
-        var rectangulo3 = new Rectangulo(gl,0.3,0.5,0.05,[0,1,0]);
+        var rectangulo1 = new Rectangulo(gl,0.74,0.7,2,[72.5/100,28.2/100,79.6/100]);
+        var rectangulo2 = new Rectangulo(gl,0.1,0.2,0.8,[94.1/100,68.6/100,42.0/100]);
+        var rectangulo3 = new Rectangulo(gl,0.3,0.5,0.05,[94.1/100,68.6/100,42.0/100]);
        
         //Creo objetos
         this.maquinaD = new NodoContenedor();

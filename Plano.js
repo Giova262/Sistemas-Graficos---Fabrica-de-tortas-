@@ -25,9 +25,9 @@ class Plano extends Grilla {
 		for(var fila = 0; fila < this.filas; fila++){
             for(var columna =0; columna < this.columnas; columna++) {
                 if(columna * Math.PI * 2 / (this.columnas -1) < Math.PI){
-                    this.color_buffer.push(...[0.49,0.49,0.51]);
+                    this.color_buffer.push(...[0.69,0.69,0.69]);
                 }else{
-                    this.color_buffer.push(...[0.49,0.49,0.51]);
+                    this.color_buffer.push(...[0.69,0.69,0.69]);
                 }
             }
         }

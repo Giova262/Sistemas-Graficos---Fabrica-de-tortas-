@@ -5,12 +5,12 @@ class Maquina_B{
         this.cond = true;
 
         //Geometrias
-        var rectangulo1 = new Rectangulo(gl,0.5,0.5,1.5,[0.2,0.2,0.85]);
-        var rectangulo2 = new Rectangulo(gl,0.5,0.2,3.5,[0.2,0.2,0.51]);
-        var rectangulo3 = new Rectangulo(gl,0.5,0.2,2,[0,1,0]);
-        var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[0,1,0]);
-        var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[0,1,0]);
-        var cilindro = new Cilindro(gl,0.08,1,[0.6,1.0,0.2],2*Math.PI);
+        var rectangulo1 = new Rectangulo(gl,0.5,0.5,1.5,[58.8/100,32.9/100,82.4/100]);
+        var rectangulo2 = new Rectangulo(gl,0.5,0.2,3.5,[73.7/100,28.2/100,81.2/100]);
+        var rectangulo3 = new Rectangulo(gl,0.5,0.2,2,[89.0/100,65.9/100,43.1/100]);
+        var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[32.5/100,58.4/100,82.0/100]);
+        var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[74.1/100,87.8/100,85.5/100]);
+        var cilindro = new Cilindro(gl,0.08,1,[74.1/100,87.8/100,85.5/100],2*Math.PI);
        
         //Creo objetos
         this.maquinaB = new NodoContenedor();
@@ -60,10 +60,12 @@ class Maquina_B{
     
 
     manzanas(){
-        var cilindro = new Cilindro(gl,0.6,0.08,[0.2,0.8,0.2],Math.PI);
+        var cilindro = new Cilindro(gl,0.6,0.08,[63.1/100,76.9/100,50.2/100],Math.PI);
         var manzana = new Objeto3D(cilindro);
         
-        cereza.trasladar([0,-0.32,1.6]);
+        manzana.escalar([0.2,0.2,0.2]);
+        manzana.rotar(1.5,[1,0,0]);
+        manzana.trasladar([0,-0.32,1.6]);
 
         this.caja2.agregarHijo(manzana);
     }
@@ -103,5 +105,9 @@ class Maquina_B{
         }
 
         this.maquinaC.trasladar([0,this.brazoPos,2.1]);
+    }
+
+    clean(){
+        this.caja2.borrarHijos();
     }
 }
