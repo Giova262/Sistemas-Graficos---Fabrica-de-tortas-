@@ -44,7 +44,9 @@ class Objeto3D {
 	   
    	dibujar(){
 		
-		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");		
+		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");	
+		var u_normal_matrix = gl.getUniformLocation(glProgram, "uNMatrix");
+			
 		var mvMatrix = mat4.create();
 		mat4.identity(mvMatrix);	
 		mat4.multiply(mvMatrix,mvMatrix, this.padreMatrix );
@@ -55,6 +57,11 @@ class Objeto3D {
 		mat4.scale(mvMatrix,mvMatrix, this.escalado);
 		//Pongo la matriz "mvMatrix" en el shader
 		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix );
+		
+		var nMatrix=[];
+        
+        mat3.normalFromMat4(nMatrix, mvMatrix);
+        gl.uniformMatrix3fv(u_normal_matrix, false, nMatrix);
 
 		//Dibujo 
 		this.geometria.dibujar();

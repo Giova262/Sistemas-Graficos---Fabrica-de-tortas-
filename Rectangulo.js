@@ -11,10 +11,12 @@ class Rectangulo {
 		this.position_buffer = [];
 		this.index_buffer = [];
         this.color_buffer = [];
+        this.normal_buffer = [];
         
         this.crearIndexBuffer();
         this.crearPositionBuffer();
         this.crearColorBuffer();
+        this.crearNormalBuffer();
     	this.setupBuffers();
 	}
 	
@@ -30,72 +32,25 @@ class Rectangulo {
 		var x = this.ancho / 2;
 		var y = this.alto / 2;
 		var z = this.profundidad;
-
-		
 	
 		this.position_buffer = [
-		
-		/*// Cara Frontal.
-			-x, 0,  y,
-			 x, 0,  y,
-			 x, z,  y,
-			-x, z,  y,
-					
-		// Cara Posterior.
-			-x, 0, -y,
-			-x, z, -y,
-			 x, z, -y,
-			 x, 0, -y,
-					
-		// Cara Superior.
-			-x, z, -y,
-			-x, z,  y,
-			 x, z,  y,
-			 x, z, -y,
-					
-		// Cara Inferior.
-			-x, 0, -y,
-			 x, 0, -y,
-			 x, 0,  y,
-			-x, 0,  y,
-					
-		// Cara Lateral Derecha.
-			 x, 0, -y,
-			 x, z, -y,
-			 x, z,  y,
-			 x, 0,  y,
-					
-		// Cara Lateral Izquierda.
-			-x, 0, -y,
-			-x, 0,  y,
-			-x, z,  y,
-			-x, z, -y*/
-
-
-
 		// Cara Frontal.
 			-x, y,  0,
 			 x, y,  0,
 			 x, y,  z,
 			-x, y,  z,
-					
-		// Cara Posterior.
-			-x, -y, 0,
-			-x, -y, z,
-			 x, -y, z,
-			 x, -y, 0,
-					
+
 		// Cara Superior.
 			-x, -y, z,
 			-x, y,  z,
 			 x, y,  z,
 			 x, -y, z,
-					
-		// Cara Inferior.
+
+		// Cara Posterior.
 			-x, -y, 0,
+			-x, -y, z,
+			 x, -y, z,
 			 x, -y, 0,
-			 x, y,  0,
-			-x, y,  0,
 					
 		// Cara Lateral Derecha.
 			 x, -y, 0,
@@ -103,12 +58,57 @@ class Rectangulo {
 			 x, y,  z,
 			 x, y,  0,
 					
+		// Cara Inferior.
+			-x, -y, 0,
+			 x, -y, 0,
+			 x, y,  0,
+			-x, y,  0,
+					
 		// Cara Lateral Izquierda.
 			-x, -y, 0,
 			-x, y,  0,
 			-x, y,  z,
-			-x, -y, z
+			-x, -y, z,
+		];
+	}
+	
+	crearNormalBuffer() {
+		this.normal_buffer = [
+		// Cara Frontal.
+			0,1,0,
+			0,1,0,
+			0,1,0,
+			0,1,0,
+						
+		// Cara Superior.
+			0,0,1,
+			0,0,1,
+			0,0,1,
+			0,0,1,
 			
+		// Cara Posterior.
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+						
+		// Cara Lateral Derecha.
+			1,0,0,
+			1,0,0,
+			1,0,0,
+			1,0,0,
+			
+		// Cara Inferior.
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+						
+		// Cara Lateral Izquierda.
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,
 		];
 	}
 	
@@ -125,7 +125,11 @@ class Rectangulo {
 
 		this.webgl_color_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_color_buffer);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.color_buffer), gl.STATIC_DRAW);   
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.color_buffer), gl.STATIC_DRAW); 
+		
+		this.webgl_normal_buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normal_buffer), gl.STATIC_DRAW);     
 
 		this.webgl_index_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
@@ -142,6 +146,11 @@ class Rectangulo {
 		gl.enableVertexAttribArray(vertexColorAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_color_buffer);
 		gl.vertexAttribPointer(vertexColorAttribute, 3, gl.FLOAT, false, 0, 0);
+		
+		var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
+		gl.enableVertexAttribArray(vertexNormalAttribute);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
+        gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 
