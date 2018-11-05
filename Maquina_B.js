@@ -30,8 +30,9 @@ class Maquina_B{
             this.maquinaC = new NodoContenedor();
                  this.tubo = new Objeto3D(cilindro);
                  this.caja4 = new Objeto3D(rectangulo4);
+                 this.decoracionTemporal = new NodoContenedor();
                  this.caja5 = new Objeto3D(rectangulo5);
-                 this.caja6 = new Objeto3D(rectangulo5);
+                 this.caja6 = new Objeto3D(rectangulo5);             
 
         //Agrego hijos a algun objeto
         this.maquinaB.agregarHijo(this.caja1);
@@ -42,6 +43,7 @@ class Maquina_B{
             this.maquinaC.agregarHijo(this.caja4);
             this.maquinaC.agregarHijo(this.caja5);
             this.maquinaC.agregarHijo(this.caja6);
+            this.maquinaC.agregarHijo(this.decoracionTemporal);
             
         //Configuro posiciones
         this.configurarEscena();
@@ -56,6 +58,8 @@ class Maquina_B{
       this.caja3.rotar(1.55,[1,0,0]);
      
       this.maquinaB.trasladar([0.3  ,-3.5,0]);  
+
+      this.decoracionTemporal.trasladar([0,0.32,-1.75]);
  
       this.maquinaC.rotar(1.5,[0,0,1]); 
       this.maquinaC.trasladar([0,this.brazoPos,this.brazoPosZ]); 
@@ -164,11 +168,7 @@ class Maquina_B{
         }
 
 
-        if(this.cond2 ){   
-
-           /* var cilindro = new Cilindro(gl,0.08,0.5,[74.1/100,87.8/100,85.5/100],2*Math.PI);
-            this.tubo = new Objeto3D(cilindro);*/
-
+        if(this.cond2 ){ 
             this.brazoEscZ +=0.01;   
             this.brazoPosZ-=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
@@ -176,6 +176,8 @@ class Maquina_B{
         else {
 
             //Aca tengo q poner la decoracion en el brazo
+            this.decoracionTemporal.agregarHijo(this.decoracion);
+
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
@@ -187,11 +189,10 @@ class Maquina_B{
 
     soltarDecoracion(){
 
-        //hasta la altura de la torta
-
         if(this.brazoEscZ > ((-1.75*this.tortaAltura)+3.275 ) ) {
            
             //Aca pasar la decoracion a la torta
+            this.decoracionTemporal.borrarHijos(this.decoracion);
 
             this.brazoEscZ =((-1.75*this.tortaAltura)+3.275 );   
             this.brazoPosZ -=0.005;
@@ -215,8 +216,6 @@ class Maquina_B{
             this.tubo.escalar([1,1,this.brazoEscZ]);
         } 
         else {
-
-            //Aca tengo q poner la decoracion en el brazo
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
