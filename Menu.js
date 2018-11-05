@@ -17,28 +17,31 @@ var obj = {
     //Botones 
     Generar: function () {
 
-       maquina_b.clean(); 
-       maquina_a.modificarTorta(this.AlturaMasa,this.RadioTorta,this.OndasTorta,this.AmplitudTorta,this.TorcionesCrema);
-        
+        //Configuro torta con las especificaciones
+       maquina_a.reset();
+       maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
+    
+        //Configuro lo que cada maquina va a agregar
+       maquina_b.clean();
+       maquina_b.setTortaParametros(this.RadioTorta,this.AlturaMasa);
+       maquina_b.setCantidadDeDecoraciones(this.Decoraciones);
+
        if(this.TipoDecoracion == 'Copito' ){
-            maquina_a.tortaDeCopitos(this.Decoraciones);
             maquina_b.copos();
        }
        if(this.TipoDecoracion == 'Cereza' ){
-            maquina_a.tortaDeCereza(this.Decoraciones);
             maquina_b.cerezas();
        }
        if(this.TipoDecoracion == 'Manzana' ){
-            maquina_a.tortaDeManzanas(this.Decoraciones);
             maquina_b.manzanas();
        }
 
-       if(this.TipoContorno == 'Barra' ){
-            maquina_a.contornoBarra(this.Contornos, this.AlturaMasa);
+     /*  if(this.TipoContorno == 'Barra' ){
+            maquina_d.barras(this.Contornos, this.AlturaMasa);
        }
        if(this.TipoContorno == 'Tubo' ){
-            maquina_a.contornoTubo(this.Contornos, this.AlturaMasa);
-       }
+            maquina_d.tubos(this.Contornos, this.AlturaMasa);
+       }*/
 
     },
 };

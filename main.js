@@ -43,8 +43,12 @@ var           gl = null,
        gl.uniformMatrix4fv(u_proj_matrix, false, pMatrix);
        
        //Acciones
-       maquina_b.moverBrazo();
-       maquina_d.moverBrazo();
+       if( maquina_a.moverFase1() ){
+           
+           if( maquina_b.colocarDecoraciones() ){
+               console.log("Termine de colocar cosas en la etapa 1");
+           }
+       }
 
        //Vista
        camara.eventHandlerView();

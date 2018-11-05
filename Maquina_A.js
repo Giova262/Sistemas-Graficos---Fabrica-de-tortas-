@@ -2,6 +2,9 @@ class Maquina_A{
 
     constructor(){
 
+        this.tortaPos = 6 ;
+        this.cond = false ;
+
         //Geometrias
         var rectangulo1 = new Rectangulo(gl,2,2,3.5,[29.4/100,29.8/100,75.3/100]);
         var rectangulo2 = new Rectangulo(gl,10,2,0.25,[45.5/100,45.5/100,45.5/100]);
@@ -19,7 +22,7 @@ class Maquina_A{
                 this.caja7 = new Objeto3D(rectangulo3);
                 this.caja8 = new Objeto3D(rectangulo3);
                 //Aca crearia las tortas
-               this.torta1 = null;
+                this.torta1 = new NodoContenedor();
                     this.masa1 = null; 
                          this.crema1 = null;   
                          this.decoraciones1 = null;
@@ -172,7 +175,7 @@ class Maquina_A{
     }
    
     modificarTorta(altura,radio,ondas,amplitud,torciones){
-        this.alturaTorta = altura;
+     /*   this.alturaTorta = altura;
         this.radioTorta = radio;
         var masa = new Masa(gl,altura,radio,ondas, amplitud);
         var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[84.3/100,92.2/100,77.6/100],2*Math.PI);
@@ -222,9 +225,61 @@ class Maquina_A{
       this.torta2.trasladar([3,0,0.3]);
 
       this.crema1.trasladar([0,0,this.alturaTorta]);
-      this.crema2.trasladar([0,0,this.alturaTorta]);
+      this.crema2.trasladar([0,0,this.alturaTorta]);*/
 
                  
+    }
+
+    crearTorta(tipo,radio,altura,amplitud,ondas,torciones ){
+        this.alturaTorta = altura;
+        this.radioTorta = radio;
+
+        //--------------------------------
+        //Creo geometrias
+        var masa = new Masa(gl,altura,radio,ondas, amplitud);
+        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[84.3/100,92.2/100,77.6/100],2*Math.PI);
+        var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
+
+        //--------------------------------
+        //Limpio
+        this.torta1.borrarHijos();
+
+        //--------------------------------
+        //Creo torta + contenedores 
+        this.torta1 = new NodoContenedor();
+            this.masa1 = new Objeto3D( masa); 
+                this.decoraciones1 = new NodoContenedor();
+                this.contornos1 = new NodoContenedor();
+                this.crema1 = new Objeto3D(cremaGeometria);
+            this.plato1 = new Objeto3D(cilindro);
+        
+        //--------------------------------
+        //Agrego hijos      
+        this.caja2.agregarHijo(this.torta1);
+            this.torta1.agregarHijo(this.masa1);
+                    this.masa1.agregarHijo(this.crema1);
+                    this.masa1.agregarHijo(this.decoraciones1);
+                    this.masa1.agregarHijo(this.contornos1);
+            this.torta1.agregarHijo(this.plato1);
+
+        //--------------------------------
+        //Posicion
+        this.torta1.trasladar([6,0,0.3]);
+        this.crema1.trasladar([0,0,this.alturaTorta]);
+
+        this.cond = true ;   
+
+    }
+
+    moverFase1(){
+        if( this.tortaPos < 3.25 ){
+            this.cond = false ; 
+            return true;
+        }      
+        if(this.cond)  this.tortaPos-= 0.01;
+        
+        this.torta1.trasladar([this.tortaPos,0,0.3]);
+        return false;
     }
 
     crearCereza(){
@@ -241,6 +296,11 @@ class Maquina_A{
         var cilindro = new Cilindro(gl,0.6,0.08,[63.1/100,76.9/100,50.2/100],Math.PI);
         var manzana = new Objeto3D(cilindro);
         return manzana ;
+    }
+
+    reset(){
+        this.tortaPos = 6.0;
+        this.cond = true ;
     }
 
     dibujar(){
