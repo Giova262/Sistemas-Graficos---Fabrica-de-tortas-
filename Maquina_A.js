@@ -4,6 +4,14 @@ class Maquina_A{
 
         this.tortaPos = 6 ;
         this.cond = false ;
+        this.setCantidadDecoraciones= 0;
+        this.cantidadTotal = 0;
+        this.decoracion= null;
+        this.indice = 0;
+        this.alfaPaso = 0 ;
+        this.alfa = 0   ;
+        this.arrayDecoraciones = [];
+        this.tipoDeco=-1;
 
         //Geometrias
         var rectangulo1 = new Rectangulo(gl,2,2,3.5,[29.4/100,29.8/100,75.3/100]);
@@ -25,8 +33,8 @@ class Maquina_A{
                 this.torta1 = new NodoContenedor();
                     this.masa1 = null; 
                          this.crema1 = null;   
-                         this.decoraciones1 = null;
-                         this.contornos1 = null;
+                         this.decoraciones1 = new NodoContenedor();
+                         this.contornos1 = new NodoContenedor();
                     this.plato1 = null;
                 this.torta2 = null;
                     this.masa2 = null; 
@@ -63,6 +71,105 @@ class Maquina_A{
       
       this.maquinaA.trasladar([3,-5,0]);
       this.maquinaA.rotar(0,[0,0,1]);
+    }
+
+    setCantidadDeDecoraciones(cantidad){
+        this.setCantidadDecoraciones = cantidad;
+        this.cantidadTotal = cantidad;
+        this.alfaPaso = 360 / this.cantidadTotal ;
+        this.alfa = 0.0   ;
+
+        for(var i = 0 ; i < cantidad ; i ++){
+            var deco = this.decoracion;
+            this.arrayDecoraciones.push(deco);
+        }
+    }
+
+    manzanas(){
+        this.tipoDeco = 0 ;      /*  var cilindro = new Cilindro(gl,0.6,0.08,[63.1/100,76.9/100,50.2/100],Math.PI);
+        this.decoracion  = new Objeto3D(cilindro);
+   
+        this.decoracion.escalar([0.2,0.2,0.2]);*/
+       // this.decoracion.rotar(1.5,[1,0,0]);
+       // this.decoracion.trasladar([0,-0.32,1.6]);
+
+    }
+
+    cerezas(){
+        this.tipoDeco = 1 ;
+        /*var esfera = new Esfera(gl,40,40,0.1);
+        this.decoracion = new Objeto3D(esfera);*/
+        
+       // this.decoracion.trasladar([0,-0.32,1.6]);
+
+    }
+
+    copos(){
+        this.tipoDeco = 2 ;
+       /* var copo = new Copito(gl);
+        this.decoracion  = new Objeto3D(copo);
+        
+        this.decoracion.escalar([0.1,0.1,0.1]);*/
+      //  this.decoracion.trasladar([0,-0.32,1.5]);
+
+    }
+
+    agregarDecoracion(){
+
+        //console.log(this.setCantidadDecoraciones);
+
+        this.indice++;
+
+        console.log(this.indice );
+
+        this.decoraciones1.borrarHijos();
+        this.alfa = 0;
+
+        for(var i = 0 ; i < this.indice ; i++ ){
+
+            console.log(i );
+
+          //  var copo = this.crearCopito();
+            if(this.tipoDeco == 0){
+                var copo = this.crearManzana();
+                copo.escalar([0.15,0.15,0.15]);
+                copo.rotar(2 * Math.PI * i / this.cantidadTotal, [0, 0, 1]);
+                copo.rotar(Math.PI / 2,[1,0,0]);
+            } 
+            if(this.tipoDeco == 1) var copo = this.crearCereza();
+            if(this.tipoDeco == 2) var copo = this.crearCopito();
+
+            copo.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
+            this.alfa = this.alfa + this.alfaPaso ;
+            this.decoraciones1.agregarHijo(copo);
+
+        }
+
+        
+
+        if(this.indice == this.cantidadTotal) this.indice = this.cantidadTotal;
+
+
+      /*  if(this.setCantidadDecoraciones != 0){
+
+            console.log("entre en agregarDecoracion");
+           var alfaPaso = 360 / this.cantidadTotal ;
+            var alfa = 0.0   ;
+            var deco = this.arrayDecoraciones.pop();
+
+            console.log(0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)));
+            console.log(0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)));
+            deco.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
+           // this.decoracion.rotar(2 * Math.PI * this.indice / this.cantidadTotal + Math.PI / 2, [0, 0, 1]);
+            //this.decoracion.trasladar([0.6*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
+            this.alfa = this.alfa + this.alfaPaso ;
+            this.decoraciones1.agregarHijo(deco);
+
+            this.setCantidadDecoraciones--;
+            this.indice ++ ;
+        }*/
+      //  else  this.indice = 0 ;
+
     }
 
     tortaDeCereza(cantidad){
@@ -290,6 +397,7 @@ class Maquina_A{
     crearCopito(){
         var copo = new Copito(gl);
         var  copitoTemp= new Objeto3D(copo);
+        copitoTemp.escalar([0.1,0.1,0.1]);
         return copitoTemp ;
     }
     crearManzana(){
@@ -301,6 +409,8 @@ class Maquina_A{
     reset(){
         this.tortaPos = 6.0;
         this.cond = true ;
+        this.decoraciones1.borrarHijos();
+        this.indice=0;
     }
 
     dibujar(){

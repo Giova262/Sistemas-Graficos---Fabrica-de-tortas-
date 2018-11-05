@@ -152,8 +152,7 @@ class Maquina_B{
     agarrarDecoracion(){
        
         if(this.brazoEscZ > 2.7 ) {
-            this.cantidadDecoraciones-= 1; 
-
+         
             this.brazoEscZ =2.7;   
             this.brazoPosZ -=0.005;
              
@@ -193,6 +192,9 @@ class Maquina_B{
            
             //Aca pasar la decoracion a la torta
             this.decoracionTemporal.borrarHijos(this.decoracion);
+            //Llamar metodo para agregar decoraciones
+            maquina_a.agregarDecoracion();
+          
 
             this.brazoEscZ =((-1.75*this.tortaAltura)+3.275 );   
             this.brazoPosZ -=0.005;
@@ -204,6 +206,8 @@ class Maquina_B{
            
            this.brazoEscZ = 1.0;
            this.brazoPosZ +=0.005;
+
+           this.cantidadDecoraciones-= 1;
 
            this.cond3 = true;
            return false;

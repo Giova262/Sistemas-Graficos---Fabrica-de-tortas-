@@ -17,24 +17,34 @@ var obj = {
     //Botones 
     Generar: function () {
 
-        //Configuro torta con las especificaciones
+ /*       //Configuro torta con las especificaciones
        maquina_a.reset();
+       maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
        maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
-    
+   */ 
         //Configuro lo que cada maquina va a agregar
        maquina_b.clean();
        maquina_b.setTortaParametros(this.RadioTorta,this.AlturaMasa);
        maquina_b.setCantidadDeDecoraciones(this.Decoraciones);
 
        if(this.TipoDecoracion == 'Copito' ){
+            maquina_a.copos();
             maquina_b.copos();
        }
        if(this.TipoDecoracion == 'Cereza' ){
+            maquina_a.cerezas();
             maquina_b.cerezas();
        }
        if(this.TipoDecoracion == 'Manzana' ){
+            maquina_a.manzanas();
             maquina_b.manzanas();
        }
+
+        //Configuro torta con las especificaciones
+         maquina_a.reset();
+         maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
+         maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
+            
 
      /*  if(this.TipoContorno == 'Barra' ){
             maquina_d.barras(this.Contornos, this.AlturaMasa);
