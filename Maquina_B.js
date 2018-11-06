@@ -4,30 +4,17 @@ class Maquina_B{
 
         //Variables utiles
         this.brazoEscZ = 1;
-        this.cond = 0;
         this.cond2 = true;
         this.cond3 = 0;
         this.cantidadDecoraciones = 0;
         this.decoracion = null ;
         this.tortaRadio = null;
         this.tortaAltura= null;
-        this.posicionActual=null;
-        this.destinoX = null ;
-        this.destinoY = null ;
-        this.fuentX = 0 ;
-        this.fuentY = -1.5 ;
-        this.index = 0;
-        this.ida = true ;
         this.cantidadTotal = 0;
-        this.contador=0;
-        this.enX = false;
-        this.enY = false;
         this.buscar = false ;
 
         //--------------------Variables nuevas-------------------
         this.etapa = 1;
-        this.centroTortaX = 0;
-        this.centroTortaY = -1.5;
         this.alfaPaso = 0 ;
         this.alfa = 0 ;
         this.brazoPosX = 0;
@@ -200,60 +187,6 @@ class Maquina_B{
         return origen;
     }
 
-   /* moverBrazo(){
-
-        //Llega al fondo
-        if( this.brazoPosY > 0 ){
-       
-            if( this.agarrarDecoracion() ){
-                this.cond = 2; 
-            } else  this.cond = 1 ;
-
-         }  
-
-        //Llega al extremo 
-        if( this.brazoPosY < -1.5 || this.etapaPosicionar ){ 
-          
-            //Me esta tirando true todo el tiempo luego de llegar a la posicion correcta
-            if( this.posicionarBrazo() ){
-                this.etapaPosicionar = true ;
-                this.cond = 2; 
-            }
-            else {
-
-                if( this.soltarDecoracion() ){
-                   
-                    this.cond = 2;
-                    
-                }else {
-                    
-                    if( this.posicionarBrazo() ){
-                        
-                        this.cond = 2;
-                        
-                    } else {
-                        
-                        this.etapaPosicionar = false ;
-                        this.cond = 0 ;
-                    } 
-                    
-                } 
-                 
-            } 
-  
-        }  
-
-        //Movimiento para un lado u otro  
-        if(this.cond == 0){   
-            this.brazoPosY+= 0.01;
-        } 
-        else if(this.cond == 1){
-            this.brazoPosY-= 0.01;
-        }
-        //Muevo el brazo
-        this.maquinaC.trasladar([this.brazoPosX,this.brazoPosY,this.brazoPosZ]);
-    }*/
-
     agarrarDecoracion(){
        
         if(this.brazoEscZ > 2.7 ) {     
@@ -275,7 +208,7 @@ class Maquina_B{
             this.tubo.escalar([1,1,this.brazoEscZ]);
         } 
         else {
-            //Aca tengo q poner la decoracion en el brazo
+            
             this.decoracionTemporal.agregarHijo(this.decoracion);
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
@@ -288,9 +221,7 @@ class Maquina_B{
     soltarDecoracion(){
 
         if(this.brazoEscZ > ((-1.75*this.tortaAltura)+3.275 ) ) {     
-            //Aca pasar la decoracion a la torta
             this.decoracionTemporal.borrarHijos(this.decoracion);
-            //Llamar metodo para agregar decoraciones
             maquina_a.agregarDecoracion();  
             this.brazoEscZ =((-1.75*this.tortaAltura)+3.275 );   
             this.brazoPosZ -=0.005;       
@@ -328,7 +259,6 @@ class Maquina_B{
     clean(){
         this.caja2.borrarHijos();
         this.alfa=0;
-        this.cond = 0;
         this.cond2 = true;
         this.cond3 = 0;
     }
