@@ -46,7 +46,10 @@ var           gl = null,
        if( maquina_a.moverFase1() ){
            
            if( maquina_b.colocarDecoraciones() ){
-               console.log("Termine de colocar cosas en la etapa 1");
+
+                if( maquina_a.moverFase2() ){
+                console.log("Termine de colocar cosas en la etapa 2");
+                }
            }
        }
 

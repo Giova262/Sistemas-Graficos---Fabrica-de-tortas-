@@ -17,12 +17,6 @@ var obj = {
     //Botones 
     Generar: function () {
 
- /*       //Configuro torta con las especificaciones
-       maquina_a.reset();
-       maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
-       maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
-   */ 
-        //Configuro lo que cada maquina va a agregar
        maquina_b.clean();
        maquina_b.setTortaParametros(this.RadioTorta,this.AlturaMasa);
        maquina_b.setCantidadDeDecoraciones(this.Decoraciones);

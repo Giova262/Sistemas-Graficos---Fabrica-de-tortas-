@@ -274,11 +274,20 @@ class Maquina_A{
 
     moverFase1(){
         if( this.tortaPos < 3.25 ){
-            this.cond = false ; 
+            this.cond = true ; 
             return true;
         }      
         if(this.cond)  this.tortaPos-= 0.01;
         
+        this.torta1.trasladar([this.tortaPos,0,0.3]);
+        return false;
+    }
+
+    moverFase2(){
+        if( this.tortaPos < -1.0 ){
+            return true;
+        }          
+        this.tortaPos-= 0.01;  
         this.torta1.trasladar([this.tortaPos,0,0.3]);
         return false;
     }
