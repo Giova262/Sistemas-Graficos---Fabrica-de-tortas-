@@ -3,15 +3,12 @@ class Maquina_D{
     constructor(){
 
         //Variables utiles
-        this.cond = true ;
-        this.cantidadContornos = 0 ;
-        this.cantidadTotal=0;
+        this.contornosContador = 0 ;
+        this.contornosTotal=0;
         this.tortaRadio = 0;
         this.tortaAltura= 0;
-        this.alfaPaso = 0;
         this.etapa = 1 ;
-        this.decoracion = null ;
-
+        this.contorno = null ;
         this.posMaquinaX = 0 ;
         this.posMaquinaY = 1.5 ;
         this.posMaquinaZ = 1.4 ;
@@ -27,14 +24,14 @@ class Maquina_D{
                 this.maquinaE = new NodoContenedor();
                         this.caja2 = new Objeto3D(rectangulo2);
                         this.caja3 = new Objeto3D(rectangulo3);
-                        this.cont = new NodoContenedor();
+                        this.contornos = new NodoContenedor();
             
         //Agrego hijos a algun objeto
         this.maquinaD.agregarHijo(this.caja1);
         this.maquinaD.agregarHijo(this.maquinaE);
                 this.maquinaE.agregarHijo(this.caja2);
                 this.maquinaE.agregarHijo(this.caja3);
-                this.maquinaE.agregarHijo(this.cont);
+                this.maquinaE.agregarHijo(this.contornos);
             
         //Configuro posiciones
         this.configurarEscena();
@@ -45,8 +42,8 @@ class Maquina_D{
         this.caja2.trasladar([0,0,2]);
         this.caja3.trasladar([0,0.05 ,2.8]);
 
-        this.cont.trasladar([0,0.2,2.9]);
-        this.cont.rotar(1.58,[1,0,0]);
+        this.contornos.trasladar([0,0.2,2.9]);
+        this.contornos.rotar(1.58,[1,0,0]);
 
         this.maquinaE.trasladar([this.posMaquinaX,this.posMaquinaY,this.posMaquinaZ]);
         this.maquinaE.escalar([0.8,0.8,0.8]);
@@ -56,27 +53,26 @@ class Maquina_D{
     }
 
     setCantidadDeContornos(cantidad){
-        this.cantidadContornos = cantidad;
-        this.cantidadTotal = cantidad;
-        this.alfaPaso = 360 / this.cantidadTotal ;
+        this.contornosContador = cantidad;
+        this.contornosTotal = cantidad;
     }
 
     tubos(){
         var bastonGeometria = new Baston(gl, this.tortaAltura*0.8, 0.05);
-        this.decoracion = new Objeto3D(bastonGeometria);
-        this.cont.agregarHijo(this.decoracion);
+        this.contorno = new Objeto3D(bastonGeometria);
+        this.contornos.agregarHijo(this.contorno);
     }
 
     barras(){
         var barraGeometria = new Rectangulo(gl,0.05,0.02,this.tortaAltura * 0.8,[100.0/100,50.6/100,100.0/100]); 
-        this.decoracion = new Objeto3D(barraGeometria);
-        this.cont.agregarHijo(this.decoracion);
+        this.contorno = new Objeto3D(barraGeometria);
+        this.contornos.agregarHijo(this.contorno);
     }
 
     colocarContornos(){
 
      /**Chequeo de cantidad de decoraciones faltantes */
-        if( this.cantidadContornos == 0 ) return true;
+        if( this.contornosContador == 0 ) return true;
         
     /**Procesamiento */
         if(this.etapa==0){ 
@@ -86,15 +82,15 @@ class Maquina_D{
         if(this.etapa==1){
             this.posMaquinaY =  this.moverAposicion(this.posMaquinaY,1.6);   
             if(this.posMaquinaY== 1.6){
-                 this.cont.agregarHijo(this.decoracion);
+                 this.contornos.agregarHijo(this.contorno);
                  if(  maquina_a.rotarTorta1() ) this.etapa = 0 ;
             }
         }
         if(this.etapa==2){
             /**Soltar y mandarlo a la torta */       
-            this.cont.borrarHijos();
+            this.contornos.borrarHijos();
             maquina_a.colocarContorno();
-            this.cantidadContornos--;
+            this.contornosContador--;
             this.etapa = 1 ;      
         }
          
@@ -126,6 +122,6 @@ class Maquina_D{
     }
 
     clean(){
-        this.cont.borrarHijos();   
+        this.contornos.borrarHijos();   
     }
 }
