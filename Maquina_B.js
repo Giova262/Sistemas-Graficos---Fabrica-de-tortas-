@@ -3,21 +3,41 @@ class Maquina_B{
     constructor(){
 
         //Variables utiles
-        this.brazoPos = -1.5;
-        this.brazoPosZ = 2.63;
         this.brazoEscZ = 1;
         this.cond = 0;
         this.cond2 = true;
-        this.cond3 = true;
+        this.cond3 = 0;
         this.cantidadDecoraciones = 0;
         this.decoracion = null ;
         this.tortaRadio = null;
         this.tortaAltura= null;
+        this.posicionActual=null;
+        this.destinoX = null ;
+        this.destinoY = null ;
+        this.fuentX = 0 ;
+        this.fuentY = -1.5 ;
+        this.index = 0;
+        this.ida = true ;
+        this.cantidadTotal = 0;
+        this.contador=0;
+        this.enX = false;
+        this.enY = false;
+        this.buscar = false ;
+
+        //--------------------Variables nuevas-------------------
+        this.etapa = 1;
+        this.centroTortaX = 0;
+        this.centroTortaY = -1.5;
+        this.alfaPaso = 0 ;
+        this.alfa = 0 ;
+        this.brazoPosX = 0;
+        this.brazoPosY = -1.5;
+        this.brazoPosZ = 2.63;
 
         //Geometrias
         var rectangulo1 = new Rectangulo(gl,1.4,0.5,1.5,[58.8/100,32.9/100,82.4/100]);
         var rectangulo2 = new Rectangulo(gl,1.4,0.2,3.5,[73.7/100,28.2/100,81.2/100]);
-        var rectangulo3 = new Rectangulo(gl,1.4,0.255,2,[89.0/100,65.9/100,43.1/100]);
+        var rectangulo3 = new Rectangulo(gl,1.4,0.255,3,[89.0/100,65.9/100,43.1/100]);
         var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[32.5/100,58.4/100,82.0/100]);
         var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[74.1/100,87.8/100,85.5/100]);
         var cilindro = new Cilindro(gl,0.08,0.5,[74.1/100,87.8/100,85.5/100],2*Math.PI);
@@ -61,8 +81,8 @@ class Maquina_B{
 
       this.decoracionTemporal.trasladar([0,0.32,-1.75]);
  
-      this.maquinaC.rotar(1.5,[0,0,1]); 
-      this.maquinaC.trasladar([0,this.brazoPos,this.brazoPosZ]); 
+      this.maquinaC.rotar(1.5,[0,0,1]);  
+      this.maquinaC.trasladar([this.brazoPosX,this.brazoPosY,this.brazoPosZ]);
         this.caja4.rotar(1.55,[1,0,0]);
         this.caja4.trasladar([0,0.25,0]);
         this.caja5.trasladar([0,0.1,-0.18]);
@@ -72,6 +92,8 @@ class Maquina_B{
 
     setCantidadDeDecoraciones(cantidad){
         this.cantidadDecoraciones = cantidad;
+        this.cantidadTotal = cantidad;
+        this.alfaPaso = 360 / this.cantidadTotal ;
     }
 
     manzanas(){
@@ -104,24 +126,84 @@ class Maquina_B{
         this.caja2.agregarHijo(this.decoracion );
     }
 
+    dibujar(){
+        this.maquinaB.dibujar();     
+    }
+
     colocarDecoraciones(){
-  
-        //Con esto controlo la cantidad de etapas/ciclos
-        if( this.cantidadDecoraciones == 0 ){
-            return true;
+
+        /**Chequeo de cantidad de decoraciones faltantes */
+        if( this.cantidadDecoraciones == 0 ) return true;
+        
+        /**Procesamiento */
+        if(this.etapa==0){ 
+            this.brazoPosX = this.moverAposicion(this.brazoPosX,0);
+            this.brazoPosY = this.moverAposicion(this.brazoPosY,-1.5);
+            if(this.brazoPosX == 0 && this.brazoPosY == -1.5 ){
+                if( this.buscar )this.etapa = 1;
+                else this.etapa = 4 ;
+            }
         }
-        this.moverBrazo();
+        if(this.etapa==1){
+            this.brazoPosX = this.moverAposicion(this.brazoPosX,0);
+            this.brazoPosY = this.moverAposicion(this.brazoPosY,0);
+            if(this.brazoPosX == 0 && this.brazoPosY == 0 ){
+                this.etapa = 2;
+            }
+        }
+        if(this.etapa==2){
+            if( !this.agarrarDecoracion() ){ 
+                this.buscar = false;
+                this.etapa = 0 ;
+             }
+        }
+        if(this.etapa==3){
+           if( !this.soltarDecoracion() ){ 
+               this.buscar = true;
+               this.etapa = 0 ;
+            }
+        }
+        if(this.etapa==4){
+            this.destinoX=0.6*this.tortaRadio*Math.cos(this.alfa*((Math.PI)/180));
+            this.destinoY=0.6*this.tortaRadio*Math.sin(this.alfa*((Math.PI)/180)) -1.5;
+
+            this.brazoPosX = this.moverAposicion(this.brazoPosX,this.destinoX);
+            this.brazoPosY = this.moverAposicion(this.brazoPosY,this.destinoY);
+
+            if(this.brazoPosX == this.destinoX && this.brazoPosY == this.destinoY ){
+                this.alfa = this.alfa + this.alfaPaso ;
+                this.etapa = 3 ;
+            }
+       
+        }
+
+        /**Traslado despues del procesamiento */
+        this.maquinaC.trasladar([this.brazoPosX,this.brazoPosY,this.brazoPosZ]);
+
         return false;
     }
 
-    dibujar(){
-      this.maquinaB.dibujar();     
+    moverAposicion( origen , destino ){
+
+        if(origen < destino){
+            origen += 0.005 ;      
+            if( origen >= destino ){
+                origen = destino;
+            }
+        }else if(origen > destino){
+            origen-= 0.005 ;
+            if( origen <= destino ){
+                 origen = destino;
+            }
+        }
+
+        return origen;
     }
 
-    moverBrazo(){
+   /* moverBrazo(){
 
         //Llega al fondo
-        if( this.brazoPos > 0 ){
+        if( this.brazoPosY > 0 ){
        
             if( this.agarrarDecoracion() ){
                 this.cond = 2; 
@@ -130,32 +212,53 @@ class Maquina_B{
          }  
 
         //Llega al extremo 
-        if( this.brazoPos < -1.5 ){ 
-
-            if( this.soltarDecoracion() ){
+        if( this.brazoPosY < -1.5 || this.etapaPosicionar ){ 
+          
+            //Me esta tirando true todo el tiempo luego de llegar a la posicion correcta
+            if( this.posicionarBrazo() ){
+                this.etapaPosicionar = true ;
                 this.cond = 2; 
-            } else  this.cond = 0 ;
- 
+            }
+            else {
+
+                if( this.soltarDecoracion() ){
+                   
+                    this.cond = 2;
+                    
+                }else {
+                    
+                    if( this.posicionarBrazo() ){
+                        
+                        this.cond = 2;
+                        
+                    } else {
+                        
+                        this.etapaPosicionar = false ;
+                        this.cond = 0 ;
+                    } 
+                    
+                } 
+                 
+            } 
+  
         }  
 
         //Movimiento para un lado u otro  
         if(this.cond == 0){   
-            this.brazoPos+= 0.01;
+            this.brazoPosY+= 0.01;
         } 
         else if(this.cond == 1){
-            this.brazoPos-= 0.01;
+            this.brazoPosY-= 0.01;
         }
-
-        this.maquinaC.trasladar([0,this.brazoPos,this.brazoPosZ]);
-    }
+        //Muevo el brazo
+        this.maquinaC.trasladar([this.brazoPosX,this.brazoPosY,this.brazoPosZ]);
+    }*/
 
     agarrarDecoracion(){
        
-        if(this.brazoEscZ > 2.7 ) {
-         
+        if(this.brazoEscZ > 2.7 ) {     
             this.brazoEscZ =2.7;   
-            this.brazoPosZ -=0.005;
-             
+            this.brazoPosZ -=0.005;       
             this.cond2 = false;
         }
 
@@ -166,60 +269,49 @@ class Maquina_B{
            return false;
         }
 
-
         if(this.cond2 ){ 
             this.brazoEscZ +=0.01;   
             this.brazoPosZ-=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
         } 
         else {
-
             //Aca tengo q poner la decoracion en el brazo
             this.decoracionTemporal.agregarHijo(this.decoracion);
-
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
         }
         
-        return true;
-        
+        return true;     
     }
 
     soltarDecoracion(){
 
-        if(this.brazoEscZ > ((-1.75*this.tortaAltura)+3.275 ) ) {
-           
+        if(this.brazoEscZ > ((-1.75*this.tortaAltura)+3.275 ) ) {     
             //Aca pasar la decoracion a la torta
             this.decoracionTemporal.borrarHijos(this.decoracion);
             //Llamar metodo para agregar decoraciones
-            maquina_a.agregarDecoracion();
-          
-
+            maquina_a.agregarDecoracion();  
             this.brazoEscZ =((-1.75*this.tortaAltura)+3.275 );   
-            this.brazoPosZ -=0.005;
-             
-            this.cond3 = false;
+            this.brazoPosZ -=0.005;       
+            this.cond3 = 1;
         }
 
         if(this.brazoEscZ < 1.0 ) {
            
            this.brazoEscZ = 1.0;
            this.brazoPosZ +=0.005;
-
            this.cantidadDecoraciones-= 1;
-
-           this.cond3 = true;
+           this.cond3 = 0;
            return false;
         }
 
-
-        if(this.cond3 ){   
+        if(this.cond3 == 0 ){   
             this.brazoEscZ +=0.01;   
             this.brazoPosZ-=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
         } 
-        else {
+        else if( this.cond3 == 1 ){
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
@@ -235,8 +327,9 @@ class Maquina_B{
 
     clean(){
         this.caja2.borrarHijos();
+        this.alfa=0;
         this.cond = 0;
         this.cond2 = true;
-        this.cond3 = true;
+        this.cond3 = 0;
     }
 }

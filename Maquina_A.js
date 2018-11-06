@@ -86,50 +86,25 @@ class Maquina_A{
     }
 
     manzanas(){
-        this.tipoDeco = 0 ;      /*  var cilindro = new Cilindro(gl,0.6,0.08,[63.1/100,76.9/100,50.2/100],Math.PI);
-        this.decoracion  = new Objeto3D(cilindro);
-   
-        this.decoracion.escalar([0.2,0.2,0.2]);*/
-       // this.decoracion.rotar(1.5,[1,0,0]);
-       // this.decoracion.trasladar([0,-0.32,1.6]);
-
+        this.tipoDeco = 0 ;    
     }
 
     cerezas(){
         this.tipoDeco = 1 ;
-        /*var esfera = new Esfera(gl,40,40,0.1);
-        this.decoracion = new Objeto3D(esfera);*/
-        
-       // this.decoracion.trasladar([0,-0.32,1.6]);
-
     }
 
     copos(){
         this.tipoDeco = 2 ;
-       /* var copo = new Copito(gl);
-        this.decoracion  = new Objeto3D(copo);
-        
-        this.decoracion.escalar([0.1,0.1,0.1]);*/
-      //  this.decoracion.trasladar([0,-0.32,1.5]);
-
     }
 
     agregarDecoracion(){
 
-        //console.log(this.setCantidadDecoraciones);
-
         this.indice++;
-
-        console.log(this.indice );
-
         this.decoraciones1.borrarHijos();
         this.alfa = 0;
 
         for(var i = 0 ; i < this.indice ; i++ ){
 
-            console.log(i );
-
-          //  var copo = this.crearCopito();
             if(this.tipoDeco == 0){
                 var copo = this.crearManzana();
                 copo.escalar([0.15,0.15,0.15]);
@@ -142,33 +117,9 @@ class Maquina_A{
             copo.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
             this.alfa = this.alfa + this.alfaPaso ;
             this.decoraciones1.agregarHijo(copo);
-
         }
 
-        
-
         if(this.indice == this.cantidadTotal) this.indice = this.cantidadTotal;
-
-
-      /*  if(this.setCantidadDecoraciones != 0){
-
-            console.log("entre en agregarDecoracion");
-           var alfaPaso = 360 / this.cantidadTotal ;
-            var alfa = 0.0   ;
-            var deco = this.arrayDecoraciones.pop();
-
-            console.log(0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)));
-            console.log(0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)));
-            deco.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
-           // this.decoracion.rotar(2 * Math.PI * this.indice / this.cantidadTotal + Math.PI / 2, [0, 0, 1]);
-            //this.decoracion.trasladar([0.6*this.radioTorta*Math.cos(alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(alfa*((Math.PI)/180)),this.alturaTorta]);
-            this.alfa = this.alfa + this.alfaPaso ;
-            this.decoraciones1.agregarHijo(deco);
-
-            this.setCantidadDecoraciones--;
-            this.indice ++ ;
-        }*/
-      //  else  this.indice = 0 ;
 
     }
 
@@ -275,68 +226,11 @@ class Maquina_A{
             this.contornos1.agregarHijo(barra);
 
             //para esta tiene q ser de a poco
-            this.contornos2.agregarHijo(barra);
-            
+            this.contornos2.agregarHijo(barra);        
         }
 
     }
    
-    modificarTorta(altura,radio,ondas,amplitud,torciones){
-     /*   this.alturaTorta = altura;
-        this.radioTorta = radio;
-        var masa = new Masa(gl,altura,radio,ondas, amplitud);
-        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[84.3/100,92.2/100,77.6/100],2*Math.PI);
-        var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
-
-        this.caja2.borrarHijos();
-
-        //--------------------------------
-        //Creo torta + contenedores 
-        this.torta1 = new NodoContenedor();
-            this.masa1 = new Objeto3D( masa); 
-                this.crema1 = new Objeto3D(cremaGeometria);
-                this.decoraciones1 = new NodoContenedor();
-                this.contornos1 = new NodoContenedor();
-                this.plato1 = new Objeto3D(cilindro);
-        this.torta2 = new NodoContenedor();
-            this.masa2 = new Objeto3D( masa); 
-                this.crema2 = new Objeto3D(cremaGeometria);
-                this.decoraciones2 = new NodoContenedor();
-                this.contornos2 = new NodoContenedor();
-                this.plato2 = new Objeto3D(cilindro);
-
-        //--------------------------------
-        //Agrego hijos      
-        this.caja2.agregarHijo(this.caja3);
-        this.caja2.agregarHijo(this.caja4);
-        this.caja2.agregarHijo(this.caja5);
-        this.caja2.agregarHijo(this.caja6);
-        this.caja2.agregarHijo(this.caja7);
-        this.caja2.agregarHijo(this.caja8);
-        this.caja2.agregarHijo(this.torta1);
-                this.torta1.agregarHijo(this.masa1);
-                        this.masa1.agregarHijo(this.crema1);
-                        this.masa1.agregarHijo(this.decoraciones1);
-                        this.masa1.agregarHijo(this.contornos1);
-                this.torta1.agregarHijo(this.plato1);
-        this.caja2.agregarHijo(this.torta2);
-                 this.torta2.agregarHijo(this.masa2);
-                        this.masa2.agregarHijo(this.crema2);
-                        this.masa2.agregarHijo(this.decoraciones2);
-                        this.masa2.agregarHijo(this.contornos2);
-                 this.torta2.agregarHijo(this.plato2);
-
-        //--------------------------------
-        //Configuro    
-      this.torta1.trasladar([-1,0,0.3]);
-      this.torta2.trasladar([3,0,0.3]);
-
-      this.crema1.trasladar([0,0,this.alturaTorta]);
-      this.crema2.trasladar([0,0,this.alturaTorta]);*/
-
-                 
-    }
-
     crearTorta(tipo,radio,altura,amplitud,ondas,torciones ){
         this.alturaTorta = altura;
         this.radioTorta = radio;
