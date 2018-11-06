@@ -10,7 +10,6 @@ class Maquina_D{
         this.tortaAltura= 0;
         this.alfaPaso = 0;
         this.etapa = 1 ;
-        this.tipoDeco = -1 ;
         this.decoracion = null ;
 
         this.posMaquinaX = 0 ;
@@ -81,37 +80,24 @@ class Maquina_D{
         
     /**Procesamiento */
         if(this.etapa==0){ 
-
             this.posMaquinaY =  this.moverAposicion(this.posMaquinaY,1.3);
             if(this.posMaquinaY== 1.3) this.etapa = 2; 
         }
         if(this.etapa==1){
             this.posMaquinaY =  this.moverAposicion(this.posMaquinaY,1.6);   
             if(this.posMaquinaY== 1.6){
-                 //this.etapa = 0 ;
                  this.cont.agregarHijo(this.decoracion);
                  if(  maquina_a.rotarTorta1() ) this.etapa = 0 ;
             }
         }
         if(this.etapa==2){
-            /**Soltar y mandarlo a la torta */
-          
-             this.cont.borrarHijos();
-             maquina_a.rotarTorta2()
-               
-           // if(  maquina_a.rotarTorta1() ) {  
-                maquina_a.colocarContorno();
-                this.cantidadContornos--;
-                this.etapa = 1 ;     
-           // }
+            /**Soltar y mandarlo a la torta */       
+            this.cont.borrarHijos();
+            maquina_a.colocarContorno();
+            this.cantidadContornos--;
+            this.etapa = 1 ;      
         }
-        if(this.etapa==3){
-                    
-        }
-        if(this.etapa==4){
-                                
-        }
-        
+         
         /**Traslado despues del procesamiento */
         this.maquinaE.trasladar([this.posMaquinaX,this.posMaquinaY,this.posMaquinaZ]);
         
@@ -119,38 +105,19 @@ class Maquina_D{
     }
 
     moverAposicion( origen , destino ){
-
         if(origen < destino){
             origen += 0.005 ;      
-            if( origen >= destino ){
-                origen = destino;
-            }
+            if( origen >= destino ) origen = destino;
+            
         }else if(origen > destino){
             origen-= 0.005 ;
-            if( origen <= destino ){
-                 origen = destino;
-            }
+            if( origen <= destino ) origen = destino;         
         }
-
         return origen;
     }
 
     dibujar(){
       this.maquinaD.dibujar();     
-    }
-
-    moverBrazo(){
-        if( this.brazoPos > 1.6 ){ this.cond = false  }  
-        if( this.brazoPos < 1.3 ){ this.cond = true  }  
-
-        if(this.cond){   
-            this.brazoPos+= 0.01;
-        } 
-        else {
-            this.brazoPos-= 0.01;
-        }
-
-        this.maquinaE.trasladar([0,this.brazoPos,1.4]);
     }
 
     setTortaParametros(radio,altura){
@@ -159,7 +126,6 @@ class Maquina_D{
     }
 
     clean(){
-        this.cont.borrarHijos();
-     
+        this.cont.borrarHijos();   
     }
 }

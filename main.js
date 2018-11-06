@@ -8,6 +8,8 @@ var           gl = null,
         maquina_b = null;
         maquina_d = null;
        superficie = null;
+        idInterval= null;
+            fase = 1;
 
                 t = 0.0; 
 
@@ -19,12 +21,11 @@ var           gl = null,
         initGL();
         initShaders();
         SceneObject();     
-        setInterval(drawScene, 10);           
+        idInterval = setInterval(drawScene, 10);           
      }
               
 //Agregamos objetos a la escena
-    function SceneObject(){   
-        
+    function SceneObject(){           
         camara = new Camara();
         superficie  = new Superficie();
         maquina_a = new Maquina_A();   
@@ -43,22 +44,30 @@ var           gl = null,
        gl.uniformMatrix4fv(u_proj_matrix, false, pMatrix);
        
        //Acciones
-       if( maquina_a.moverFase1() ){
-           
-           if( maquina_b.colocarDecoraciones() ){
-
-                if( maquina_a.moverFase2() ){
-                    
-                    if( maquina_d.colocarContornos() ){
-                        
-                       if( maquina_a.moverFaseFinal() ){
-                           
-                            console.log("Fin de animacion");
-                        }
-                    }
-                }
-           }
-       }
+        switch(fase){
+            case 1 :{
+                if( maquina_a.moverTorta(3.25) ) fase = 2 ;
+                break;
+            }
+            case 2 :{
+                if( maquina_b.colocarDecoraciones() ) fase = 3 ;
+                break;
+            }
+            case 3 :{
+                if( maquina_a.moverTorta(-1.0) ) fase = 4 ;
+                break;
+            }
+            case 4 :{
+                if( maquina_d.colocarContornos() ) fase = 5 ;
+                break;
+            }
+            case 5 :{
+                if( maquina_a.moverTorta(-4.0) ){
+                    console.log("Torta Terminada") ;
+                } 
+                break;
+            }
+        }
 
        //Vista
        camara.eventHandlerView();

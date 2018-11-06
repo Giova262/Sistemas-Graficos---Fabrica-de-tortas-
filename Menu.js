@@ -16,6 +16,7 @@ var obj = {
 
     //Botones 
     Generar: function () {
+       fase = 1;
 
        maquina_b.clean();
        maquina_b.setTortaParametros(this.RadioTorta,this.AlturaMasa);
@@ -49,20 +50,10 @@ var obj = {
             maquina_d.tubos();
        }
 
-        //Configuro torta con las especificaciones
-         maquina_a.reset();
-         maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
-         maquina_a.setCantidadDeContornos(this.Contornos);
-         maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
-            
-
-    /*   if(this.TipoContorno == 'Barra' ){
-            maquina_d.barras(this.Contornos, this.AlturaMasa);
-       }
-       if(this.TipoContorno == 'Tubo' ){
-            maquina_d.tubos(this.Contornos, this.AlturaMasa);
-       }*/
-
+       maquina_a.reset();
+       maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
+       maquina_a.setCantidadDeContornos(this.Contornos);
+       maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
     },
 };
 

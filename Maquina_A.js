@@ -2,36 +2,25 @@ class Maquina_A{
 
     constructor(){
 
+        //Variables Utiles
         this.tortaPos = 6 ;
-        this.cond = false ;
-        this.tortaRotacion= 1.5708 ;
         this.rotacionPaso= 0;
         this.rotarTorta=0;
-
         this.setCantidadDecoraciones= 0;
         this.cantidadTotal = 0;
-
         this.setCantidadContornos= 0;
         this.cantidadTotalCont = 0;
-
         this.decoracion= null;
         this.contorno = null ;
         this.indice = 0;
         this.indice2 = 0;
-
         this.alfaPaso = 0 ;
         this.alfa = 0   ;
-
         this.alfaPaso2 = 0 ;
         this.alfa2 = 0   ;
-
-        this.arrayDecoraciones = [];
         this.tipoDeco=-1;
         this.tipoContor=-1;
-
         this.anguloAct=0;
-        this.anguloDest = 0 ;
-
         this.primera=true;
 
         //Geometrias
@@ -57,14 +46,7 @@ class Maquina_A{
                          this.decoraciones1 = new NodoContenedor();
                          this.contornos1 = new NodoContenedor();
                     this.plato1 = null;
-                this.torta2 = null;
-                    this.masa2 = null; 
-                         this.crema2 = null;
-                         this.decoraciones2 =null;
-                         this.contornos2 = null;
-                    this.plato2 = null;
-               
-
+                          
         //Agrego hijos a algun objeto
         this.maquinaA.agregarHijo(this.caja1);
         this.maquinaA.agregarHijo(this.caja2);
@@ -81,7 +63,6 @@ class Maquina_A{
     }
 
     configurarEscena(){
-
       this.caja2.trasladar([-6,0,1]);
       this.caja3.trasladar([-3.5,0,-1]);
       this.caja4.trasladar([-2,0,-1]);
@@ -98,12 +79,7 @@ class Maquina_A{
         this.setCantidadDecoraciones = cantidad;
         this.cantidadTotal = cantidad;
         this.alfaPaso = 360 / this.cantidadTotal ;
-        this.alfa = 0.0   ;
-
-        for(var i = 0 ; i < cantidad ; i ++){
-            var deco = this.decoracion;
-            this.arrayDecoraciones.push(deco);
-        }
+        this.alfa = 0.0 ;
     }
 
     setCantidadDeContornos(cantidad){
@@ -114,52 +90,32 @@ class Maquina_A{
         this.alfa2 = 0.0   ;
     }
 
-    barras(){
-        this.tipoContor = 0 ;
-    }
+    barras()  { this.tipoContor = 0 ; }
 
-    tubos(){
-        this.tipoContor = 1 ;
-    }
+    tubos()   { this.tipoContor = 1 ; }
 
-    manzanas(){
-        this.tipoDeco = 0 ;    
-    }
+    manzanas(){ this.tipoDeco = 0 ;   }
 
-    cerezas(){
-        this.tipoDeco = 1 ;
-    }
+    cerezas() { this.tipoDeco = 1 ;   }
 
-    copos(){
-        this.tipoDeco = 2 ;
-    }
+    copos()   { this.tipoDeco = 2 ;   }
 
     moverAposicion( origen , destino ){
-
         if(origen < destino){
             origen += 0.005 ;      
-            if( origen >= destino ){
-                origen = destino;
-            }
+            if( origen >= destino ) origen = destino;
+            
         }else if(origen > destino){
             origen-= 0.005 ;
-            if( origen <= destino ){
-                 origen = destino;
-            }
+            if( origen <= destino ) origen = destino;
+     
         }
-
         return origen;
     }
 
-    rotarTorta2(){
-        
-    }
-
-    rotarTorta1(){
-      
+    rotarTorta1(){  
        this.torta1.rotar(-this.rotarTorta,[0,0,1]);
        
-
        if(this.primera) {
            this.primera = false;
            return true;
@@ -176,7 +132,6 @@ class Maquina_A{
     }
 
     colocarContorno(){
-
         this.indice2++;
         this.contornos1.borrarHijos();
         this.alfa2 = 0;
@@ -204,76 +159,28 @@ class Maquina_A{
     }
 
     agregarDecoracion(){
-
         this.indice++;
         this.decoraciones1.borrarHijos();
         this.alfa = 0;
 
         for(var i = 0 ; i < this.indice ; i++ ){
-
             if(this.tipoDeco == 0){
-                var copo = this.crearManzana();
-                copo.escalar([0.15,0.15,0.15]);
-                copo.rotar(2 * Math.PI * i / this.cantidadTotal, [0, 0, 1]);
-                copo.rotar(Math.PI / 2,[1,0,0]);
+                this.decoracion = this.crearManzana();
+                this.decoracion.escalar([0.15,0.15,0.15]);
+                this.decoracion.rotar(2 * Math.PI * i / this.cantidadTotal, [0, 0, 1]);
+                this.decoracion.rotar(Math.PI / 2,[1,0,0]);
             } 
-            if(this.tipoDeco == 1) var copo = this.crearCereza();
-            if(this.tipoDeco == 2) var copo = this.crearCopito();
+            if(this.tipoDeco == 1) this.decoracion = this.crearCereza();
+            if(this.tipoDeco == 2) this.decoracion = this.crearCopito();
 
-            copo.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
+            this.decoracion.trasladar([0.6*this.radioTorta*Math.cos(this.alfa*((Math.PI)/180)),0.6*this.radioTorta*Math.sin(this.alfa*((Math.PI)/180)),this.alturaTorta]);
             this.alfa = this.alfa + this.alfaPaso ;
-            this.decoraciones1.agregarHijo(copo);
+            this.decoraciones1.agregarHijo(this.decoracion);
         }
 
         if(this.indice == this.cantidadTotal) this.indice = this.cantidadTotal;
-
     }
 
-    contornoTubo(cantidad, altura){
-        var alfaPaso = 360 / cantidad ;
-        var alfa = 0.0   ;
-
-        this.contornos1.borrarHijos();
-        this.contornos2.borrarHijos();
-
-        for(var i = 0 ; i < cantidad ; i++ ){
-            var bastonGeometria = new Baston(gl, altura * 0.8, 0.02);
-            var tubo = new Objeto3D(bastonGeometria);
-            
-            tubo.trasladar([(this.radioTorta+0.05)*Math.cos(alfa*((Math.PI)/180)),(this.radioTorta+0.05)*Math.sin(alfa*((Math.PI)/180)),0.1]);
-            alfa = alfa + alfaPaso ;
-            this.contornos1.agregarHijo(tubo);
-
-            //para esta tiene q ser de a poco
-            this.contornos2.agregarHijo(tubo);
-            
-        }
-    }
-
-    contornoBarra(cantidad, altura){
-        var alfaPaso = 360 / cantidad ;
-        var alfa = 0.0   ;
-
-        this.contornos1.borrarHijos();
-        this.contornos2.borrarHijos();
-
-        for(var i = 0 ; i < cantidad ; i++ ){
-
-            //var barraGeometria = new Rectangulo(gl,0.05,0.02,0.4,[0.6,-0.2,0.1]);
-            var barraGeometria = new Rectangulo(gl,0.05,0.02,altura * 0.8,[100.0/100,50.6/100,100.0/100]);
-            var barra = new Objeto3D(barraGeometria);
-          
-          	barra.rotar(2 * Math.PI * i / cantidad, [0, 0, 1]);
-            barra.trasladar([(this.radioTorta+0.05)*Math.cos(alfa*((Math.PI)/180)),(this.radioTorta+0.05)*Math.sin(alfa*((Math.PI)/180)),0.1]);
-            alfa = alfa + alfaPaso ;
-            this.contornos1.agregarHijo(barra);
-
-            //para esta tiene q ser de a poco
-            this.contornos2.agregarHijo(barra);        
-        }
-
-    }
-   
     crearTorta(tipo,radio,altura,amplitud,ondas,torciones ){
         this.alturaTorta = altura;
         this.radioTorta = radio;
@@ -310,35 +217,14 @@ class Maquina_A{
         //Posicion
         this.torta1.trasladar([6,0,0.3]);
         this.crema1.trasladar([0,0,this.alturaTorta]);
-
-        this.cond = true ;   
-
+  
     }
 
-    moverFase1(){
-        if( this.tortaPos < 3.25 ){
-            this.cond = true ; 
+    moverTorta(destinoX){
+        if( this.tortaPos < destinoX ){ 
             return true;
         }      
-        if(this.cond)  this.tortaPos-= 0.01;
-        
-        this.torta1.trasladar([this.tortaPos,0,0.3]);
-        return false;
-    }
-
-    moverFase2(){
-        if( this.tortaPos < -1.0 ){
-            return true;
-        }          
-        this.tortaPos-= 0.01;  
-        this.torta1.trasladar([this.tortaPos,0,0.3]);
-        return false;
-    }
-    moverFaseFinal(){
-        if( this.tortaPos < -3.0 ){
-            return true;
-        }          
-        this.tortaPos-= 0.01;  
+        this.tortaPos-= 0.01;   
         this.torta1.trasladar([this.tortaPos,0,0.3]);
         return false;
     }
@@ -372,7 +258,6 @@ class Maquina_A{
 
     reset(){
         this.tortaPos = 6.0;
-        this.cond = true ;
         this.decoraciones1.borrarHijos();
         this.indice=0;
         this.indice2=0;

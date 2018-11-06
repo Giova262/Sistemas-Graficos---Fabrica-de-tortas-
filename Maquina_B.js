@@ -12,8 +12,6 @@ class Maquina_B{
         this.tortaAltura= null;
         this.cantidadTotal = 0;
         this.buscar = false ;
-
-        //--------------------Variables nuevas-------------------
         this.etapa = 1;
         this.alfaPaso = 0 ;
         this.alfa = 0 ;
@@ -96,20 +94,16 @@ class Maquina_B{
 
     cerezas(){
         var esfera = new Esfera(gl,40,40,0.1);
-        this.decoracion = new Objeto3D(esfera);
-        
+        this.decoracion = new Objeto3D(esfera);     
         this.decoracion.trasladar([0,-0.32,1.6]);
-
         this.caja2.agregarHijo(this.decoracion );
     }
 
     copos(){
         var copo = new Copito(gl);
-        this.decoracion  = new Objeto3D(copo);
-        
+        this.decoracion  = new Objeto3D(copo);     
         this.decoracion.escalar([0.2,0.2,0.2]);
         this.decoracion.trasladar([0,-0.32,1.5]);
-
         this.caja2.agregarHijo(this.decoracion );
     }
 
@@ -160,8 +154,7 @@ class Maquina_B{
             if(this.brazoPosX == this.destinoX && this.brazoPosY == this.destinoY ){
                 this.alfa = this.alfa + this.alfaPaso ;
                 this.etapa = 3 ;
-            }
-       
+            }   
         }
 
         /**Traslado despues del procesamiento */
@@ -174,14 +167,11 @@ class Maquina_B{
 
         if(origen < destino){
             origen += 0.005 ;      
-            if( origen >= destino ){
-                origen = destino;
-            }
+            if( origen >= destino ) origen = destino;
+            
         }else if(origen > destino){
             origen-= 0.005 ;
-            if( origen <= destino ){
-                 origen = destino;
-            }
+            if( origen <= destino ) origen = destino;        
         }
 
         return origen;
@@ -207,8 +197,7 @@ class Maquina_B{
             this.brazoPosZ-=0.005;
             this.tubo.escalar([1,1,this.brazoEscZ]);
         } 
-        else {
-            
+        else {          
             this.decoracionTemporal.agregarHijo(this.decoracion);
             this.brazoEscZ -=0.01;   
             this.brazoPosZ+=0.005;
@@ -228,8 +217,7 @@ class Maquina_B{
             this.cond3 = 1;
         }
 
-        if(this.brazoEscZ < 1.0 ) {
-           
+        if(this.brazoEscZ < 1.0 ) {        
            this.brazoEscZ = 1.0;
            this.brazoPosZ +=0.005;
            this.cantidadDecoraciones-= 1;
