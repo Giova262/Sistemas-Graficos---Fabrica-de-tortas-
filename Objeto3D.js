@@ -54,6 +54,7 @@ class Objeto3D {
 		for(var i = 0; i < this.angulo.length; i++) {
 			mat4.rotate(mvMatrix,mvMatrix, this.angulo[i], this.ejeDeRotacion[i]);
 		}
+		//this.angulo=[];
 		mat4.scale(mvMatrix,mvMatrix, this.escalado);
 		//Pongo la matriz "mvMatrix" en el shader
 		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix );

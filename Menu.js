@@ -2,7 +2,7 @@
 var obj = {
 
     //Cuadro para ingresar numeros
-    Decoraciones: 10,
+    Decoraciones: 0,
     Contornos: 10 ,
     AlturaMasa:0.5,
     OndasTorta: 3 ,
@@ -12,7 +12,7 @@ var obj = {
 
     //Seleccionador
     TipoDecoracion: 'Copito',
-    TipoContorno: 'Barra',
+    TipoContorno: 'Tubo',
 
     //Botones 
     Generar: function () {
@@ -20,6 +20,10 @@ var obj = {
        maquina_b.clean();
        maquina_b.setTortaParametros(this.RadioTorta,this.AlturaMasa);
        maquina_b.setCantidadDeDecoraciones(this.Decoraciones);
+
+       maquina_d.clean();
+       maquina_d.setTortaParametros(this.RadioTorta,this.AlturaMasa);
+       maquina_d.setCantidadDeContornos(this.Contornos);
 
        if(this.TipoDecoracion == 'Copito' ){
             maquina_a.copos();
@@ -34,13 +38,25 @@ var obj = {
             maquina_b.manzanas();
        }
 
+       if(this.TipoContorno == 'Barra' ){
+          
+            maquina_a.barras();
+            maquina_d.barras();
+       }
+       if(this.TipoContorno == 'Tubo' ){
+           
+            maquina_a.tubos();
+            maquina_d.tubos();
+       }
+
         //Configuro torta con las especificaciones
          maquina_a.reset();
          maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
+         maquina_a.setCantidadDeContornos(this.Contornos);
          maquina_a.crearTorta(1,this.RadioTorta,this.AlturaMasa,this.AmplitudTorta,this.OndasTorta,this.TorcionesCrema );
             
 
-     /*  if(this.TipoContorno == 'Barra' ){
+    /*   if(this.TipoContorno == 'Barra' ){
             maquina_d.barras(this.Contornos, this.AlturaMasa);
        }
        if(this.TipoContorno == 'Tubo' ){

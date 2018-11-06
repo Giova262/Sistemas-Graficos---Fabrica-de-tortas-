@@ -48,7 +48,14 @@ var           gl = null,
            if( maquina_b.colocarDecoraciones() ){
 
                 if( maquina_a.moverFase2() ){
-                console.log("Termine de colocar cosas en la etapa 2");
+                    
+                    if( maquina_d.colocarContornos() ){
+                        
+                       if( maquina_a.moverFaseFinal() ){
+                           
+                            console.log("Fin de animacion");
+                        }
+                    }
                 }
            }
        }
