@@ -37,8 +37,8 @@ class Masa {
 		this.puntos_de_control.push(...[0.0, 0.0, this.altura]);
 		this.puntos_de_control.push(...[0.0, 0.0, this.altura]);
 	
-		var puntos_detalle_revolucion = 40;
-		var puntos_detalle_curva = 40;
+		var puntos_detalle_revolucion = 80;
+		var puntos_detalle_curva = 80;
 		
 		var curva = new CurvaBSpline(this.puntos_de_control, puntos_detalle_curva);
 		

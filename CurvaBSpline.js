@@ -14,7 +14,10 @@ class CurvaBSpline {
 				var u = i / (cantidad_puntos_de_curva - 1);
 				this.puntos_de_curva.push(...this.evaluar(u, punto1, punto2, punto3));
 				
-				this.normales_de_curva.push(...[1.0, 0.0, 0.0]);
+				var normal = vec3.create();
+				vec3.cross(normal, this.evaluarDerivada(u, punto1, punto2, punto3), [0.0, 1.0, 0.0]);
+				vec3.normalize(normal, normal);
+				this.normales_de_curva.push(...normal);
 			}
 		}
 	}
@@ -23,6 +26,13 @@ class CurvaBSpline {
 		var x = punto1[0] * this.base0(u) + punto2[0] * this.base1(u) + punto3[0] * this.base2(u);
 		var y = punto1[1] * this.base0(u) + punto2[1] * this.base1(u) + punto3[1] * this.base2(u);
 		var z = punto1[2] * this.base0(u) + punto2[2] * this.base1(u) + punto3[2] * this.base2(u);
+		return [x,y,z];
+	}
+	
+	evaluarDerivada(u, punto1, punto2, punto3, punto4) {
+		var x = punto1[0] * this.derBase0(u) + punto2[0] * this.derBase1(u) + punto3[0] * this.derBase2(u);
+		var y = punto1[1] * this.derBase0(u) + punto2[1] * this.derBase1(u) + punto3[1] * this.derBase2(u);
+		var z = punto1[2] * this.derBase0(u) + punto2[2] * this.derBase1(u) + punto3[2] * this.derBase2(u);
 		return [x,y,z];
 	}
 	
@@ -44,5 +54,19 @@ class CurvaBSpline {
 	
 	base2(u){
     	return 0.5 * u * u;
+	};
+	
+	
+	
+	derBase0(u) {
+    	return u - 1;
+	};
+	
+	derBase1(u){
+    	return -2 * u + 1;
+	};
+	
+	derBase2(u){
+    	return u;
 	};
 }

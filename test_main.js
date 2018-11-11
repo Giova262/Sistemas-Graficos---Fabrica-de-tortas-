@@ -33,8 +33,16 @@ var           gl = null,
 		//var esfera_geometria = new Esfera(gl, 50, 50, 1.0);
 		//this.test_objeto = new Objeto3D(esfera_geometria);
 		
-		var copito_geometria = new Copito(gl);
-		this.test_objeto = new Objeto3D(copito_geometria);
+		//var copito_geometria = new Copito(gl);
+		//this.test_objeto = new Objeto3D(copito_geometria);
+		
+		var altura = 4.0;
+		var radio = 4.0;
+		var niveles = 3;
+		var amplitud = 0.3;
+		    
+		var masa_geometria = new Masa(gl, altura, radio, niveles, amplitud);
+		this.test_objeto = new Objeto3D(masa_geometria); 
 		
 		test_objeto.trasladar([0.0,0.0,-10.0]);
         test_objeto.rotar(t, [1.0, 0.0, 0.0]);
