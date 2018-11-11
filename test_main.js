@@ -29,8 +29,13 @@ var           gl = null,
         camara = new Camara();
         //var cubo_geometria = new Rectangulo(gl, 1.0, 1.0, 1.0, [1.0, 0.0, 0.0]);
 		//this.test_objeto = new Objeto3D(cubo_geometria);
-		var esfera_geometria = new Esfera(gl, 50, 50, 1.0);
-		this.test_objeto = new Objeto3D(esfera_geometria);
+		
+		//var esfera_geometria = new Esfera(gl, 50, 50, 1.0);
+		//this.test_objeto = new Objeto3D(esfera_geometria);
+		
+		var copito_geometria = new Copito(gl);
+		this.test_objeto = new Objeto3D(copito_geometria);
+		
 		test_objeto.trasladar([0.0,0.0,-10.0]);
         test_objeto.rotar(t, [1.0, 0.0, 0.0]);
         	

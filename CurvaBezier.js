@@ -5,6 +5,7 @@
 class CurvaBezier {
 	constructor(puntos_de_control, cantidad_puntos_de_curva) {
 		this.puntos_de_curva = [];
+		this.normales_de_curva = [];
 		for(var indice_tramo = 0; indice_tramo < puntos_de_control.length; indice_tramo += 12) {
 			var punto1 = [puntos_de_control[indice_tramo + 0], puntos_de_control[indice_tramo + 1 ], puntos_de_control[indice_tramo + 2 ]];
 			var punto2 = [puntos_de_control[indice_tramo + 3], puntos_de_control[indice_tramo + 4 ], puntos_de_control[indice_tramo + 5 ]];
@@ -13,6 +14,11 @@ class CurvaBezier {
 			for(var i = 0; i < cantidad_puntos_de_curva; i++) {
 				var u = i / (cantidad_puntos_de_curva - 1);
 				this.puntos_de_curva.push(...this.evaluar(u, punto1, punto2, punto3, punto4));
+				
+				var normal = vec3.create();
+				vec3.cross(normal, this.evaluarDerivada(u, punto1, punto2, punto3, punto4), [0.0, 1.0, 0.0]);
+				vec3.normalize(normal, normal);
+				this.normales_de_curva.push(...normal);
 			}
 			
 		} 
@@ -26,8 +32,19 @@ class CurvaBezier {
 		return [x,y,z];
 	}
 	
+	evaluarDerivada(u, punto1, punto2, punto3, punto4) {
+		var x = punto1[0] * this.derBase0(u) + punto2[0] * this.derBase1(u) + punto3[0] * this.derBase2(u) + punto4[0] * this.derBase3(u);
+		var y = punto1[1] * this.derBase0(u) + punto2[1] * this.derBase1(u) + punto3[1] * this.derBase2(u) + punto4[1] * this.derBase3(u);
+		var z = punto1[2] * this.derBase0(u) + punto2[2] * this.derBase1(u) + punto3[2] * this.derBase2(u) + punto4[2] * this.derBase3(u);
+		return [x,y,z];
+	}
+	
 	getPosiciones() {
 		return this.puntos_de_curva;
+	}
+	
+	getNormales() {
+		return this.normales_de_curva;
 	}
 	
 	base0(u) {
@@ -58,7 +75,7 @@ class CurvaBezier {
     	return -9*u*u+6*u;
 	};
 	
-	derBase3der(u){
+	derBase3(u){
     	return 3*u*u;
 	};
 }

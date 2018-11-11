@@ -5,6 +5,7 @@
 class CurvaBSpline {
 	constructor(puntos_de_control, cantidad_puntos_de_curva) {
 		this.puntos_de_curva = [];
+		this.normales_de_curva = [];
 		for(var indice_tramo = 0; indice_tramo < puntos_de_control.length; indice_tramo += 3) {
 			var punto1 = [puntos_de_control[indice_tramo + 0], puntos_de_control[indice_tramo + 1 ], puntos_de_control[indice_tramo + 2]];
 			var punto2 = [puntos_de_control[indice_tramo + 3], puntos_de_control[indice_tramo + 4 ], puntos_de_control[indice_tramo + 5]];
@@ -12,6 +13,8 @@ class CurvaBSpline {
 			for(var i = 0; i < cantidad_puntos_de_curva; i++) {
 				var u = i / (cantidad_puntos_de_curva - 1);
 				this.puntos_de_curva.push(...this.evaluar(u, punto1, punto2, punto3));
+				
+				this.normales_de_curva.push(...[1.0, 0.0, 0.0]);
 			}
 		}
 	}
@@ -25,6 +28,10 @@ class CurvaBSpline {
 	
 	getPosiciones() {
 		return this.puntos_de_curva;
+	}
+	
+	getNormales() {
+		return this.normales_de_curva;
 	}
 	
 	base0(u) {

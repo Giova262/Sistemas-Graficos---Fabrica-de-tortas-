@@ -12,9 +12,9 @@
 class Copito {
 	constructor(gl) {
 		var puntos_de_control = [0.0,	0.0,	1.0,
-								 0.0,	0.0,	1.0,
-								 0.0,	0.0,	1.0,
-								 0.0,	0.0,	1.0,
+								 0.005,	0.0,	1.0,
+								 0.015,	0.0,	1.0,
+								 0.025,	0.0,	1.0,
 								 
 							     0.025,	0.0,	1.0,
 								 0.025,	0.0,	0.7,
@@ -32,12 +32,12 @@ class Copito {
 								 0.0,	0.0,	0.0,
 		];
 		
-		var puntos_detalle_curva = 40;
-		var puntos_detalle_revolucion = 40;
+		var puntos_detalle_curva = 60;
+		var puntos_detalle_revolucion = 60;
 		
 		var curva = new CurvaBezier(puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), puntos_detalle_revolucion, [29.8/100,29.8/100,73.7/100],2*Math.PI);
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), curva.getNormales(), puntos_detalle_revolucion, [29.8/100,29.8/100,73.7/100],2*Math.PI);
 	}
 	
 	dibujar() {
