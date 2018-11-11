@@ -42,17 +42,23 @@ var           gl = null,
 		var amplitud = 0.3;
 		    
 		var masa_geometria = new Masa(gl, altura, radio, niveles, amplitud);
-		this.test_objeto = new Objeto3D(masa_geometria); */
+		this.test_objeto = new Objeto3D(masa_geometria);*/ 
 		
-		var detalleDeRevolucion = 100;		//Es la cantidad de niveles a lo largo del giro.
+		/*var detalleDeRevolucion = 100;		//Es la cantidad de niveles a lo largo del giro.
         var radio = 5;						//Radio del anillo.
         var vueltas = 5;					//Cantidad de vueltas de torcion que tiene.
         var escalaDeLaEstrella = 0.5;		//Escala de la forma base (la estrella en 2D).
         
         var crema_geometria = new Crema(gl, detalleDeRevolucion, radio, vueltas, escalaDeLaEstrella);
-        this.test_objeto = new Objeto3D(crema_geometria);
+        this.test_objeto = new Objeto3D(crema_geometria);*/
+        
+        var altura = 2.0;
+		var radio = 0.1;
+		    
+		var baston_geometria = new Baston(gl, altura, radio);
+		this.test_objeto = new Objeto3D(baston_geometria);
 		
-		test_objeto.trasladar([0.0,0.0,-5.0]);
+		test_objeto.trasladar([0.0,0.0,-1.0]);
         test_objeto.rotar(t, [1.0, 0.0, 0.0]);
         	
         
