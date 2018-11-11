@@ -8,6 +8,7 @@ class Grilla {
 		this.position_buffer = [];
 		this.index_buffer = [];
         this.color_buffer = [];
+        this.normal_buffer = [];
                 
         this.createIndexBuffer();
 	}
@@ -61,7 +62,11 @@ class Grilla {
 
 		this.webgl_color_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_color_buffer);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.color_buffer), gl.STATIC_DRAW);   
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.color_buffer), gl.STATIC_DRAW);  
+		
+		this.webgl_normal_buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normal_buffer), gl.STATIC_DRAW);    
 
 		this.webgl_index_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
@@ -79,6 +84,11 @@ class Grilla {
 		gl.enableVertexAttribArray(vertexColorAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_color_buffer);
 		gl.vertexAttribPointer(vertexColorAttribute, 3, gl.FLOAT, false, 0, 0);
+		
+		var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
+		gl.enableVertexAttribArray(vertexNormalAttribute);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
+        gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 
