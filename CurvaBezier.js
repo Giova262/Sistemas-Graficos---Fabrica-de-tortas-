@@ -17,11 +17,15 @@ class CurvaBezier {
 				
 				var normal = vec3.create();
 				vec3.cross(normal, this.evaluarDerivada(u, punto1, punto2, punto3, punto4), [0.0, 1.0, 0.0]);
-				vec3.normalize(normal, normal);
+				//vec3.normalize(normal, normal);
 				this.normales_de_curva.push(...normal);
+
 			}
 			
 		} 
+
+		console.log(this.normales_de_curva.length);
+		console.log(this.puntos_de_curva.length);
 		
 	}
 	

@@ -187,7 +187,7 @@ class Maquina_A{
         //--------------------------------
         //Creo geometrias
         var masa = new Masa(gl,altura,radio,ondas, amplitud);
-        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[84.3/100,92.2/100,77.6/100],2*Math.PI);
+        var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[92.3/100,92.3/100,92.3/100],2*Math.PI);
         var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
 
         //--------------------------------

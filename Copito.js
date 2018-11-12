@@ -55,7 +55,15 @@ class Cilindro{
 		puntos.push(...[radio,0,altura]);
 		puntos.push(...[0,0,altura]);
 
-		this.superficie = new SuperficieDeRevolucion(gl,puntos,this.normales_de_curva,40,color,this.angulo);
+
+
+		this.normales_de_curva.push(...[0.0,0.0,1.0]);				
+		this.normales_de_curva.push(...[radio,0.0,0.0]);	
+		this.normales_de_curva.push(...[radio,0.0,altura]);	
+		this.normales_de_curva.push(...[0.0,0.0,1.0]);
+		
+
+		this.superficie = new SuperficieDeRevolucion(gl,puntos,this.normales_de_curva,50,color,this.angulo);
 	}
 	dibujar(){
 		this.superficie.dibujar();
