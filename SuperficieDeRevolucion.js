@@ -70,7 +70,7 @@ class SuperficieDeRevolucion extends Grilla {
 	}
 	
 	createNormalBuffer() {
-		for(var fila = 0; fila < this.filas; fila++){
+		for(var fila = 0; fila < this.curva.length; fila= fila +3 ){
             for(var columna =0; columna < this.columnas; columna++) {
             
             	// Esto no funciona bien.

@@ -83,7 +83,7 @@ class Grilla {
 		var u_ambient_color = gl.getUniformLocation(glProgram,"ambient_color");
 		gl.uniform3f(u_ambient_color,...this.color );
 		var u_ka = gl.getUniformLocation(glProgram,"uka");
-		gl.uniform1f(u_ka, 0.5);
+		gl.uniform1f(u_ka, 0.8);
 		var u_kd = gl.getUniformLocation(glProgram,"ukd");
 		gl.uniform1f(u_kd, 1.0);
 		var u_ks = gl.getUniformLocation(glProgram,"uks");

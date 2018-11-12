@@ -1,6 +1,6 @@
 class Plano extends Grilla {
 	constructor(gl, filas, columnas) {
-		super(gl, filas, columnas,[0.69,0.69,0.69]);
+		super(gl, filas, columnas,[0.55,0.55,0.55]);
 
 		this.normal_buffer = [];
 		
