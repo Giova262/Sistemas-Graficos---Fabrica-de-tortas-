@@ -59,10 +59,11 @@ class Objeto3D {
 		//Pongo la matriz "mvMatrix" en el shader
 		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix );
 		
-		var nMatrix=[];
-        
-        mat3.normalFromMat4(nMatrix, mvMatrix);
-        gl.uniformMatrix3fv(u_normal_matrix, false, nMatrix);
+		//Matriz normal
+		mat3.fromMat4(normalMatrix, mvMatrix);
+		mat3.invert(normalMatrix, normalMatrix);
+		mat3.transpose(normalMatrix, normalMatrix);
+		gl.uniformMatrix3fv(u_normal_matrix, false, normalMatrix);
 
 		//Dibujo 
 		this.geometria.dibujar();

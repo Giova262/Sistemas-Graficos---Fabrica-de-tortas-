@@ -48,13 +48,14 @@ class Copito {
 class Cilindro{
 	constructor(gl,radio,altura,color,angulo){
 		var puntos = [];
+		this.normales_de_curva = [];
 		this.angulo = angulo;
 		puntos.push(...[0,0,0]);
 		puntos.push(...[radio,0,0]);
 		puntos.push(...[radio,0,altura]);
 		puntos.push(...[0,0,altura]);
 
-		this.superficie = new SuperficieDeRevolucion(gl,puntos,40, color,this.angulo);
+		this.superficie = new SuperficieDeRevolucion(gl,puntos,this.normales_de_curva,40,color,this.angulo);
 	}
 	dibujar(){
 		this.superficie.dibujar();

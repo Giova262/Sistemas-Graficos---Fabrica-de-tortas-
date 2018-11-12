@@ -48,28 +48,30 @@
         Vertex shader
         --> 
         <script id="shader-vs" type="x-shader/x-vertex">
-            attribute vec3 aVertexPosition;
-            attribute vec3 aVertexColor;
-            
+            attribute vec3 aVertexPosition;     
             attribute vec3 aVertexNormal;
 
             uniform mat4 uViewMatrix;
             uniform mat4 uMVMatrix;
-            uniform mat4 uPMatrix;
-            
+            uniform mat4 uPMatrix;     
             uniform mat3 uNMatrix;
 
-            varying highp vec4 vColor;   
-            varying highp vec3 vNormal;
+            uniform vec3 light_pos;
+
+            varying highp vec3 vN;
+            varying highp vec3 vS;
+            varying highp vec3 vV;
  
             void main(void) {
 
-                vec4 pos_camera_view = uMVMatrix * vec4(aVertexPosition, 1.0);
+                vec4 P = uMVMatrix * vec4(aVertexPosition, 1.0);
+  
+                vN = normalize( uNMatrix * aVertexNormal );
+                vS = normalize( vec3( vec4(100.0,100.0,100.0,1.0) - P) );
+                vV = normalize( -P.xyz );
 
-                gl_Position = uPMatrix * uViewMatrix * pos_camera_view;
-                
-                vNormal = uNMatrix * aVertexNormal;
-                vColor = abs(vec4(aVertexColor, 1.0));
+                gl_Position = uPMatrix * uViewMatrix * P; 
+
             }
         </script>
         
@@ -77,12 +79,34 @@
         Fragment shader
         -->
         <script id="shader-fs" type="x-shader/x-fragment">
-            varying highp vec4 vColor;
-            varying highp vec3 vNormal;
+            precision mediump float;
+
+            uniform  vec3 light_color;
+            uniform  vec3 ambient_color;
+            uniform  float uka;
+            uniform  float ukd;
+            uniform  float uks;
+            uniform  float un;
+           
+            varying highp  vec3 vN;
+            varying highp vec3 vS;
+            varying highp vec3 vV;
 
             void main(void) {
-                 gl_FragColor = abs(vec4(vNormal, 1.0));
-             }
+
+                highp vec3 N = normalize(vN);
+                highp vec3 S = normalize(vS);
+                highp vec3 V = normalize(vV);
+                highp vec3 R = reflect(S,N);
+
+                highp vec3 ambient = uka * ambient_color ;
+                highp vec3 diffuse = ukd * light_color * max( dot(N,S),0.0) ;
+                highp vec3 specular = uks * light_color * pow( max(0.0,dot(R,V)) ,un);
+
+                highp vec3 f_color = ambient + diffuse + specular;
+
+                gl_FragColor = vec4(f_color, 1.0);
+            }
         </script>
 
     </head>

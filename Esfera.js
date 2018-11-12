@@ -1,12 +1,13 @@
 class Esfera extends Grilla {
-	constructor(gl, filas, columnas, radio) {
-		super(gl, filas, columnas);
-		this.radio = radio;
-		
+	constructor(gl, filas, columnas, radio,color) {
+		super(gl, filas, columnas,color);
+        this.radio = radio;
+       	
 		this.createPositionBuffer();
         this.createColorBuffer();
         this.createNormalBuffer();
         this.setupBuffers();
+        
 	}
 	
 	createPositionBuffer() {	

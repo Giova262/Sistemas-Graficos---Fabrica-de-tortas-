@@ -229,7 +229,7 @@ class Maquina_A{
     }
 
     crearCereza(){
-        var esfera = new Esfera(gl,40,40,0.05);
+        var esfera = new Esfera(gl,40,40,0.05,[68.2/100,18.8/100,19.2/100]);
         var  cerezaTemp= new Objeto3D(esfera);
         return cerezaTemp ;
     }

@@ -15,6 +15,7 @@ var           gl = null,
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
+ var normalMatrix = mat3.create();
   
 //Inicio
     function initWebGL()  {    
@@ -68,6 +69,10 @@ var           gl = null,
                 break;
             }
         }
+
+       //Iluminacion 
+       var u_light_position = gl.getUniformLocation(glProgram,"light_pos");
+       gl.uniform3f(u_light_position, 100.0,100.0,100.0);
 
        //Vista
        camara.eventHandlerView();

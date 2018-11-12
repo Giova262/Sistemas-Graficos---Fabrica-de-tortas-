@@ -13,7 +13,7 @@
 
 class Crema extends Grilla {
 	constructor(gl, detalle_revolucion, radio, vueltas, escala) {
-		super(gl, detalle_revolucion, 13);	//13 es el numero de vertices de la estrella.
+		super(gl, detalle_revolucion, 13,[1.0,1.0,1.0]);	//13 es el numero de vertices de la estrella.
 		this.radio = radio;
 		this.vueltas = vueltas;
 		this.escala = escala;

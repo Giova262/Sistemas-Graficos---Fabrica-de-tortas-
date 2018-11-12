@@ -93,7 +93,7 @@ class Maquina_B{
     }
 
     cerezas(){
-        var esfera = new Esfera(gl,40,40,0.1);
+        var esfera = new Esfera(gl,40,40,0.1,[68.2/100,18.8/100,19.2/100]);
         this.decoracion = new Objeto3D(esfera);     
         this.decoracion.trasladar([0,-0.32,1.6]);
         this.caja2.agregarHijo(this.decoracion );
