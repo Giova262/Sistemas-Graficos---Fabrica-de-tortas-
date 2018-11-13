@@ -58,7 +58,7 @@ class Maquina_D{
     }
 
     tubos(){
-        var bastonGeometria = new Baston(gl, this.tortaAltura*0.8, 0.05);
+        var bastonGeometria = new Baston(gl, this.tortaAltura*0.8,0.05);
         this.contorno = new Objeto3D(bastonGeometria);
         this.contornos.agregarHijo(this.contorno);
     }

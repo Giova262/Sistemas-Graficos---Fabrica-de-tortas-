@@ -38,12 +38,12 @@ var           gl = null,
         
        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-       //Perspectiva.
+       /** Perspectiva */
        var u_proj_matrix = gl.getUniformLocation(glProgram, "uPMatrix");
        mat4.perspective(pMatrix, 45,1200/800, 1, 2000.0);
        gl.uniformMatrix4fv(u_proj_matrix, false, pMatrix);
        
-       //Acciones
+       /** Acciones */
         switch(fase){
             case 1 :{
                 if( maquina_a.moverTorta(3.25) ) fase = 2 ;
@@ -72,18 +72,29 @@ var           gl = null,
                 break;
         }
 
-       //Iluminacion 
-        /**Puntual 1 */
+       /**Iluminacion configuracion de localizacion e intensidad */
+
+            /**Puntual 1 - Frente*/
        var u_light_position = gl.getUniformLocation(glProgram,"light_pos");
        gl.uniform3f(u_light_position, 0.0,-20.0,10.0);
        var u_light_intensidad = gl.getUniformLocation(glProgram,"intensidad");
-       gl.uniform1f(u_light_intensidad,15.5);
+       gl.uniform1f(u_light_intensidad,10.1);
+            /**Puntual 2 - Atras derecha*/
+        var u_light_position2 = gl.getUniformLocation(glProgram,"light2_pos");
+        gl.uniform3f(u_light_position2, 20.0,20.0,10.0);
+        var u_light_intensidad2 = gl.getUniformLocation(glProgram,"intensidad2");
+        gl.uniform1f(u_light_intensidad2,8.1);    
+            /**Puntual 3 - Atras Izquierda */
+        var u_light_position3 = gl.getUniformLocation(glProgram,"light3_pos");
+        gl.uniform3f(u_light_position3, -20.0,20.0,10.0);
+        var u_light_intensidad3 = gl.getUniformLocation(glProgram,"intensidad3");
+        gl.uniform1f(u_light_intensidad3,8.1);   
 
-       //Vista
+       /** Vista  */
        camara.eventHandlerView();
        camara.update();
 
-       //Dibujo Objetos
+       /** Dibujar */
        superficie.dibujar();
        maquina_a.dibujar();
        maquina_b.dibujar();
