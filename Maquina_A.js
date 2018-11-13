@@ -256,7 +256,7 @@ class Maquina_A{
         return manzana ;
     }
     crearTubo(){
-        var bastonGeometria = new Baston(gl, this.alturaTorta * 0.8, 0.02);
+        var bastonGeometria = new Baston(gl, this.alturaTorta * 0.8, 0.03);
         var tubo = new Objeto3D(bastonGeometria);
         return tubo ;
     }
