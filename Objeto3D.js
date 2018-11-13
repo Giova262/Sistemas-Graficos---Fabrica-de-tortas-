@@ -8,6 +8,11 @@ class Objeto3D {
 		this.posicion = [0,0,0];
 		this.escalado = [1,1,1];
 
+		this.ka=1.0;
+		this.kd=1.0;
+		this.ks=1.0;
+		this.n = 32.0 ;
+
 		this.padreMatrix = mat4.create();
 		mat4.identity(this.padreMatrix);
 
@@ -40,12 +45,28 @@ class Objeto3D {
 		mat4.copy(this.padreMatrix, _padreMatriz,m );
 	}
 
+	setCoheficientesPhong(ka,kd,ks,n){
+		this.ka=ka;
+		this.kd=kd;
+		this.ks=ks;
+		this.n=n;
+	}
+
 	
 	   
    	dibujar(){
 		
 		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");	
 		var u_normal_matrix = gl.getUniformLocation(glProgram, "uNMatrix");
+
+		var u_ka = gl.getUniformLocation(glProgram,"ka");
+		gl.uniform1f(u_ka, this.ka);
+		var u_kd = gl.getUniformLocation(glProgram,"kd");
+		gl.uniform1f(u_kd, this.kd);
+		var u_ks = gl.getUniformLocation(glProgram,"ks");
+		gl.uniform1f(u_ks, this.ks);
+		var u_n = gl.getUniformLocation(glProgram,"n");
+		gl.uniform1f(u_n,this.n);
 			
 		var mvMatrix = mat4.create();
 		mat4.identity(mvMatrix);	

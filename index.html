@@ -83,10 +83,10 @@
 
             uniform  vec3 light_color;
             uniform  vec3 ambient_color;
-            uniform  float uka;
-            uniform  float ukd;
-            uniform  float uks;
-            uniform  float un;
+            uniform  float ka;
+            uniform  float kd;
+            uniform  float ks;
+            uniform  float n;
            
             varying highp  vec3 vN;
             varying highp vec3 vS;
@@ -99,9 +99,9 @@
                 highp vec3 V = normalize(vV);
                 highp vec3 R = reflect(S,N);
 
-                highp vec3 ambient = uka * ambient_color ;
-                highp vec3 diffuse = ukd * light_color * max( dot(N,S),0.0) ;
-                highp vec3 specular = uks * light_color * pow( max(0.0,dot(R,V)) ,un);
+                highp vec3 ambient = ka * ambient_color ;
+                highp vec3 diffuse = kd * light_color * max( dot(N,S),0.0) ;
+                highp vec3 specular = ks * light_color * pow( max(0.0,dot(R,V)) ,n);
 
                 highp vec3 f_color = ambient + diffuse + specular;
 

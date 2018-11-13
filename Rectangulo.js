@@ -138,29 +138,17 @@ class Rectangulo {
 
 	dibujar() {
 
-		//Iluminacion Phong Datos
+		/**Iluminacion Phong Datos de color */
 		var u_light_color = gl.getUniformLocation(glProgram,"light_color");
 		gl.uniform3f(u_light_color,...this.color); 
 		var u_ambient_color = gl.getUniformLocation(glProgram,"ambient_color");
 		gl.uniform3f(u_ambient_color,...this.color);	
-		var u_ka = gl.getUniformLocation(glProgram,"uka");
-		gl.uniform1f(u_ka, 0.8);
-		var u_kd = gl.getUniformLocation(glProgram,"ukd");
-		gl.uniform1f(u_kd, 1.0);
-		var u_ks = gl.getUniformLocation(glProgram,"uks");
-		gl.uniform1f(u_ks, 1.0);
-		var u_n = gl.getUniformLocation(glProgram,"un");
-		gl.uniform1f(u_n, 32.0);
 
+		/**Buffers de posicion y normales */
 		var vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
 		gl.enableVertexAttribArray(vertexPositionAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-
-/*var vertexColorAttribute = gl.getAttribLocation(glProgram, "aVertexColor");
-		gl.enableVertexAttribArray(vertexColorAttribute);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_color_buffer);
-		gl.vertexAttribPointer(vertexColorAttribute, 3, gl.FLOAT, false, 0, 0);*/
 		
 		var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
 		gl.enableVertexAttribArray(vertexNormalAttribute);
@@ -168,7 +156,6 @@ class Rectangulo {
         gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
-
 		gl.drawElements(gl.TRIANGLE_STRIP, this.index_buffer.length, gl.UNSIGNED_SHORT, 0);
 	}
 }

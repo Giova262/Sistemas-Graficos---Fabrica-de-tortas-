@@ -23,9 +23,6 @@ class CurvaBezier {
 			}
 			
 		} 
-
-		console.log(this.normales_de_curva.length);
-		console.log(this.puntos_de_curva.length);
 		
 	}
 	
