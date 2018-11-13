@@ -17,7 +17,11 @@ class CurvaBSpline {
 				var normal = vec3.create();
 				vec3.cross(normal, this.evaluarDerivada(u, punto1, punto2, punto3), [0.0, 1.0, 0.0]);
 				vec3.normalize(normal, normal);
-				this.normales_de_curva.push(...normal);
+				
+			//	this.normales_de_curva.push(...normal);
+				this.normales_de_curva.push(-normal[0]);
+				this.normales_de_curva.push(-normal[1]);
+				this.normales_de_curva.push(-normal[2]);
 			}
 		}
 	}

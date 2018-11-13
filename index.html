@@ -57,6 +57,7 @@
             uniform mat3 uNMatrix;
 
             uniform vec3 light_pos;
+            uniform vec3 uCameraPos;
 
             varying highp vec3 vN;
             varying highp vec3 vS;
@@ -66,9 +67,9 @@
 
                 vec4 P = uMVMatrix * vec4(aVertexPosition, 1.0);
   
-                vN = normalize( uNMatrix * aVertexNormal );
-                vS = normalize( vec3( vec4(100.0,100.0,100.0,1.0) - P) );
-                vV = normalize( -P.xyz );
+                vN =  uNMatrix * aVertexNormal ;
+                vS =  vec3( vec4(light_pos,1.0) - P) ;
+                vV =  uCameraPos-P.xyz ;
 
                 gl_Position = uPMatrix * uViewMatrix * P; 
 
@@ -83,6 +84,7 @@
 
             uniform  vec3 light_color;
             uniform  vec3 ambient_color;
+            uniform  float intensidad;
             uniform  float ka;
             uniform  float kd;
             uniform  float ks;
@@ -94,17 +96,20 @@
 
             void main(void) {
 
+                float distancia_ = sqrt(pow(vS[0], 2.0) + pow(vS[1], 2.0) + pow(vS[2], 2.0));
+                float ajuste = intensidad / distancia_ ;
+
                 highp vec3 N = normalize(vN);
                 highp vec3 S = normalize(vS);
                 highp vec3 V = normalize(vV);
                 highp vec3 R = reflect(S,N);
 
                 highp vec3 ambient = ka * ambient_color ;
-                highp vec3 diffuse = kd * light_color * max( dot(N,S),0.0) ;
-                highp vec3 specular = ks * light_color * pow( max(0.0,dot(R,V)) ,n);
+                highp vec3 diffuse = kd * light_color * max( dot(N,S),0.0) * ajuste ;
+                highp vec3 specular = ks * light_color * pow( max(dot(R,V),0.0) ,n) * ajuste;
 
-                highp vec3 f_color = ambient + diffuse + specular;
-
+                highp vec3 f_color = ambient + diffuse  + specular ;
+        
                 gl_FragColor = vec4(f_color, 1.0);
             }
         </script>

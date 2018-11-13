@@ -111,6 +111,7 @@ class Camara{
     }
 
     orbitalCamara(){
+    
         //Paso la matriz de vista al shader
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
@@ -118,6 +119,10 @@ class Camara{
         var x = radio * Math.cos(alfa) ;
         var y = radio * Math.sin(alfa);
         var z = radio * Math.sin(alfa) * Math.sin(beta)  ;
+
+         /**Paso posicion de la camara al shader */
+         var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+         gl.uniform3f(u_CameraPos,x,y,z);
 
         if(z < 0.25)  z = 0.25 ;
 
@@ -136,6 +141,10 @@ class Camara{
         var y = radio * Math.sin(alfa)-5;
         var z = radio ;
 
+        /**Paso posicion de la camara al shader */
+        var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+        gl.uniform3f(u_CameraPos,x,y,z);
+
         mat4.lookAt(viewMatrix, [x, y, z], [3,-5,0], [0,0,1]);
 
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
@@ -149,7 +158,11 @@ class Camara{
      
         var x = 2 * Math.cos(alfa);
         var y = 2 * Math.sin(alfa) - 5;
-        var z = 4 ;
+        var z = 3 ;
+
+        /**Paso posicion de la camara al shader */
+        var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+        gl.uniform3f(u_CameraPos,x,y,z);
 
         mat4.lookAt(viewMatrix, [x, y, z], [0,-5,2], [0,0,1]);
 
@@ -166,6 +179,10 @@ class Camara{
         var y = 2 * Math.sin(alfa) - 5;
         var z = 4   ;
 
+        /**Paso posicion de la camara al shader */
+        var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+        gl.uniform3f(u_CameraPos,x,y,z);
+
         mat4.lookAt(viewMatrix, [x, y, z], [-4,-5,2], [0,0,1]);
 
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
@@ -176,6 +193,10 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
 
+        /**Paso posicion de la camara al shader */
+        var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+        gl.uniform3f(u_CameraPos,...[-2, -12, 3]);
+
         mat4.lookAt(viewMatrix, [-2, -12, 3], [-2,-5,3], [0,0,1]);
 
         gl.uniformMatrix4fv(ubicacion_ViewMatrix, false, viewMatrix);
@@ -185,6 +206,10 @@ class Camara{
         //Paso la matriz de vista al shader
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
+
+         /**Paso posicion de la camara al shader */
+        var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
+        gl.uniform3f(u_CameraPos,...[-2, -6, 9]);
 
         mat4.lookAt(viewMatrix, [-2, -6, 9], [-2,-5,3], [0,0,1]);
 

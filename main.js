@@ -10,7 +10,6 @@ var           gl = null,
        superficie = null;
         idInterval= null;
              fase = 1;
-
                 t = 0.0; 
 
  var mvMatrix = mat4.create();
@@ -65,14 +64,20 @@ var           gl = null,
             case 5 :{
                 if( maquina_a.moverTorta(-4.0) ){
                     console.log("Torta Terminada") ;
+                    fase = 6;
                 } 
                 break;
             }
+            default: 
+                break;
         }
 
        //Iluminacion 
+        /**Puntual 1 */
        var u_light_position = gl.getUniformLocation(glProgram,"light_pos");
-       gl.uniform3f(u_light_position, 100.0,100.0,100.0);
+       gl.uniform3f(u_light_position, 0.0,-20.0,10.0);
+       var u_light_intensidad = gl.getUniformLocation(glProgram,"intensidad");
+       gl.uniform1f(u_light_intensidad,15.5);
 
        //Vista
        camara.eventHandlerView();

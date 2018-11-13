@@ -65,7 +65,8 @@ class Maquina_A{
     configurarEscena(){
 
       /**Configuracion de materiales */
-      this.caja1.setCoheficientesPhong(0.7,0.5,1.5,6.0);
+      this.caja1.setCoheficientesPhong(0.7,0.5,1.5,100.0);
+      this.caja2.setCoheficientesPhong(0.7,0.5,0.5,1.0);
 
       /**Configuracion de posiciones */
       this.caja2.trasladar([-6,0,1]);
