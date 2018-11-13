@@ -222,6 +222,11 @@ class Maquina_A{
         //Posicion
         this.torta.trasladar([this.tortaPosX,0,0.3]);
         this.crema.trasladar([0,0,this.alturaTorta]);
+
+        //--------------------------------
+        //Configuracion de material
+        this.masa.setCoheficientesPhong(0.7,0.7,0.5,32.0);
+        this.crema.setCoheficientesPhong(0.6,0.5,0.0,32.0);
   
     }
 

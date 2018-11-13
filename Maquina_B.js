@@ -23,7 +23,7 @@ class Maquina_B{
         var rectangulo1 = new Rectangulo(gl,1.4,0.5,1.5,[58.8/100,32.9/100,82.4/100]);
         var rectangulo2 = new Rectangulo(gl,1.4,0.2,3.5,[73.7/100,28.2/100,81.2/100]);
         var rectangulo3 = new Rectangulo(gl,1.4,0.255,3,[89.0/100,65.9/100,43.1/100]);
-        var rectangulo4 = new Rectangulo(gl,0.3,0.08,0.5,[32.5/100,58.4/100,82.0/100]);
+        var rectangulo4 = new Rectangulo(gl,0.31,0.08,0.5,[32.5/100,58.4/100,82.0/100]);
         var rectangulo5 = new Rectangulo(gl,0.3,0.05,0.2,[74.1/100,87.8/100,85.5/100]);
         var cilindro = new Cilindro(gl,0.08,0.5,[74.1/100,87.8/100,85.5/100],2*Math.PI);
        
