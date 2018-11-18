@@ -1,5 +1,5 @@
 class Rectangulo {
-	constructor(gl, ancho, alto, profundidad, color) {
+	constructor(gl, ancho, alto, profundidad, color, tiene_textura, nombre_textura) {
 		this.ancho = ancho;
 		this.alto = alto;
 		this.profundidad = profundidad;
@@ -14,7 +14,11 @@ class Rectangulo {
         this.normal_buffer = [];
         this.uv_texture_buffer = [];
         
-        this.tiene_textura = false;
+        if(tiene_textura) {
+        	this.tiene_textura = tiene_textura;
+        } else {
+        	this.tiene_textura = false;
+        }
         
         this.crearIndexBuffer();
         this.crearPositionBuffer();
@@ -33,7 +37,7 @@ class Rectangulo {
 			gl.texImage2D(
 				gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,
 				gl.UNSIGNED_BYTE,
-				document.getElementById("horno-textura")
+				document.getElementById(nombre_textura)
 			);
 			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
 		}
@@ -46,42 +50,7 @@ class Rectangulo {
 	}
 	
 	createUVTextureBuffer() {
-		this.uv_texture_buffer = [
-		// Cara Frontal.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-
-		// Cara Superior.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-		// Cara Posterior.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-					
-		// Cara Lateral Derecha.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-					
-		// Cara Inferior.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-					
-		// Cara Lateral Izquierda.
-			 0,  0,
-			 0,  1,
-			 1,  0,
-			 1,  1,
-		];
+		this.uv_texture_buffer = [];
 		
 	}
 	
@@ -190,15 +159,15 @@ class Rectangulo {
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normal_buffer), gl.STATIC_DRAW);     
 
-		this.webgl_index_buffer = gl.createBuffer();
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
-		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.index_buffer), gl.STATIC_DRAW);
-		
 		if(this.tiene_textura) {
 			this.webgl_uv_texture_buffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.uv_texture_buffer), gl.STATIC_DRAW);
 		}
+
+		this.webgl_index_buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.index_buffer), gl.STATIC_DRAW);
    	}
 
 	dibujar() {
