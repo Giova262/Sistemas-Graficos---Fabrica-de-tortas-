@@ -50,6 +50,7 @@
         <script id="shader-vs" type="x-shader/x-vertex">
             attribute vec3 aVertexPosition;     
             attribute vec3 aVertexNormal;
+            attribute vec2 aVertexTexCoord;
 
             uniform mat4 uViewMatrix;
             uniform mat4 uMVMatrix;
@@ -68,6 +69,8 @@
             varying highp vec3 vS;
             varying highp vec3 vS_2;
             varying highp vec3 vS_3;
+
+            varying highp vec2 fTextCoord;
              
             void main(void) {
 
@@ -79,6 +82,8 @@
                 vS =  vec3( vec4(light_pos,1.0) - P) ;
                 vS_2 =  vec3( vec4(light2_pos,1.0) - P) ;
                 vS_3 =  vec3( vec4(light3_pos,1.0) - P) ;
+                
+                fTextCoord = aVertexTexCoord;
                
                 gl_Position = uPMatrix * uViewMatrix * P; 
 
@@ -107,6 +112,8 @@
             uniform  float kd;
             uniform  float ks;
             uniform  float n;
+            
+            uniform sampler2D utext1;
            
             varying highp  vec3 vN;
             varying highp vec3 vV;
@@ -114,6 +121,8 @@
             varying highp vec3 vS;
             varying highp vec3 vS_2;
             varying highp vec3 vS_3;
+            
+            varying highp vec2 fTextCoord;
 
             void main(void) {
 
@@ -166,6 +175,7 @@
                 highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
 
                 gl_FragColor = vec4(f_color, 1.0);
+                //gl_FragColor = texture2D(utext1, fTextCoord);
             }
         </script>
 
