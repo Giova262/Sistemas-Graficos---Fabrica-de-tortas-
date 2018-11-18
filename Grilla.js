@@ -154,6 +154,8 @@ class Grilla {
 		} else {
 			gl.uniform1i(tieneTexturaAttribute, false);
 		}
+		
+		gl.bindTexture(gl.TEXTURE_2D, this.grillaTexture);
 
 		/**Dibujo */
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
