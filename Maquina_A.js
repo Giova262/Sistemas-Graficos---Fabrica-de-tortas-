@@ -25,7 +25,7 @@ class Maquina_A{
 
         //Geometrias
         var rectangulo1 = new Horno(gl,2,2,3.5,[29.4/100,29.8/100,75.3/100]);
-        var rectangulo2 = new Rectangulo(gl,10,2,0.25,[45.5/100,45.5/100,45.5/100]);
+        var rectangulo2 = new CintaTransportadora(gl,10,2,0.25,[45.5/100,45.5/100,45.5/100]);
         var rectangulo3 = new Rectangulo(gl,0.2,0.2,1,[15.3/100,60.4/100,14.5/100]);
         
         //Creo objetos
