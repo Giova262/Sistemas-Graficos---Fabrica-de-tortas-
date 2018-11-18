@@ -81,6 +81,8 @@ class Grilla {
 			for(var fila = 0; fila < this.filas; fila++) {
 				var u = columna / (this.columnas - 1);
 				var v = fila / (this.filas - 1);
+				u = ((u * 5000) % 5);
+				v = ((v * 5000) % 5);
 				this.uv_texture_buffer.push(...[u,v]);
 			}
 		}
