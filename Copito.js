@@ -37,7 +37,7 @@ class Copito {
 		
 		var curva = new CurvaBezier(puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), curva.getNormales(), puntos_detalle_revolucion, [29.8/100,29.8/100,73.7/100],2*Math.PI);
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), curva.getNormales(), puntos_detalle_revolucion, [29.8/100,29.8/100,73.7/100],2*Math.PI, false, "nada");
 	}
 	
 	dibujar() {

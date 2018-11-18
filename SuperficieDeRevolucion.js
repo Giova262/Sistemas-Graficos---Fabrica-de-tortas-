@@ -18,8 +18,8 @@
 
 
 class SuperficieDeRevolucion extends Grilla {
-	constructor(gl, curva, normales_curva, columnas, color,angulo) {
-		super(gl, curva.length / 3, columnas,color);
+	constructor(gl, curva, normales_curva, columnas, color,angulo, tiene_textura, nombre_textura) {
+		super(gl, curva.length / 3, columnas, color, tiene_textura, nombre_textura);
 		
 		this.curva = curva;
 		this.normales_curva = normales_curva;

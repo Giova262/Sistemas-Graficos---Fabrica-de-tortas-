@@ -1,12 +1,12 @@
 class Grilla {
-	constructor(gl, filas, columnas, color) {
+	constructor(gl, filas, columnas, color, tiene_textura, nombre_textura) {
 	
 		this.filas = filas;
 		this.columnas = columnas;
 
 		this.color = color;
 		
-		this.tiene_textura = true;
+		this.tiene_textura = tiene_textura;
 
 		// Buffers.
 		this.position_buffer = [];
@@ -17,6 +17,21 @@ class Grilla {
                 
         this.createIndexBuffer();
         this.createUVTextureBuffer();
+        
+        if(this.tiene_textura) {
+		    this.grillaTexture = gl.createTexture();
+			gl.bindTexture(gl.TEXTURE_2D, this.grillaTexture);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texImage2D(
+				gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,
+				gl.UNSIGNED_BYTE,
+				document.getElementById(nombre_textura)
+			);
+			gl.bindTexture(gl.TEXTURE_2D, this.grillaTexture);
+		}
 	}
 	
 	createIndexBuffer() {

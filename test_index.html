@@ -70,7 +70,7 @@
             varying highp vec3 vS_2;
             varying highp vec3 vS_3;
             
-            varying highp vec2 fTextcoord;
+            varying highp vec2 fTextCoord;
              
             void main(void) {
 
@@ -83,7 +83,7 @@
                 vS_2 =  vec3( vec4(light2_pos,1.0) - P) ;
                 vS_3 =  vec3( vec4(light3_pos,1.0) - P) ;
                 
-                fTextcoord = aVertexTexCoord;
+                fTextCoord = aVertexTexCoord;
                
                 gl_Position = uPMatrix * uViewMatrix * P; 
 
@@ -113,7 +113,7 @@
             uniform  float ks;
             uniform  float n;
             
-            uniform sampler2D textura;
+            uniform sampler2D utext1;
            
             varying highp  vec3 vN;
             varying highp vec3 vV;
@@ -122,7 +122,7 @@
             varying highp vec3 vS_2;
             varying highp vec3 vS_3;
             
-            varying highp vec2 fTextcoord;
+            varying highp vec2 fTextCoord;
 
             void main(void) {
 
@@ -175,7 +175,7 @@
                 highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
 
                // gl_FragColor = vec4(f_color, 1.0);
-            	gl_FragColor = texture2D(textura, fTextcoord);;
+            	gl_FragColor = texture2D(utext1, fTextCoord);;
             }
         </script>
 
@@ -183,7 +183,7 @@
     <body onload="initWebGL()">   
         <script type="text/javascript" src="Menu.js"></script>
         
-        <img id="chocolate-textura" src="chocolate.jpg" width="0" height="0"></img>
+        <img id="chocolate-textura" src="./texturas/chocolate.jpg" width="0" height="0"></img>
 
         <div id="log">
             DeltaX : <span id="valorDeltaX"></span> <br/>
