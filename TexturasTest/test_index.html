@@ -1,0 +1,131 @@
+<!doctype html>
+<meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+<meta content="ISO-8859-1" http-equiv="encoding">
+<html>
+    <head>
+        <title>66.71 Trabajo Practico - Fabrica de tortas</title>
+        <style>
+            body{ background-color: rgb(84, 66, 189); }
+            canvas{ background-color: white; }
+			textarea{ background-color: black; foreground-color: white;}
+            #log {
+            position: absolute;
+            top:50px;
+            left: 100px;
+            z-index: 300;
+            }
+        </style>
+
+          <!-- Libraries -->
+         <script type="text/javascript" src="gl-matrix.js"></script>
+         <script type="text/javascript" src="jquery-1.12.4.js"></script>
+         <script type="text/javascript" src="dat.gui.js"></script>
+        
+          <!-- Scrips -->
+         <script type="text/javascript" src="test_main.js"></script>
+         <script type="text/javascript" src="WebGLConfig.js"></script>
+         <script type="text/javascript" src="camara.js"></script>
+         <script type="text/javascript" src="NodoContenedor.js"></script>
+         <script type="text/javascript" src="Objeto3D.js"></script>
+         <script type="text/javascript" src="Grilla.js"></script>
+         <script type="text/javascript" src="Esfera.js"></script>
+         <script type="text/javascript" src="Copito.js"></script>
+         <script type="text/javascript" src="Plano.js"></script>
+         <script type="text/javascript" src="Rectangulo.js"></script>
+         <script type="text/javascript" src="TrianguloGeometria.js"></script>
+         <script type="text/javascript" src="Maquina_A.js"></script>
+         <script type="text/javascript" src="Maquina_B.js"></script>
+         <script type="text/javascript" src="Maquina_D.js"></script>
+         <script type="text/javascript" src="Superficie.js"></script>
+         <script type="text/javascript" src="SuperficieDeRevolucion.js"></script>
+         <script type="text/javascript" src="CurvaBezier.js"></script>
+         <script type="text/javascript" src="CurvaBSpline.js"></script>
+         <script type="text/javascript" src="Masa.js"></script>
+         <script type="text/javascript" src="Crema.js"></script>
+         <script type="text/javascript" src="Baston.js"></script>
+       
+        <!--
+        Vertex shader
+        --> 
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 aVertexPosition;     
+            attribute vec3 aVertexNormal;
+
+            uniform mat4 uViewMatrix;
+            uniform mat4 uMVMatrix;
+            uniform mat4 uPMatrix;     
+            uniform mat3 uNMatrix;
+
+            uniform vec3 light_pos;
+
+            varying highp vec3 vN;
+            varying highp vec3 vS;
+            varying highp vec3 vV;
+ 
+            void main(void) {
+
+                vec4 P = uMVMatrix * vec4(aVertexPosition, 1.0);
+  
+                vN = normalize( uNMatrix * aVertexNormal );
+                vS = normalize( vec3( vec4(100.0,100.0,100.0,1.0) - P) );
+                vV = normalize( -P.xyz );
+
+                gl_Position = uPMatrix * uViewMatrix * P; 
+
+            }
+        </script>
+        
+        <!--
+        Fragment shader
+        -->
+        <script id="shader-fs" type="x-shader/x-fragment">
+            precision mediump float;
+
+            uniform  vec3 light_color;
+            uniform  vec3 ambient_color;
+            uniform  float uka;
+            uniform  float ukd;
+            uniform  float uks;
+            uniform  float un;
+           
+            varying highp  vec3 vN;
+            varying highp vec3 vS;
+            varying highp vec3 vV;
+
+            void main(void) {
+
+                highp vec3 N = normalize(vN);
+                highp vec3 S = normalize(vS);
+                highp vec3 V = normalize(vV);
+                highp vec3 R = reflect(S,N);
+
+                highp vec3 ambient = uka * ambient_color ;
+                highp vec3 diffuse = ukd * light_color * max( dot(N,S),0.0) ;
+                highp vec3 specular = uks * light_color * pow( max(0.0,dot(R,V)) ,un);
+
+                highp vec3 f_color = ambient + diffuse + specular;
+
+                gl_FragColor = vec4(f_color, 1.0);
+            }
+        </script>
+
+    </head>
+    <body onload="initWebGL()">   
+        <script type="text/javascript" src="Menu.js"></script>
+
+        <div id="log">
+            DeltaX : <span id="valorDeltaX"></span> <br/>
+            DeltaY : <span id="valorDeltaY"></span> <br/>
+            Alfa : <span id="valorAlfa"></span> <br/>
+            Beta : <span id="valorBeta"></span> <br/>
+        </div>
+		<center>
+			<h1>Trabajo Practico - Fabrica de Tortas - 66.71</h1>
+            <h2>Giovanni Valdivia</h2>
+            <h2>Matias Anas</h2>
+			<canvas id="my-canvas" width="1200" height="800">
+			Your browser does not support the HTML5 canvas element.
+			</scanvas>		
+		</center>
+    </body>
+</html>
