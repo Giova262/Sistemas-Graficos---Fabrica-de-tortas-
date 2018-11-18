@@ -105,6 +105,10 @@ class Maquina_A{
     cerezas() { this.tipoDecoracion = 1 ;   }
 
     copos()   { this.tipoDecoracion = 2 ;   }
+    
+    torta_crema() { this.tipoMaterial = 'Crema' ; }
+    
+    torta_chocolate() { this.tipoMaterial = 'Chocolate' ; }
 
     moverAposicion( origen , destino ){
         if(origen < destino){
@@ -192,7 +196,11 @@ class Maquina_A{
 
         //--------------------------------
         //Creo geometrias
-        var masa = new Masa(gl,altura,radio,ondas, amplitud);
+        if(this.tipoMaterial == 'Chocolate') {
+        	var masa = new Masa(gl,altura,radio,ondas, amplitud, "chocolate-textura");
+        } else {
+        	var masa = new Masa(gl,altura,radio,ondas, amplitud, "crema-textura");
+        }
         var cilindro = new Cilindro(gl,this.radioTorta+0.2,0.08,[92.3/100,92.3/100,92.3/100],2*Math.PI);
         var cremaGeometria = new Crema(gl, 40, radio*0.9 , torciones, 0.04);
 

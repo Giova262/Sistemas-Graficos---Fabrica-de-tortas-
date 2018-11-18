@@ -17,7 +17,7 @@
 
 
 class Masa {
-	constructor(gl, altura, radio, niveles, amplitud) {
+	constructor(gl, altura, radio, niveles, amplitud, nombre_textura) {
 		this.altura = altura;
 		this.radio = radio;
 		this.niveles = niveles;
@@ -42,7 +42,7 @@ class Masa {
 		
 		var curva = new CurvaBSpline(this.puntos_de_control, puntos_detalle_curva);
 		
-		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), curva.getNormales(), puntos_detalle_revolucion, [82.7/100, 76.1/100, 33.7/100],2*Math.PI, true, "chocolate-textura");
+		this.superficie = new SuperficieDeRevolucion(gl, curva.getPosiciones(), curva.getNormales(), puntos_detalle_revolucion, [82.7/100, 76.1/100, 33.7/100],2*Math.PI, true, nombre_textura);
 	}
 	
 	dibujar() {
