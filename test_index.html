@@ -50,6 +50,7 @@
         <script id="shader-vs" type="x-shader/x-vertex">
             attribute vec3 aVertexPosition;     
             attribute vec3 aVertexNormal;
+            attribute vec2 aVertexTexCoord;
 
             uniform mat4 uViewMatrix;
             uniform mat4 uMVMatrix;
@@ -57,19 +58,33 @@
             uniform mat3 uNMatrix;
 
             uniform vec3 light_pos;
+            uniform vec3 light2_pos;
+            uniform vec3 light3_pos;
+
+            uniform vec3 uCameraPos;
 
             varying highp vec3 vN;
-            varying highp vec3 vS;
             varying highp vec3 vV;
- 
+
+            varying highp vec3 vS;
+            varying highp vec3 vS_2;
+            varying highp vec3 vS_3;
+            
+            varying highp vec2 fTextcoord;
+             
             void main(void) {
 
                 vec4 P = uMVMatrix * vec4(aVertexPosition, 1.0);
   
-                vN = normalize( uNMatrix * aVertexNormal );
-                vS = normalize( vec3( vec4(100.0,100.0,100.0,1.0) - P) );
-                vV = normalize( -P.xyz );
-
+                vN =  uNMatrix * aVertexNormal ;
+                vV =  uCameraPos-P.xyz ;
+        
+                vS =  vec3( vec4(light_pos,1.0) - P) ;
+                vS_2 =  vec3( vec4(light2_pos,1.0) - P) ;
+                vS_3 =  vec3( vec4(light3_pos,1.0) - P) ;
+                
+                fTextcoord = aVertexTexCoord;
+               
                 gl_Position = uPMatrix * uViewMatrix * P; 
 
             }
@@ -83,35 +98,92 @@
 
             uniform  vec3 light_color;
             uniform  vec3 ambient_color;
-            uniform  float uka;
-            uniform  float ukd;
-            uniform  float uks;
-            uniform  float un;
+            uniform  float intensidad;
+
+            uniform  vec3 light2_color;
+            uniform  vec3 ambient2_color;
+            uniform  float intensidad2;
+
+            uniform  vec3 light3_color;
+            uniform  vec3 ambient3_color;
+            uniform  float intensidad3;
+
+            uniform  float ka;
+            uniform  float kd;
+            uniform  float ks;
+            uniform  float n;
+            
+            uniform sampler2D textura;
            
             varying highp  vec3 vN;
-            varying highp vec3 vS;
             varying highp vec3 vV;
 
+            varying highp vec3 vS;
+            varying highp vec3 vS_2;
+            varying highp vec3 vS_3;
+            
+            varying highp vec2 fTextcoord;
+
             void main(void) {
+
+            /*Primer luz Puntual en Frente */
+
+                float distancia_ = sqrt(pow(vS[0], 2.0) + pow(vS[1], 2.0) + pow(vS[2], 2.0));
+                float ajuste = intensidad / distancia_ ;
 
                 highp vec3 N = normalize(vN);
                 highp vec3 S = normalize(vS);
                 highp vec3 V = normalize(vV);
                 highp vec3 R = reflect(S,N);
 
-                highp vec3 ambient = uka * ambient_color ;
-                highp vec3 diffuse = ukd * light_color * max( dot(N,S),0.0) ;
-                highp vec3 specular = uks * light_color * pow( max(0.0,dot(R,V)) ,un);
+                highp vec3 ambient = ka * ambient_color * ajuste ;
+                highp vec3 diffuse = kd * light_color * max( dot(N,S),0.0) * ajuste ;
+                highp vec3 specular = ks * light_color * pow( max(dot(R,V),0.0) ,n) * ajuste;
 
-                highp vec3 f_color = ambient + diffuse + specular;
+                highp vec3 f_color1 = ambient + diffuse  + specular ;
 
-                gl_FragColor = vec4(f_color, 1.0);
+            /*Segunda luz Puntual */
+
+                float distancia2_ = sqrt(pow(vS_2[0], 2.0) + pow(vS_2[1], 2.0) + pow(vS_2[2], 2.0));
+                float ajuste2 = intensidad2 / distancia2_ ;
+
+                highp vec3 S2 = normalize(vS_2);
+                highp vec3 R2 = reflect(S2,N);
+
+                highp vec3 ambient2 = ka * ambient2_color* ajuste2  ;
+                highp vec3 diffuse2 = kd * light2_color * max( dot(N,S2),0.0) * ajuste2 ;
+                highp vec3 specular2 = ks * light2_color * pow( max(dot(R2,V),0.0) ,n) * ajuste2;
+
+                highp vec3 f_color2 = ambient2 + diffuse2  + specular2 ;
+            
+            /*Tercer luz Puntual */
+
+                float distancia3_ = sqrt(pow(vS_3[0], 2.0) + pow(vS_3[1], 2.0) + pow(vS_3[2], 2.0));
+                float ajuste3 = intensidad3 / distancia3_ ;
+
+                highp vec3 S3 = normalize(vS_3);
+                highp vec3 R3 = reflect(S3,N);
+
+                highp vec3 ambient3 = ka * ambient2_color* ajuste3  ;
+                highp vec3 diffuse3 = kd * light2_color * max( dot(N,S3),0.0) * ajuste3 ;
+                highp vec3 specular3 = ks * light2_color * pow( max(dot(R3,V),0.0) ,n) * ajuste3;
+
+                highp vec3 f_color3 = ambient3 + diffuse3  + specular3 ;
+
+            /* Calculo final de la luz por pixel */
+
+                highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
+
+               // gl_FragColor = vec4(f_color, 1.0);
+            	gl_FragColor = texture2D(textura, fTextcoord);;
             }
         </script>
 
     </head>
     <body onload="initWebGL()">   
         <script type="text/javascript" src="Menu.js"></script>
+        
+        <img id="chocolate-textura" src="chocolate.jpg" width="0" height="0"></img>
 
         <div id="log">
             DeltaX : <span id="valorDeltaX"></span> <br/>

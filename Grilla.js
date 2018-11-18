@@ -1,18 +1,22 @@
 class Grilla {
-	constructor(gl, filas, columnas,color) {
+	constructor(gl, filas, columnas, color) {
 	
 		this.filas = filas;
 		this.columnas = columnas;
 
 		this.color = color;
+		
+		this.tiene_textura = true;
 
 		// Buffers.
 		this.position_buffer = [];
 		this.index_buffer = [];
         this.color_buffer = [];
         this.normal_buffer = [];
+        this.uv_texture_buffer = [];
                 
         this.createIndexBuffer();
+        this.createUVTextureBuffer();
 	}
 	
 	createIndexBuffer() {
@@ -57,6 +61,16 @@ class Grilla {
 		}*/
 	}
 	
+	createUVTextureBuffer() {
+		for(var columna = 0; columna < this.columnas; columna++) {
+			for(var fila = 0; fila < this.filas; fila++) {
+				var u = columna / (this.columnas - 1);
+				var v = fila / (this.filas - 1);
+				this.uv_texture_buffer.push(...[u,v]);
+			}
+		}
+	}
+	
 	setupBuffers() {
 		this.webgl_position_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
@@ -73,6 +87,12 @@ class Grilla {
 		this.webgl_index_buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.index_buffer), gl.STATIC_DRAW);
+		
+		if(this.tiene_textura) {
+			this.webgl_uv_texture_buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.uv_texture_buffer), gl.STATIC_DRAW);
+		}
    	}
 
 	dibujar() {
@@ -102,6 +122,14 @@ class Grilla {
 		gl.enableVertexAttribArray(vertexNormalAttribute);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
         gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
+        
+        /*Buffers Coordenadas UV*/
+        if(this.tiene_textura) {
+        	var vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
+        	gl.enableVertexAttribArray(vertexTexCoordAttribute);
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
+            gl.vertexAttribPointer(vertexTexCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+        }
 
 		/**Dibujo */
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
