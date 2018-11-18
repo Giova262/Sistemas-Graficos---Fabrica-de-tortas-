@@ -11,6 +11,7 @@ var obj = {
     TorcionesCrema : 2 ,
 
     //Seleccionador
+    TipoTorta: 'Chocolate',
     TipoDecoracion: 'Copito',
     TipoContorno: 'Tubo',
 
@@ -49,6 +50,13 @@ var obj = {
             maquina_a.tubos();
             maquina_d.tubos();
        }
+       
+       if(this.TipoTorta == 'Chocolate') {
+       		maquina_a.torta_chocolate();
+       }
+       if(this.TipoTorta == 'Crema') {
+       		maquina_a.torta_crema();
+       }
 
        maquina_a.reset();
        maquina_a.setCantidadDeDecoraciones(this.Decoraciones);
@@ -76,6 +84,7 @@ gui.add(obj, 'AmplitudTorta',0.05,0.15).name("AmplitudTorta");
 gui.add(obj, 'TorcionesCrema',1,10).step(1); 
 
 // Choose from accepted values
+gui.add(obj, 'TipoTorta', [ 'Chocolate', 'Crema' ] );
 gui.add(obj, 'TipoDecoracion', [ 'Copito', 'Cereza', 'Manzana' ] );
 gui.add(obj, 'TipoContorno', [ 'Barra', 'Tubo' ] );
 
