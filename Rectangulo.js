@@ -243,9 +243,11 @@ class Rectangulo {
 		} else {
 			gl.uniform1i(tieneTexturaAttribute, false);
 		}
-
-		gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
-
+		
+		if(this.tiene_textura) {
+			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
+		}
+		
 		/**Dibujo */
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 		gl.drawElements(gl.TRIANGLE_STRIP, this.index_buffer.length, gl.UNSIGNED_SHORT, 0);
