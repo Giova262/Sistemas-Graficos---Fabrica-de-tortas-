@@ -146,6 +146,13 @@ class Grilla {
             gl.vertexAttribPointer(vertexTexCoordAttribute, 2, gl.FLOAT, false, 0, 0);
         }
 
+		var tieneTexturaAttribute = gl.getUniformLocation(glProgram, "useTexture");
+		if(this.tiene_textura) {
+			gl.uniform1i(tieneTexturaAttribute, true);
+		} else {
+			gl.uniform1i(tieneTexturaAttribute, false);
+		}
+
 		/**Dibujo */
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 		gl.drawElements(gl.TRIANGLE_STRIP, this.index_buffer.length, gl.UNSIGNED_SHORT, 0);

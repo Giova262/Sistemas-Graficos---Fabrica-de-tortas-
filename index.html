@@ -123,6 +123,8 @@
             varying highp vec3 vS_3;
             
             varying highp vec2 fTextCoord;
+            
+            uniform bool useTexture;
 
             void main(void) {
 
@@ -174,8 +176,12 @@
 
                 highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
 
-                gl_FragColor = vec4(f_color, 1.0);
-                //gl_FragColor = texture2D(utext1, fTextCoord);
+				if(useTexture == true) {
+					gl_FragColor = texture2D(utext1, fTextCoord);
+				}
+				if(useTexture == false) {
+					gl_FragColor = vec4(f_color, 1.0);
+				}
             }
         </script>
 
