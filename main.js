@@ -78,7 +78,7 @@ var           gl = null,
        var u_light_position = gl.getUniformLocation(glProgram,"light_pos");
        gl.uniform3f(u_light_position, 0.0,-20.0,10.0);
        var u_light_intensidad = gl.getUniformLocation(glProgram,"intensidad");
-       gl.uniform1f(u_light_intensidad,10.1);
+       gl.uniform1f(u_light_intensidad,12.5);
             /**Puntual 2 - Atras derecha*/
         var u_light_position2 = gl.getUniformLocation(glProgram,"light2_pos");
         gl.uniform3f(u_light_position2, 20.0,20.0,10.0);

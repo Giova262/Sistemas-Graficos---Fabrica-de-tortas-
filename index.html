@@ -179,7 +179,7 @@
                 highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
 
 				if(useTexture == true) {
-					gl_FragColor = texture2D(utext1, fTextCoord);
+					gl_FragColor = vec4(f_color, 1.0)* texture2D(utext1, fTextCoord);
 				}
 				if(useTexture == false) {
 					gl_FragColor = vec4(f_color, 1.0);

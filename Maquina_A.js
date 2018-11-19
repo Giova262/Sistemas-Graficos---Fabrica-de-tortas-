@@ -65,8 +65,8 @@ class Maquina_A{
     configurarEscena(){
 
       /**Configuracion de materiales */
-      this.caja1.setCoheficientesPhong(0.7,0.5,1.5,100.0);
-      this.caja2.setCoheficientesPhong(0.7,0.5,0.5,1.0);
+      this.caja1.setCoheficientesPhong(0.5,1.2,2.5,100.0);
+      this.caja2.setCoheficientesPhong(0.5,1.2,2.5,1.0);
 
       /**Configuracion de posiciones */
       this.caja2.trasladar([-6,0,1]);
@@ -233,7 +233,7 @@ class Maquina_A{
 
         //--------------------------------
         //Configuracion de material
-        this.masa.setCoheficientesPhong(0.7,0.7,0.5,32.0);
+        this.masa.setCoheficientesPhong(0.2,1.5,0.5,32.0);
         this.crema.setCoheficientesPhong(0.6,0.5,0.0,32.0);
   
     }
