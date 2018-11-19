@@ -64,6 +64,9 @@
             uniform vec3 light3_pos;
 
             uniform vec3 uCameraPos;
+            
+	    	uniform float offset;
+	    	uniform bool mover_cinta;
 
             varying highp vec3 vN;
             varying highp vec3 vV;
@@ -82,11 +85,15 @@
                 vV =  uCameraPos-P.xyz ;
         
                 vS =  vec3( vec4(light_pos,1.0) - P) ;
-                vS_2 =  vec3( vec4(light2_pos,1.0) - P) ;
-                vS_3 =  vec3( vec4(light3_pos,1.0) - P) ;
-                
-                fTextCoord = aVertexTexCoord;
-               
+                vS_2 =  vec3( vec4(light2_pos,1.0) - P);
+                vS_3 =  vec3( vec4(light3_pos,1.0) - P);
+                if(mover_cinta == true) {
+                	fTextCoord = offset * vec2(1.0, 0.0) + aVertexTexCoord;
+               	}
+               	if(mover_cinta == false) {
+               		fTextCoord = aVertexTexCoord;
+               	}
+               	
                 gl_Position = uPMatrix * uViewMatrix * P; 
 
             }

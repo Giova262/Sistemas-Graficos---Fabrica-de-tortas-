@@ -157,6 +157,9 @@ class Grilla {
 		if(this.tiene_textura) {
 			gl.bindTexture(gl.TEXTURE_2D, this.grillaTexture);
 		}
+		
+		var moverCintaUniform = gl.getUniformLocation(glProgram, "mover_cinta");
+		gl.uniform1i(moverCintaUniform, false);
 
 		/**Dibujo */
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
