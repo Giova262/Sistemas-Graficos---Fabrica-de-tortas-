@@ -12,7 +12,7 @@ var           gl = null,
              fase = 1;
                 t = 0.0;
      offset_cinta = 0.0;
-     mover_cinta  = true;
+     mover_cinta  = false;
 
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
@@ -32,7 +32,7 @@ var           gl = null,
         superficie  = new Superficie();
         maquina_a = new Maquina_A();   
         maquina_b = new Maquina_B();
-        maquina_d = new Maquina_D();      
+        maquina_d = new Maquina_D();
     }
 
 //Dibujo la escena
@@ -106,10 +106,10 @@ var           gl = null,
         t = t + 0.01;
         
         if(mover_cinta) {
-        	offset_cinta = offset_cinta + 0.005;	//Esta es la velocidad.
+        	offset_cinta = offset_cinta + 0.0005;	//Esta es la velocidad.
         }
         if(offset_cinta > 0.5) {
-        	offset_cinta = 0.11;					//Esto se ajusta para un movimiento contiuno de la cinta.
+        	offset_cinta = 0.115;					//Esto se ajusta para un movimiento contiuno de la cinta.
         }
         
 		var offset = gl.getUniformLocation(glProgram, "offset");

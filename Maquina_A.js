@@ -239,9 +239,12 @@ class Maquina_A{
     }
 
     moverTorta(destinoX){
-        if( this.tortaPosX < destinoX ){ 
+        if( this.tortaPosX < destinoX ) {
+            apagarCinta(); 
             return true;
-        }      
+        } else {
+        	encenderCinta();
+        }
         this.tortaPosX-= 0.01;   
         this.torta.trasladar([this.tortaPosX,0,0.3]);
         return false;
