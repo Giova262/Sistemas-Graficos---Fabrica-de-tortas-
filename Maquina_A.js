@@ -272,7 +272,7 @@ class Maquina_A{
         return tubo ;
     }
     crearBarra(){
-        var barraGeometria = new Rectangulo(gl,0.05,0.02,this.alturaTorta * 0.8,[100.0/100,50.6/100,100.0/100]);
+        var barraGeometria = new Opera(gl,0.05,0.02,this.alturaTorta * 0.8,[100.0/100,50.6/100,100.0/100]);
         var barra = new Objeto3D(barraGeometria);
         return barra ;
     }

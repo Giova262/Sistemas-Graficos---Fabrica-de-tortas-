@@ -64,7 +64,7 @@ class Maquina_D{
     }
 
     barras(){
-        var barraGeometria = new Rectangulo(gl,0.05,0.02,this.tortaAltura * 0.8,[100.0/100,50.6/100,100.0/100]); 
+        var barraGeometria = new Opera(gl,0.05,0.02,this.tortaAltura * 0.8,[100.0/100,50.6/100,100.0/100]); 
         this.contorno = new Objeto3D(barraGeometria);
         this.contornos.agregarHijo(this.contorno);
     }
