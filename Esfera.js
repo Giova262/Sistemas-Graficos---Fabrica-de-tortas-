@@ -1,6 +1,6 @@
 class Esfera extends Grilla {
 	constructor(gl, filas, columnas, radio,color) {
-		super(gl, filas, columnas,color, false, "nada");
+		super(gl, filas, columnas,color, true, "papel-textura");
         this.radio = radio;
        	
 		this.createPositionBuffer();
