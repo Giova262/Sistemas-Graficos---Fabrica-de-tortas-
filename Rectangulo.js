@@ -148,23 +148,15 @@ class Rectangulo {
 		var u_ambient3_color = gl.getUniformLocation(glProgram,"ambient3_color");
 		gl.uniform3f(u_ambient3_color,...this.color );
 
-	
-		//var vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
-		//gl.enableVertexAttribArray(vertexPositionAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
-		
-		//var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
-		//gl.enableVertexAttribArray(vertexNormalAttribute);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
         gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
         
         
         if(this.tiene_textura) {
 			
-			//var vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
-        	//gl.enableVertexAttribArray(vertexTexCoordAttribute);
             gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
             gl.vertexAttribPointer(vertexTexCoordAttribute, 2, gl.FLOAT, false, 0, 0);
         }
