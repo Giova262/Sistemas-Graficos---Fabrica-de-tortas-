@@ -12,8 +12,12 @@
 
 
 class Crema extends Grilla {
+
 	constructor(gl, detalle_revolucion, radio, vueltas, escala) {
-		super(gl, detalle_revolucion, 13,[1.0,1.0,1.0]);	//13 es el numero de vertices de la estrella.
+
+		super(gl, detalle_revolucion, 13,[1.0,1.0,1.0]);	
+		
+
 		this.radio = radio;
 		this.vueltas = vueltas;
 		this.escala = escala;
@@ -52,13 +56,57 @@ class Crema extends Grilla {
 			0.0, 0.0, 1.0,
 		];
 		
+		this.normal_buffer = [];
+        this.tiene_textura = false;
+		
 		this.createPositionBuffer();
-        this.createColorBuffer();
-        this.createNormalBuffer();
-        this.setupBuffers();
+		this.createNormalBuffer();
+        this.setupBuffersOfThis();
+
+		if(this.tiene_textura) {
+            
+        
+            //Crea buffer para texturad
+            this.webgl_uv_texture_buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.uv_texture_buffer), gl.STATIC_DRAW);
+
+		    this.cuboTextura = gl.createTexture();
+			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texImage2D(
+				gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,
+				gl.UNSIGNED_BYTE,
+				document.getElementById(urlText)
+			);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+
+
+		this.normal_buffer = [];
+		this.tiene_textura = false;
+		
 	}
+
+	setupBuffersOfThis(){
+
+		/**Creo buffer de posiciones */
+		this.webgl_position_buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.position_buffer), gl.STATIC_DRAW);
 	
-	createPositionBuffer() {	
+		/**Creo buffer de normales */
+		this.webgl_normal_buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normal_buffer), gl.STATIC_DRAW);    
+		
+   	}
+	
+	createPositionBuffer() {
+
 		for(var fila = 0; fila < this.filas; fila++){
 			for(var i = 0; i < this.forma.length; i += 3) {
 				var x = this.forma[i + 0];

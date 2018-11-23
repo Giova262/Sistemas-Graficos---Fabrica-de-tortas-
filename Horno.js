@@ -8,9 +8,6 @@ class Horno extends Rectangulo {
 		
 		if(this.tiene_textura) {
 
-			//creo coordenadas de textura
-			//creo buffer con esas coordenadas 
-			//creo la textura con la url
 			this.createUVTextureBuffer();
 			this.setupBuffersTex();
 		    this.cuboTextura = gl.createTexture();
