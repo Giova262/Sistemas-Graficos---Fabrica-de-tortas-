@@ -89,8 +89,13 @@ class SuperficieDeRevolucion extends Grilla {
       			
 				  this.position_buffer.push(...[posicion[0], posicion[1], posicion[2]]);
 
-				  this.uv_texture_buffer.push(0);
-                  this.uv_texture_buffer.push(0);
+				  var u = columna / (this.columnas - 1);
+				  var v = fila / (this.filas - 1);
+				  u = (u * 2) % 1;
+				  v = (v * 2) % 1;
+				  this.uv_texture_buffer.push(...[u,v]);
+                  
+                  
 			}
 		}
 	}
