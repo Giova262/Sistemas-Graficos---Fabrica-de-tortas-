@@ -72,6 +72,9 @@ class Maquina_B{
         this.caja4.trasladar([0,0.25,0]);
         this.caja5.trasladar([0,0.1,-0.18]);
         this.caja6.trasladar([0,-0.1,-0.18]);
+        this.caja5.setCoheficientesPhong(0.5,0.8,2.5,100.0);
+        this.caja6.setCoheficientesPhong(0.5,0.8,2.5,100.0);
+        this.tubo.setCoheficientesPhong(0.5,0.8,2.5,100.0);
 
     }
 

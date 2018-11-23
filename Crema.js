@@ -15,7 +15,7 @@ class Crema extends Grilla {
 
 	constructor(gl, detalle_revolucion, radio, vueltas, escala) {
 
-		super(gl, detalle_revolucion, 13,[1.0,1.0,1.0]);	
+		super(gl, detalle_revolucion, 13,[0.9,0.9,0.9]);	
 		
 
 		this.radio = radio;

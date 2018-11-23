@@ -215,6 +215,7 @@ class Maquina_A{
                 this.decoraciones = new NodoContenedor();
                 this.contornos = new NodoContenedor();
                 this.crema = new Objeto3D(cremaGeometria);
+                this.crema.setCoheficientesPhong(0.5,0.8,1.0,100.0);
             this.plato = new Objeto3D(cilindro);
         
         //--------------------------------
