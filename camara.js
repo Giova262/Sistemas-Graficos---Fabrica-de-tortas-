@@ -38,11 +38,11 @@ class Camara{
 
         //ZOOM con teclas "+" y "-"
         window.addEventListener("keydown", function (e) {
-            if ( e.keyCode == 107) {
+            if ( e.keyCode == 90) {
                 radio = radio - 0.001;
                 if (radio < 1) radio =1;
             }
-            if ( e.keyCode == 109) {
+            if ( e.keyCode == 88) {
                 radio = radio + 0.001;
                 if(radio > 500 ) radio = 500 ;
             }
@@ -116,15 +116,15 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = radio * Math.cos(alfa) ;
-        var y = radio * Math.sin(alfa);
-        var z = radio * Math.sin(alfa) * Math.sin(beta)  ;
+        var x = radio * Math.cos(alfa) * Math.cos(beta);
+        var y = radio * Math.sin(alfa) * Math.cos(beta);
+        var z = radio * Math.sin(beta);
 
          /**Paso posicion de la camara al shader */
          var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
          gl.uniform3f(u_CameraPos,x,y,z);
 
-        if(z < 0.25)  z = 0.25 ;
+        //if(z < 0.25)  z = 0.25 ;
 
         mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0,0,1]);
 
@@ -137,9 +137,13 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = radio * Math.cos(alfa)+3 ;
-        var y = radio * Math.sin(alfa)-5;
-        var z = radio ;
+        //var x = radio * Math.cos(alfa)+3 ;
+        //var y = radio * Math.sin(alfa)-5;
+        //var z = radio ;
+        
+        var x = radio * Math.cos(alfa) * Math.cos(beta) + 3;
+        var y = radio * Math.sin(alfa) * Math.cos(beta) - 5;
+        var z = radio * Math.sin(beta);
 
         /**Paso posicion de la camara al shader */
         var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
@@ -156,9 +160,13 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = 2 * Math.cos(alfa);
-        var y = 2 * Math.sin(alfa) - 5;
-        var z = 3 ;
+        var x = 2 * Math.cos(alfa) * Math.cos(beta);
+        var y = 2 * Math.sin(alfa) * Math.cos(beta) - 5;
+        var z = 3 * Math.sin(beta) + 3;
+        
+        //var x = 2 * Math.cos(alfa);
+        //var y = 2 * Math.sin(alfa) - 5;
+        //var z = 3 ;
 
         /**Paso posicion de la camara al shader */
         var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
@@ -175,9 +183,13 @@ class Camara{
         var ubicacion_ViewMatrix = gl.getUniformLocation(glProgram, "uViewMatrix");
         var viewMatrix = mat4.create();
      
-        var x = 2 * Math.cos(alfa) - 4;
-        var y = 2 * Math.sin(alfa) - 5;
-        var z = 4   ;
+        var x = 2 * Math.cos(alfa) * Math.cos(beta) - 4;
+        var y = 2 * Math.sin(alfa) * Math.cos(beta) - 5;
+        var z = 4 * Math.sin(beta) + 2;
+        
+        //var x = 2 * Math.cos(alfa) - 4;
+        //var y = 2 * Math.sin(alfa) - 5;
+        //var z = 4   ;
 
         /**Paso posicion de la camara al shader */
         var u_CameraPos = gl.getUniformLocation(glProgram,"uCameraPos");
