@@ -185,8 +185,7 @@ class Rectangulo {
 		
 	
 		var moverCintaUniform = gl.getUniformLocation(glProgram, "mover_cinta");
-		if(mover_cinta) gl.uniform1i(moverCintaUniform, true);
-		else gl.uniform1i(moverCintaUniform, false);
+		gl.uniform1i(moverCintaUniform, false);
 		
 		
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);

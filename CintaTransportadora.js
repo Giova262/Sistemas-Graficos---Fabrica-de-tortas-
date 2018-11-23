@@ -79,9 +79,9 @@ class CintaTransportadora extends Rectangulo {
 		];
 	}
 	
-	/*	dibujar() {
+	dibujar() {
 
-		
+		/**Iluminacion Phong Datos de color */
 		var u_light_color = gl.getUniformLocation(glProgram,"light_color");
 		gl.uniform3f(u_light_color,...this.color); 
 		var u_ambient_color = gl.getUniformLocation(glProgram,"ambient_color");
@@ -95,42 +95,47 @@ class CintaTransportadora extends Rectangulo {
 		var u_ambient3_color = gl.getUniformLocation(glProgram,"ambient3_color");
 		gl.uniform3f(u_ambient3_color,...this.color );
 
-		
-		var vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
-		gl.enableVertexAttribArray(vertexPositionAttribute);
+	
+		//var vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
+		//gl.enableVertexAttribArray(vertexPositionAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
 		
-		var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
-		gl.enableVertexAttribArray(vertexNormalAttribute);
+		//var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
+		//gl.enableVertexAttribArray(vertexNormalAttribute);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
         gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
         
         
         if(this.tiene_textura) {
-        	var vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
-        	gl.enableVertexAttribArray(vertexTexCoordAttribute);
+			
+			//var vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
+        	//gl.enableVertexAttribArray(vertexTexCoordAttribute);
             gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
             gl.vertexAttribPointer(vertexTexCoordAttribute, 2, gl.FLOAT, false, 0, 0);
         }
-
+		
 		var tieneTexturaAttribute = gl.getUniformLocation(glProgram, "useTexture");
+
 		if(this.tiene_textura) {
 			gl.uniform1i(tieneTexturaAttribute, true);
+			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
 		} else {
 			gl.uniform1i(tieneTexturaAttribute, false);
 		}
+
+		var a = gl.getUniformLocation(glProgram, "utext1");
+		gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
+        gl.uniform1i(a, 0);
 		
-		if(this.tiene_textura) {
-			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
-		}
-		
+	
 		var moverCintaUniform = gl.getUniformLocation(glProgram, "mover_cinta");
 		gl.uniform1i(moverCintaUniform, true);
 		
 		
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 		gl.drawElements(gl.TRIANGLE_STRIP, this.index_buffer.length, gl.UNSIGNED_SHORT, 0);
-		}*/
+	}
 }
