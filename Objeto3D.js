@@ -56,9 +56,11 @@ class Objeto3D {
 	   
    	dibujar(){
 		
+		/**Obtengo las localizaciones de matrices */
 		var u_model_view_matrix = gl.getUniformLocation(glProgram, "uMVMatrix");	
 		var u_normal_matrix = gl.getUniformLocation(glProgram, "uNMatrix");
 
+		/**Obtengo localizacion y paso valores a las constantes de Phong*/
 		var u_ka = gl.getUniformLocation(glProgram,"ka");
 		gl.uniform1f(u_ka, this.ka);
 		var u_kd = gl.getUniformLocation(glProgram,"kd");
@@ -68,6 +70,7 @@ class Objeto3D {
 		var u_n = gl.getUniformLocation(glProgram,"n");
 		gl.uniform1f(u_n,this.n);
 			
+		/**Configuro la martix de modelado para este objeto*/
 		var mvMatrix = mat4.create();
 		mat4.identity(mvMatrix);	
 		mat4.multiply(mvMatrix,mvMatrix, this.padreMatrix );
@@ -77,19 +80,19 @@ class Objeto3D {
 		}
 		mat4.scale(mvMatrix,mvMatrix, this.escalado);
 		
-		//Pongo la matriz "mvMatrix" en el shader
+		/**Pongo la matriz "mvMatrix" en el Shader */
 		gl.uniformMatrix4fv(u_model_view_matrix, false, mvMatrix );
 		
-		//Matriz normal
+		/**Pongo la matriz "normalMatrix" en el Shader */
 		mat3.fromMat4(normalMatrix, mvMatrix);
 		mat3.invert(normalMatrix, normalMatrix);
 		mat3.transpose(normalMatrix, normalMatrix);
 		gl.uniformMatrix3fv(u_normal_matrix, false, normalMatrix);
 
-		//Dibujo 
+		/**Dibujo */
 		this.geometria.dibujar();
 
-		//Dibujo Hijos
+		/**Dibujo Hijos */
 		for(var i = 0 ; i < this.hijos.length ; i++){
 			this.hijos[i].setPadreMatriz(mvMatrix);
 			this.hijos[i].dibujar();

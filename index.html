@@ -190,7 +190,8 @@
                 highp vec3 f_color = f_color1 + f_color2 + f_color3 ;
 
 				if(useTexture == true) {
-					gl_FragColor = vec4(f_color, 1.0)* texture2D(utext1, fTextCoord);
+                    gl_FragColor = vec4(f_color, 1.0)*texture2D(utext1, fTextCoord);
+                    //gl_FragColor = texture2D(utext1, fTextCoord);
 				}
 				if(useTexture == false) {
 					gl_FragColor = vec4(f_color, 1.0);
@@ -207,8 +208,9 @@
         <img id="horno-textura" src="./texturas/horno.jpg" width="0" height="0"></img>
         <img id="cinta-textura" src="./texturas/cinta.jpg" width="0" height="0"></img>
         <img id="baston-textura" src="./texturas/baston.jpg" width="0" height="0"></img>
-        <img id="metalica-textura" src="./texturas/elemento_de_maquina.jpg" width="0" height="0"></img>
+        <img id="metalica-textura" src="./texturas/metal.jpg" width="0" height="0"></img>
         <img id="papel-textura" src="./texturas/papel.jpg" width="0" height="0"></img>
+        <img id="piso-textura" src="./texturas/piso.jpeg" width="0" height="0"></img>
 
         <div id="log">
             DeltaX : <span id="valorDeltaX"></span> <br/>

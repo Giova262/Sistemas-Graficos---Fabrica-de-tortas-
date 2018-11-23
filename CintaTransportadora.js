@@ -1,8 +1,41 @@
 class CintaTransportadora extends Rectangulo {
-	constructor(gl, ancho, alto, profundidad, color) {
-		super(gl, ancho, alto, profundidad, color, true, "cinta-textura")
-		this.createUVTextureBuffer();
+
+	constructor(gl, ancho, alto, profundidad, color,conTextura) {
+
+		super(gl, ancho, alto, profundidad, color);
+
+		this.tiene_textura = conTextura;
+		
+		if(this.tiene_textura) {
+
+			//creo coordenadas de textura
+			//creo buffer con esas coordenadas 
+			//creo la textura con la url
+			this.createUVTextureBuffer();
+			this.setupBuffersTex();
+		    this.cuboTextura = gl.createTexture();
+			gl.bindTexture(gl.TEXTURE_2D, this.cuboTextura);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+				//actualiza
+			gl.texImage2D(
+				gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,
+				gl.UNSIGNED_BYTE,
+				document.getElementById("cinta-textura")
+			);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
 	}
+
+	setupBuffersTex() {
+	
+		this.webgl_uv_texture_buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_uv_texture_buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.uv_texture_buffer), gl.STATIC_DRAW);		
+
+   	}
 	
 	createUVTextureBuffer() {
 		this.uv_texture_buffer = [
@@ -46,9 +79,9 @@ class CintaTransportadora extends Rectangulo {
 		];
 	}
 	
-		dibujar() {
+	/*	dibujar() {
 
-		/**Iluminacion Phong Datos de color */
+		
 		var u_light_color = gl.getUniformLocation(glProgram,"light_color");
 		gl.uniform3f(u_light_color,...this.color); 
 		var u_ambient_color = gl.getUniformLocation(glProgram,"ambient_color");
@@ -62,19 +95,19 @@ class CintaTransportadora extends Rectangulo {
 		var u_ambient3_color = gl.getUniformLocation(glProgram,"ambient3_color");
 		gl.uniform3f(u_ambient3_color,...this.color );
 
-		/**Buffers de posicion */
+		
 		var vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
 		gl.enableVertexAttribArray(vertexPositionAttribute);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_position_buffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
-		/**Buffers de normales */
+		
 		var vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
 		gl.enableVertexAttribArray(vertexNormalAttribute);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.webgl_normal_buffer);
         gl.vertexAttribPointer(vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
         
-        /*Buffers Coordenadas UV*/
+        
         if(this.tiene_textura) {
         	var vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
         	gl.enableVertexAttribArray(vertexTexCoordAttribute);
@@ -96,8 +129,8 @@ class CintaTransportadora extends Rectangulo {
 		var moverCintaUniform = gl.getUniformLocation(glProgram, "mover_cinta");
 		gl.uniform1i(moverCintaUniform, true);
 		
-		/**Dibujo */
+		
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.webgl_index_buffer);
 		gl.drawElements(gl.TRIANGLE_STRIP, this.index_buffer.length, gl.UNSIGNED_SHORT, 0);
-	}
+		}*/
 }

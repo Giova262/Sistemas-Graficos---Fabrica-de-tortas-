@@ -1,7 +1,7 @@
 
 var previousClientX = 0,
     previousClientY = 0,
-    radio = 20,
+    radio = 30,
     alfa = 0, 
     beta = 0, 
     factorVelocidad = 0.01;
@@ -15,7 +15,7 @@ var previousClientX = 0,
 
     fristTime = true ;
 
-    tipoCamara= 0;
+    tipoCamara= 1;
 
 class Camara{
 
@@ -44,7 +44,7 @@ class Camara{
             }
             if ( e.keyCode == 109) {
                 radio = radio + 0.001;
-                if(radio > 50 ) radio = 50 ;
+                if(radio > 500 ) radio = 500 ;
             }
             if ( e.keyCode == 81) {
                 tipoCamara = 0 ;        

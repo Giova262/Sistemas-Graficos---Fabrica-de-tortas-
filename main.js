@@ -1,4 +1,7 @@
 //Variables globales
+
+
+
 var           gl = null,
           canvas = null,
        glProgram = null,
@@ -14,6 +17,11 @@ var           gl = null,
      offset_cinta = 0.0;
      mover_cinta  = false;
 
+     vertexPositionAttribute = null;
+     vertexNormalAttribute = null;
+     vertexTexCoordAttribute = null;
+
+
  var mvMatrix = mat4.create();
  var pMatrix = mat4.create();
  var normalMatrix = mat3.create();
@@ -22,8 +30,19 @@ var           gl = null,
     function initWebGL()  {    
         initGL();
         initShaders();
+
+        u_light_color= gl.getUniformLocation(glProgram,"light_color");
+
+        vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(vertexPositionAttribute);
+        vertexNormalAttribute = gl.getAttribLocation(glProgram, "aVertexNormal");		
+        gl.enableVertexAttribArray(vertexNormalAttribute);
+        vertexTexCoordAttribute = gl.getAttribLocation(glProgram, "aVertexTexCoord");
+
+
         SceneObject();     
-        idInterval = setInterval(drawScene, 10);           
+        idInterval = setInterval(drawScene, 10);  
+                 
      }
               
 //Agregamos objetos a la escena
@@ -37,7 +56,7 @@ var           gl = null,
 
 //Dibujo la escena
     function drawScene() {
-        
+   
        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
        /** Perspectiva */
@@ -102,18 +121,24 @@ var           gl = null,
        maquina_b.dibujar();
        maquina_d.dibujar();
 
+       
+
        //Time
         t = t + 0.01;
         
+        /**Movimiento de cinta transportadora */
         if(mover_cinta) {
-        	offset_cinta = offset_cinta + 0.0005;	//Esta es la velocidad.
+            offset_cinta = offset_cinta + 0.0005;	//Esta es la velocidad.
+            
         }
         if(offset_cinta > 0.5) {
-        	offset_cinta = 0.115;					//Esto se ajusta para un movimiento contiuno de la cinta.
+        	offset_cinta = 0.115; //Esto se ajusta para un movimiento contiuno de la cinta.
         }
         
 		var offset = gl.getUniformLocation(glProgram, "offset");
         gl.uniform1f(offset, -offset_cinta);
+
+       
     }
 
     function encenderCinta() {
