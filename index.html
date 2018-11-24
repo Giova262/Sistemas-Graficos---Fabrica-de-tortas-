@@ -9,13 +9,12 @@
             canvas{ 
           
 
-  		 	 position: fixed;
-  		 	 left: 0px;
-  		 	 top: 100px;
-   		 	 /*left: 0px;
+  		 	/* position: fixed;
+  		 	 
+   		 	 left: 100px;
    			 right: 0px;
-   			 top: 100px;
-   			 bottom: 100px;*/
+   			 top: 250px;
+   			 bottom: 200px;*/
 
             background-color: white;
              }
@@ -224,18 +223,21 @@
         <img id="papel-textura" src="./texturas/papel.jpg" width="0" height="0"></img>
         <img id="piso-textura" src="./texturas/piso.jpeg" width="0" height="0"></img>
 
-        <div id="log">
-            DeltaX : <span id="valorDeltaX"></span> <br/>
-            DeltaY : <span id="valorDeltaY"></span> <br/>
-            Alfa : <span id="valorAlfa"></span> <br/>
-            Beta : <span id="valorBeta"></span> <br/>
-        </div>
 		<center>
 			<h1>Trabajo Practico - Fabrica de Tortas - 66.71</h1>
             <h2>Giovanni Valdivia</h2>
             <h2>Matias Anas</h2>
 			<canvas id="my-canvas" width="1200" height="800">
-			Your browser does not support the HTML5 canvas element.
+            Your browser does not support the HTML5 canvas element.
+            <script>
+            document.getElementById( "my-canvas" ).onwheel = function(event){
+                event.preventDefault();
+            };
+
+            document.getElementById( "my-canvas" ).onmousewheel = function(event){
+                event.preventDefault();
+            };
+            </script>
 			</scanvas>		
 		</center>
     </body>

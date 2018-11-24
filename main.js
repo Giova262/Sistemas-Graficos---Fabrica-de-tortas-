@@ -1,7 +1,5 @@
+
 //Variables globales
-
-
-
 var           gl = null,
           canvas = null,
        glProgram = null,

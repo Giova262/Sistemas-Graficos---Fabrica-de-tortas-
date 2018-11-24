@@ -22,6 +22,7 @@ class Camara{
     constructor(){}
 
     eventHandlerView(){
+    
         $("#my-canvas").mousemove(function(e){     
             mouseX = e.clientX || e.pageX; 
             mouseY = e.clientY || e.pageY;
@@ -39,11 +40,11 @@ class Camara{
         //ZOOM con teclas "+" y "-"
         window.addEventListener("keydown", function (e) {
             if ( e.keyCode == 90) {
-                radio = radio - 0.001;
+                radio = radio - 0.0001;
                 if (radio < 1) radio =1;
             }
             if ( e.keyCode == 88) {
-                radio = radio + 0.001;
+                radio = radio + 0.0001;
                 if(radio > 500 ) radio = 500 ;
             }
             if ( e.keyCode == 81) {
@@ -92,11 +93,11 @@ class Camara{
             if (beta>Math.PI/2) beta=Math.PI/2;
 
             //Muestra la posicion del mouse en el canvas
-            $('#valorDeltaX').html(deltaX);
+           /* $('#valorDeltaX').html(deltaX);
             $('#valorDeltaY').html(deltaY);
 
             $('#valorAlfa').html(alfa);
-            $('#valorBeta').html(beta); 
+            $('#valorBeta').html(beta); */
         } 
     }
 
